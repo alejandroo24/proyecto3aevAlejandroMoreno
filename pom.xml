@@ -13,5 +13,32 @@
         <maven.compiler.target>23</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- Asegúrate de usar la versión adecuada -->
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>17.0.6</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>17.0.6</version>
+    </dependency>
+    <dependency>
+        <groupId>com.github.sbt.junit</groupId>
+        <artifactId>jupiter-interface</artifactId>
+        <version>0.13.0</version>
+        <scope>test</scope>
+    </dependency>
+    </dependencies>
 </project>
