@@ -1,19 +1,41 @@
 package model;
 
+import exceptions.TipoUsuarioException;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
-
+@XmlRootElement(name = "trabajador")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Trabajador extends Usuario {
-
+    @XmlElement
     private int salario;
+    @XmlElement
     private ArrayList<Almacen> almacenesGestionados;
+    @XmlElement
     private ArrayList<Descuento> descuentosCreados;
+    @XmlElement
     private ArrayList<Pedido> pedidosCompletados;
 
-    public Trabajador(String nombre, String contraseña, String correo, String usuario) {
-        super(nombre, contraseña, correo, usuario);
-        almacenesGestionados = null;
-        descuentosCreados = null;
-        pedidosCompletados = null;
+    public Trabajador(){
+
+    }
+
+    public Trabajador(String nombre, String contraseña, String correo, String usuario,boolean isTrabajador) throws TipoUsuarioException {
+            super(nombre, contraseña, correo, usuario, true);
+            try {
+                if (isTrabajador) {
+                    almacenesGestionados = new ArrayList<>();
+                    descuentosCreados = new ArrayList<>();
+                    pedidosCompletados = new ArrayList<>();
+                }
+
+            } catch (TipoUsuarioException e) {
+            throw new TipoUsuarioException("El usuario no es un trabajador");
+        }
+
     }
 
     public int getSalario() {
