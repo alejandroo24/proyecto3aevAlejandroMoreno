@@ -1,18 +1,31 @@
 package model;
 
+import javax.xml.bind.annotation.*;
 import java.util.Objects;
 
+@XmlRootElement(name = "usuario")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({Cliente.class, Trabajador.class})
 public class Usuario {
+    @XmlElement
     private String nombre;
+    @XmlElement
     private String contraseña;
+    @XmlElement
     private String correo;
+    @XmlElement
     private String usuario;
+    @XmlElement
+    private boolean esTrabajador;
 
-    public Usuario(String nombre, String contraseña, String correo, String usuario) {
+    public Usuario() {
+    }
+    public Usuario(String nombre, String contraseña, String correo, String usuario, boolean esTrabajador) {
         this.nombre = nombre;
         this.contraseña = contraseña;
         this.correo = correo;
         this.usuario = usuario;
+        this.esTrabajador = esTrabajador;
     }
 
     public String getNombre() {
@@ -45,6 +58,14 @@ public class Usuario {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public boolean isTrabajador() {
+        return esTrabajador;
+    }
+
+    public void setEsTrabajador(boolean esTrabajador) {
+        this.esTrabajador = esTrabajador;
     }
 
     @Override

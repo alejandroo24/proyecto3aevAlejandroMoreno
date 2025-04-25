@@ -1,13 +1,22 @@
 package model;
 
+import javax.xml.bind.annotation.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso(Carro.class)
 public class DetallesPedido {
-
+    @XmlElement
     private Carro productosPedido;
+    @XmlElement
     private HashSet<Producto> precioUnitario;
+
+    public DetallesPedido() {
+        this.productosPedido = null;
+        this.precioUnitario = null;
+    }
 
     public Carro getProductosPedido() {
         return productosPedido;

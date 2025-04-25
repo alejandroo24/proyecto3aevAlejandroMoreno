@@ -1,14 +1,24 @@
 package model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.Objects;
 
-
+@XmlRootElement(name = "descuento")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Descuento {
+    @XmlElement
     private int descripcion;
+    @XmlElement
     private int porcentaje;
+    @XmlElement
     private LocalDate fechaCaducidad;
 
+    public Descuento() {
+    }
     public Descuento(int descripcion, int porcentaje, LocalDate fechaCaducidad) {
         this.descripcion = descripcion;
         this.porcentaje = porcentaje;

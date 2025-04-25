@@ -1,17 +1,36 @@
 package model;
 
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Objects;
+@XmlRootElement(name = "producto")
+@XmlAccessorType(XmlAccessType.FIELD)
 
 public class Producto {
+    @XmlElement
     private String descripcion;
+    @XmlElement
+    private int talla;
+    @XmlElement
+    private String color;
+    @XmlElement
     private int cantidad;
+    @XmlElement
     private float precio;
+    @XmlElement
     private TipoProducto tipoProducto;
+    @XmlElement
     private Descuento descuento;
+    @XmlElement
     private ArrayList<Reseña> reseñas;
-    public Producto(String descripcion, int cantidad, float precio, TipoProducto tipoProducto) {
+
+    public Producto(){
+
+    }
+    public Producto(String descripcion,int talla,String color, int cantidad, float precio, TipoProducto tipoProducto) {
         this.descripcion = descripcion;
+        this.talla = talla;
+        this.color = color;
         this.cantidad = cantidad;
         this.precio = precio;
         this.tipoProducto = tipoProducto;

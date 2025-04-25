@@ -1,17 +1,26 @@
 package model;
 
+import javax.xml.bind.annotation.*;
 import java.util.HashSet;
 import java.util.Objects;
 
+@XmlRootElement(name = "almacen")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Almacen {
+    @XmlElement
     private String nombre;
+    @XmlElement
     private HashSet<Producto> productos;
+    @XmlElement
     private String localizacion;
 
+    public Almacen(){
+
+    }
     public Almacen(String localizacion, String nombre) {
         this.localizacion = localizacion;
         this.nombre = nombre;
-        this.productos = null;
+        this.productos = new HashSet<>();
     }
 
     public String getNombre() {

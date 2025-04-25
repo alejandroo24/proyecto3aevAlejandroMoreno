@@ -1,15 +1,33 @@
 package model;
 
+import dataAccess.LocalDateAdapter;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.Objects;
-
+@XmlRootElement(name = "pedido")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Pedido {
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaCreacion;
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaLimite;
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaEntrega;
+    @XmlElement
     private float precioPedido;
+    @XmlElement
     private EstadoPedido estadoPedido;
+    @XmlElement
     private DetallesPedido detallesPedido;
+
+    public Pedido(){
+
+    }
 
     public Pedido(LocalDate fechaCreacion, EstadoPedido estadoPedido, DetallesPedido detallesPedido) {
         this.fechaCreacion = fechaCreacion;

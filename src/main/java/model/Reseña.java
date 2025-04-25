@@ -1,14 +1,33 @@
 package model;
 
+import dataAccess.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Reseña {
+    @XmlElement
     private Producto producto;
+    @XmlElement
     private Cliente cliente;
+    @XmlElement
     private int calificación;
+    @XmlElement
     private String comentario;
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fecha;
+
+    public Reseña(){
+
+    }
 
     public Reseña(Producto producto, Cliente cliente, int calificación, String comentario, LocalDate fecha) {
         this.producto = producto;
