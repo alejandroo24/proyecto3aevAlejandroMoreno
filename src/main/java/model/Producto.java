@@ -29,10 +29,10 @@ public class Producto {
 
     }
 
-    public Producto(String descripcion, int talla, String color, int cantidad, float precio, TipoProducto tipoProducto) {
+    public Producto(String descripcion, int talla, String color, float precio, TipoProducto tipoProducto) {
 
         try {
-            if (talla > 0 || cantidad > 0 || precio > 0) {
+            if (talla > 0  || precio > 0) {
                 this.descripcion = descripcion;
                 this.talla = talla;
                 this.color = color;
@@ -47,7 +47,7 @@ public class Producto {
 
     }
 
-    public Producto(String descripcion,int talla, int cantidad, float precio, TipoProducto tipoProducto, Descuento descuento) {
+    public Producto(String descripcion,int talla, float precio, TipoProducto tipoProducto, Descuento descuento) {
         try {
             if (precio > 0 || talla > 0 || descuento.getPorcentaje() > 0) {
                 this.descripcion = descripcion;

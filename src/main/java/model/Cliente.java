@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -70,4 +71,11 @@ public class Cliente extends Usuario{
                 "saldo:" + saldo ;
     }
 
+    public Pedido crearSolicitudPedido(){
+        if (this.carro !=null && this.carro.getProductosCarro().isEmpty()){
+            DetallesPedido detallesPedido = new DetallesPedido(this.carro);
+            return new Pedido(LocalDate.now(),EstadoPedido.PROCESANDO,detallesPedido);
+        }
+        return null;
+    }
 }

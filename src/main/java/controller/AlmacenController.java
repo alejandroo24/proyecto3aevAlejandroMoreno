@@ -10,7 +10,15 @@ import java.util.List;
 
 public class AlmacenController {
     private final String rutaArchivo = "almacen.txt";
+    private static AlmacenController instancia;
     private ArrayList<Almacen> almacenes;
+
+    public static AlmacenController getInstancia() {
+        if (instancia == null) {
+            instancia = new AlmacenController(new ArrayList<>());
+        }
+        return instancia;
+    }
 
     public AlmacenController(ArrayList<Almacen> almacenes) {
         this.almacenes = almacenes;
