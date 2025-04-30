@@ -16,7 +16,7 @@ public class PedidoController {
         // Constructor privado para evitar instanciación externa
     }
 
-    public static PedidoController getInstance() {
+    public static PedidoController getInstancia() {
         if (instancia == null) {
             instancia = new PedidoController();
         }
@@ -61,6 +61,13 @@ public class PedidoController {
         return false;
     }
 
+    public boolean confirmarPedido(Pedido pedido) {
+        if (pedido != null && listaPedidos.contains(pedido)) {
+            return pedido.modificarEstadoPedido(EstadoPedido.PROCESADO);
+        }
+        return false;
+    }
+
     public boolean guardarPedidos() {
         XMLManager.writeXML(listaPedidos, rutaArchivo);
         return true;
@@ -74,5 +81,7 @@ public class PedidoController {
         }
         return false;
     }
+
+
 
 }

@@ -113,7 +113,7 @@ public class Pedido {
             this.fechaCreacion = LocalDate.now();
             this.fechaLimite = LocalDate.now().plusDays(3);
             this.fechaEntrega = null;
-            this.estadoPedido = EstadoPedido.PROCESANDO;
+            this.estadoPedido = EstadoPedido.PENDIENTE;
             this.precioPedido = detallesPedido.getPrecioTotal();
             return true;
         }
@@ -121,7 +121,7 @@ public class Pedido {
     }
 
     public boolean cancelarPedido() {
-        if (this.estadoPedido == EstadoPedido.PROCESANDO) {
+        if (this.estadoPedido == EstadoPedido.PENDIENTE) {
             this.estadoPedido = EstadoPedido.CANCELADO;
             return true;
         }else{
@@ -131,7 +131,7 @@ public class Pedido {
     }
 
     public boolean modificarPedido(DetallesPedido detallesPedido) {
-        if (this.estadoPedido == EstadoPedido.PROCESANDO) {
+        if (this.estadoPedido == EstadoPedido.PENDIENTE) {
             this.detallesPedido = detallesPedido;
             this.precioPedido = detallesPedido.getPrecioTotal();
             return true;

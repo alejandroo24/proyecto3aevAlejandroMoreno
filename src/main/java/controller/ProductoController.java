@@ -8,8 +8,15 @@ import java.util.List;
 
 public class ProductoController {
     private static String rutaArchivo = "productos.xml";
+    private static ProductoController instancia;
     private List<Producto> listaProductos;
 
+    public static ProductoController getInstancia() {
+        if (instancia == null) {
+            instancia = new ProductoController();
+        }
+        return instancia;
+    }
     public ProductoController() {
         this.listaProductos = null;
     }

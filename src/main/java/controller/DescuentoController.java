@@ -9,12 +9,28 @@ import java.util.List;
 
 public class DescuentoController {
     private List<Descuento> descuentos;
+    private static DescuentoController instancia;
     private final String archivoDescuentos = "descuentos.xml";
     public DescuentoController(){
         descuentos= new ArrayList<>();
     }
 
-    public boolean creaDescuento(String descripcion,int porcentaje, LocalDate fechaCaducidad) {
+    public static DescuentoController getInstancia() {
+        if (instancia == null) {
+            instancia = new DescuentoController();
+        }
+        return instancia;
+    }
+
+    public List<Descuento> getDescuentos() {
+        return descuentos;
+    }
+
+    public void setDescuentos(List<Descuento> descuentos) {
+        this.descuentos = descuentos;
+    }
+
+    public boolean creaDescuento(String descripcion, int porcentaje, LocalDate fechaCaducidad) {
         if (porcentaje < 0 || porcentaje > 100) {
             return false;
         }
@@ -42,6 +58,14 @@ public class DescuentoController {
         return true;
     }
 
+    public boolean añadeDescuento (Descuento descuento){
+        if (descuentos.contains(descuento)) {
+            return false;
+        } else {
+            descuentos.add(descuento);
+            return true;
+        }
+    }
     public boolean eliminaDescuento(Descuento descuento) {
         if (descuentos.contains(descuento)) {
             descuentos.remove(descuento);
