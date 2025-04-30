@@ -1,6 +1,7 @@
 package model;
 
 import javax.xml.bind.annotation.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ public class Almacen {
     @XmlElement
     private String nombre;
     @XmlElement
-    private HashSet<Producto> productos;
+    private HashMap<Producto,Integer> productos;
     @XmlElement
     private String localizacion;
 
@@ -20,7 +21,7 @@ public class Almacen {
     public Almacen(String localizacion, String nombre) {
         this.localizacion = localizacion;
         this.nombre = nombre;
-        this.productos = new HashSet<>();
+        this.productos = new HashMap<>();
     }
 
     public String getNombre() {
@@ -31,11 +32,11 @@ public class Almacen {
         this.nombre = nombre;
     }
 
-    public HashSet<Producto> getProductos() {
+    public HashMap<Producto,Integer> getProductos() {
         return productos;
     }
 
-    public void setProductos(HashSet<Producto> productos) {
+    public void setProductos(HashMap<Producto,Integer> productos) {
         this.productos = productos;
     }
 
@@ -65,5 +66,68 @@ public class Almacen {
                 "nombre:" + nombre + '\'' +
                 "productos:" + productos +
                 "localizacion:" + localizacion;
+    }
+
+    public boolean addProducto(Producto producto) {
+        boolean added = false;
+        this.productos.put(producto,1);
+        if (this.productos.containsKey(producto)) {
+            added = true;
+        }
+        return added;
+    }
+
+    public boolean addProducto(Producto producto, int cantidad){
+        boolean added = false;
+        if (this.productos.containsKey(producto)) {
+            this.productos.put(producto, this.productos.get(producto) + cantidad);
+            added = true;
+        } else {
+            this.productos.put(producto, cantidad);
+            added = true;
+        }
+        return added;
+    }
+
+    public boolean removeProducto(Producto producto) {
+        boolean removed = false;
+        if (this.productos.containsKey(producto)) {
+            this.productos.remove(producto);
+            removed = true;
+        }
+    return removed;
+    }
+
+    public boolean containsProducto(Producto producto) {
+        boolean contains = false;
+        if (this.productos.containsKey(producto)) {
+            contains = true;
+        }
+        return contains;
+    }
+
+    public boolean addCantidad(Producto producto, int cantidad) {
+        boolean added = false;
+        if (this.productos.containsKey(producto)) {
+            this.productos.put(producto, this.productos.get(producto) + cantidad);
+            added = true;
+        }
+        return added;
+    }
+
+
+    public boolean removeCantidad(Producto producto, int cantidad) {
+        boolean removed = false;
+        if (this.productos.containsKey(producto)) {
+            if (this.productos.get(producto) >= cantidad) {
+                this.productos.put(producto, this.productos.get(producto) - cantidad);
+                removed = true;
+            }
+        }
+        return removed;
+    }
+
+    public int productosAlmacenados() {
+        return this.productos.size();
     }
 }

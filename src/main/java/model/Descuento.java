@@ -11,7 +11,7 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Descuento {
     @XmlElement
-    private int descripcion;
+    private String descripcion;
     @XmlElement
     private int porcentaje;
     @XmlElement
@@ -19,17 +19,17 @@ public class Descuento {
 
     public Descuento() {
     }
-    public Descuento(int descripcion, int porcentaje, LocalDate fechaCaducidad) {
+    public Descuento(String descripcion, int porcentaje, LocalDate fechaCaducidad) {
         this.descripcion = descripcion;
         this.porcentaje = porcentaje;
         this.fechaCaducidad = fechaCaducidad;
     }
 
-    public int getDescripcion() {
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(int descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
@@ -68,4 +68,7 @@ public class Descuento {
                 "porcentaje" + porcentaje +
                 "fechaCaducidad:" + fechaCaducidad;
     }
+
+
+
 }

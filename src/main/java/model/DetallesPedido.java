@@ -11,11 +11,15 @@ public class DetallesPedido {
     @XmlElement
     private Carro productosPedido;
     @XmlElement
-    private HashSet<Producto> precioUnitario;
+    private int precioTotal;
 
     public DetallesPedido() {
-        this.productosPedido = null;
-        this.precioUnitario = null;
+        this.productosPedido = new Carro();
+        this.precioTotal = 0;
+    }
+    public DetallesPedido(Carro carroConProductos) {
+        this.productosPedido = carroConProductos;
+        this.precioTotal = carroConProductos.getPrecioTotal();
     }
 
     public Carro getProductosPedido() {
@@ -26,30 +30,35 @@ public class DetallesPedido {
         this.productosPedido = productosPedido;
     }
 
-    public HashSet<Producto> getPrecioUnitario() {
-        return precioUnitario;
+    public int getPrecioTotal() {
+        return precioTotal;
     }
 
-    public void setPrecioUnitario(HashSet<Producto> precioUnitario) {
-        this.precioUnitario = precioUnitario;
+    public void setPrecioTotal(int precioTotal) {
+        this.precioTotal = precioTotal;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         DetallesPedido that = (DetallesPedido) o;
-        return Objects.equals(productosPedido, that.productosPedido) && Objects.equals(precioUnitario, that.precioUnitario);
+        return precioTotal == that.precioTotal && Objects.equals(productosPedido, that.productosPedido);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productosPedido, precioUnitario);
+        return Objects.hash(productosPedido, precioTotal);
     }
 
     @Override
     public String toString() {
-        return "DetallesPedido" +
-                "productos Pedido:" + productosPedido +
-                "precio Unitario:" + precioUnitario;
+        return "DetallesPedido{" +
+                "productosPedido=" + productosPedido +
+                ", precioTotal=" + precioTotal +
+                '}';
     }
 }
+
+
+
+

@@ -1,6 +1,7 @@
 package model;
 
 import dataAccess.LocalDateAdapter;
+import utils.Utilidades;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -105,4 +106,53 @@ public class Pedido {
                 "estado del Pedido:" + estadoPedido +
                 "detalles Pedido:" + detallesPedido ;
     }
+
+    public boolean creaPedido(DetallesPedido detallesPedido) {
+        if (detallesPedido != null) {
+            this.detallesPedido = detallesPedido;
+            this.fechaCreacion = LocalDate.now();
+            this.fechaLimite = LocalDate.now().plusDays(3);
+            this.fechaEntrega = null;
+            this.estadoPedido = EstadoPedido.PROCESANDO;
+            this.precioPedido = detallesPedido.getPrecioTotal();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean cancelarPedido() {
+        if (this.estadoPedido == EstadoPedido.PROCESANDO) {
+            this.estadoPedido = EstadoPedido.CANCELADO;
+            return true;
+        }else{
+            Utilidades.muestraMensaje("El pedido no se puede cancelar porque ya ha sido entregado o está en proceso de entrega.");
+        }
+        return false;
+    }
+
+    public boolean modificarPedido(DetallesPedido detallesPedido) {
+        if (this.estadoPedido == EstadoPedido.PROCESANDO) {
+            this.detallesPedido = detallesPedido;
+            this.precioPedido = detallesPedido.getPrecioTotal();
+            return true;
+        }else{
+            Utilidades.muestraMensaje("El pedido no se puede modificar porque ya ha sido entregado o está en proceso de entrega.");
+        }
+        return false;
+    }
+
+    public boolean modificarEstadoPedido(EstadoPedido estadoPedido) {
+        if (this.estadoPedido == estadoPedido){
+            Utilidades.muestraMensaje("El pedido ya se encuentra en el estado " + estadoPedido);
+        }else {
+            this.estadoPedido = estadoPedido;
+            if (estadoPedido == EstadoPedido.ENTREGADO) {
+                this.fechaEntrega = LocalDate.now();
+            }
+            return true;
+        }
+        return false;
+    }
+
+
 }

@@ -18,7 +18,7 @@ public class Reseña {
     @XmlElement
     private Cliente cliente;
     @XmlElement
-    private int calificación;
+    private int calificacion;
     @XmlElement
     private String comentario;
     @XmlElement
@@ -32,7 +32,7 @@ public class Reseña {
     public Reseña(Producto producto, Cliente cliente, int calificación, String comentario, LocalDate fecha) {
         this.producto = producto;
         this.cliente = cliente;
-        this.calificación = calificación;
+        this.calificacion = calificación;
         this.comentario = comentario;
         this.fecha = fecha;
     }
@@ -53,12 +53,12 @@ public class Reseña {
         this.cliente = cliente;
     }
 
-    public int getCalificación() {
-        return calificación;
+    public int getCalificacion() {
+        return calificacion;
     }
 
     public void setCalificación(int calificación) {
-        this.calificación = calificación;
+        this.calificacion = calificación;
     }
 
     public String getComentario() {
@@ -81,12 +81,12 @@ public class Reseña {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Reseña reseña = (Reseña) o;
-        return calificación == reseña.calificación && Objects.equals(producto, reseña.producto) && Objects.equals(cliente, reseña.cliente) && Objects.equals(comentario, reseña.comentario) && Objects.equals(fecha, reseña.fecha);
+        return calificacion == reseña.calificacion && Objects.equals(producto, reseña.producto) && Objects.equals(cliente, reseña.cliente) && Objects.equals(comentario, reseña.comentario) && Objects.equals(fecha, reseña.fecha);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(producto, cliente, calificación, comentario, fecha);
+        return Objects.hash(producto, cliente, calificacion, comentario, fecha);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class Reseña {
         return "Reseña" +
                 "producto:" + producto +
                 "cliente:" + cliente +
-                "calificación:" + calificación +
+                "calificación:" + calificacion +
                 "comentario:" + comentario + '\'' +
                 "fecha:" + fecha ;
     }
