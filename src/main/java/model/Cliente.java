@@ -74,7 +74,7 @@ public class Cliente extends Usuario{
     public Pedido crearSolicitudPedido(){
         if (this.carro !=null && this.carro.getProductosCarro().isEmpty()){
             DetallesPedido detallesPedido = new DetallesPedido(this.carro);
-            return new Pedido(LocalDate.now(),EstadoPedido.PROCESANDO,detallesPedido);
+            return new Pedido(LocalDate.now(),EstadoPedido.PENDIENTE,detallesPedido);
         }
         return null;
     }
