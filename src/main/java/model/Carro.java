@@ -29,6 +29,38 @@ public class Carro {
         return "Carro" +
                 "productos en el Carro" + productosCarro;
     }
+public void agregarProducto(Producto producto, int cantidad) {
+        if (productosCarro.containsKey(producto)) {
+            productosCarro.put(producto, productosCarro.get(producto) + cantidad);
+        } else {
+            productosCarro.put(producto, cantidad);
+        }
+    }
 
+    public void eliminarProducto(Producto producto) {
+        productosCarro.remove(producto);
+    }
+
+    public void vaciarCarro() {
+        productosCarro.clear();
+    }
+
+    public int cantidadProductos() {
+        int total = 0;
+        for (int cantidad : productosCarro.values()) {
+            total += cantidad;
+        }
+        return total;
+    }
+
+    public int getPrecioTotal() {
+        int total = 0;
+        for (HashMap.Entry<Producto, Integer> entry : productosCarro.entrySet()) {
+            Producto producto = entry.getKey();
+            int cantidad = entry.getValue();
+            total += producto.getPrecio() * cantidad;
+        }
+        return total;
+    }
 
 }
