@@ -31,35 +31,29 @@ public class DescuentoController {
     }
 
     public boolean creaDescuento(String descripcion, int porcentaje, LocalDate fechaCaducidad) {
+
         if (porcentaje < 0 || porcentaje > 100) {
             return false;
         }
+
         Descuento descuentoNuevo = new Descuento(descripcion, porcentaje, fechaCaducidad);
 
-        for (Descuento descuento : descuentos) {
-            if (descuento.equals(descuentoNuevo)) {
-                Utilidades.muestraMensaje("El descuento ya existe");
-                return false;
-            }else if (descuentoNuevo.getFechaCaducidad().isBefore(LocalDate.now())) {
-                Utilidades.muestraMensaje("La fecha de caducidad no puede ser anterior a la fecha actual");
-                return false;
-            } else if (descuentoNuevo.getFechaCaducidad().isEqual(LocalDate.now())) {
-                Utilidades.muestraMensaje("La fecha de caducidad no puede ser igual a la fecha actual");
-                return false;
-            } else if (descuentoNuevo.getFechaCaducidad().isAfter(LocalDate.now().plusYears(1))) {
-                Utilidades.muestraMensaje("La fecha de caducidad no puede ser superior a un año");
-                return false;
-            }else {
-                descuentos.add(descuentoNuevo);
-                Utilidades.muestraMensaje("Descuento creado correctamente");
-                return true;
-            }
+        if (descuentos.stream().anyMatch(descuento -> descuento.equals(descuentoNuevo))){
+            Utilidades.muestraMensaje("El descuento ya existe");
+
+        } else if (fechaCaducidad.isBefore(LocalDate.now())) {
+            Utilidades.muestraMensaje("La fecha de caducidad no puede ser anterior a la fecha actual");
+
+        } else {
+            Utilidades.muestraMensaje("Descuento creado correctamente");
+            return true;
         }
-        return true;
+        return false;
     }
 
     public boolean añadeDescuento (Descuento descuento){
-        if (descuentos.contains(descuento)) {
+
+        if (descuento == null ||descuentos.contains(descuento)) {
             return false;
         } else {
             descuentos.add(descuento);

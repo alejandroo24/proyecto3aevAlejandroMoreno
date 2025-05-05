@@ -123,4 +123,19 @@ public class Utilidades {
 
     }
 
+    public static double hacerPorcentaje(double descuento, double precio){
+        double porcentaje = (descuento * 100) / precio;
+        return porcentaje;
+    }
+
+    public static String CrearCodigoAleatorio(int longitud) {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder codigo = new StringBuilder();
+        for (int i = 0; i < longitud; i++) {
+            int indice = (int) (Math.random() * caracteres.length());
+            codigo.append(caracteres.charAt(indice));
+        }
+        return codigo.toString();
+    }
+
 }

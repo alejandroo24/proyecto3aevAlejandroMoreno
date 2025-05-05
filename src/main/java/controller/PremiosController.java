@@ -1,6 +1,7 @@
 package controller;
 
 import model.Premio;
+import utils.Utilidades;
 
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -9,21 +10,22 @@ import java.util.concurrent.TimeUnit;
 
 public class PremiosController {
 
+    private final String rutaArchivo = "premios.txt";
     private static PremiosController instance;
-    private ArrayList<Premio> premios;
     private final Random random = new Random();
+
+    private ArrayList<Premio> premios;
+    private HashMap<String,Integer>codigosValidos;
+    private HashSet<String>codigosUsados;
     private final List<String> descripciones = Arrays.asList(
             "Descuento del 20% en la próxima compra",
-            "Envío gratuito",
-            "Envio express gratuito",
-            "Producto a elegir gratis",
             "Descuento del 50% en la próxima compra",
+            "Envío gratuito",
+            "Producto sorpresa gratis",
             "Tarjeta de regalo valorada en 10€",
             "Tarjeta de regalo valorada en 20€",
-            "Tarjeta de regalo valorada en 30€",
             "Tarjeta de regalo valorada en 50€",
-            "Producto sorpresa gratis",
-            "Dobles puntos en la próxima compra"
+            "Duplicar puntos acumulados"
     );
 
     private PremiosController() {
@@ -61,6 +63,26 @@ public class PremiosController {
         this.premios = premios;
     }
 
+    public String getRutaArchivo() {
+        return rutaArchivo;
+    }
+
+    public HashMap<String, Integer> getCodigosValidos() {
+        return codigosValidos;
+    }
+
+    public void setCodigosValidos(HashMap<String, Integer> codigosValidos) {
+        this.codigosValidos = codigosValidos;
+    }
+
+    public HashSet<String> getCodigosUsados() {
+        return codigosUsados;
+    }
+
+    public void setCodigosUsados(HashSet<String> codigosUsados) {
+        this.codigosUsados = codigosUsados;
+    }
+
     public ArrayList<Premio> obtenerPremiosAleatorios() {
         int totalPremios = descripciones.size();
         HashSet<Integer> numerosGenerados = new HashSet<>();
@@ -70,9 +92,9 @@ public class PremiosController {
 
             if (!numerosGenerados.contains(numeroAleatorio)) {
                 numerosGenerados.add(numeroAleatorio);
-                premiosGenerados.add(new Premio(descripciones.get(numeroAleatorio), random.nextInt(251) + 300));
+                premiosGenerados.add(new Premio(descripciones.get(numeroAleatorio), random.nextInt(251) + 350));
             }
-        }while(numerosGenerados.size() < 4);
+        }while(numerosGenerados.size() < 2);
 
         return premiosGenerados;
     }
@@ -86,6 +108,25 @@ public class PremiosController {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(this::actualizarPremios,0,7, TimeUnit.DAYS);
     }
+
+    public void generarCodigo(int valorCodigo){
+        String codigoGenerado = null;
+        do {
+             codigoGenerado = Utilidades.CrearCodigoAleatorio(9);
+        }while (codigosUsados.contains(codigoGenerado));
+        codigosValidos.put(codigoGenerado,valorCodigo);
+    }
+
+    public void canjearCodigo(String codigo){
+        if (codigosValidos.containsKey(codigo)){
+            codigosUsados.add(codigo);
+            codigosValidos.remove(codigo);
+        }else{
+            Utilidades.muestraMensaje("El código no es válido o ya ha sido usado");
+        }
+    }
+
+
 }
 
 

@@ -49,9 +49,6 @@ public class UsuarioActivoController {
         return usuarioActivo;
     }
 
-    public Usuario setUsuarioActivo(){
-        return usuarioActivo;
-    }
 
     public void cerrarSesion(){
         usuarioActivo = null;
