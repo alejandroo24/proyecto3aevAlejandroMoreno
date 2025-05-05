@@ -9,7 +9,7 @@ public class UsuarioActivoController {
     private static UsuarioActivoController instancia;
     private Usuario usuarioActivo;
     private static Trabajador trabajadorInstancia;
-    private static Cliente ClienteInstancia;
+    private static Cliente clienteInstancia;
 
     private UsuarioActivoController(){
 
@@ -27,36 +27,35 @@ public class UsuarioActivoController {
     }
 
     public static Cliente getClienteInstancia() {
-        return ClienteInstancia;
+        return clienteInstancia;
     }
 
-    public Trabajador getTrabajadorActivo(){
-        if(usuarioActivo instanceof Trabajador){
-            trabajadorInstancia = (Trabajador) usuarioActivo;
-            return trabajadorInstancia;
-        }
-        return null;
-    }
-
-    public Cliente getClienteActivo(){
-        if(usuarioActivo instanceof Cliente){
-            ClienteInstancia = (Cliente) usuarioActivo;
-            return ClienteInstancia;
-        }
-        return null;
+    public static void setTrabajadorInstancia(Trabajador trabajadorInstancia) {
+        UsuarioActivoController.trabajadorInstancia = trabajadorInstancia;
     }
 
     public void setUsuarioActivo(Usuario usuario){
         this.usuarioActivo = usuario;
+        if (usuario.isTrabajador()){
+            trabajadorInstancia = (Trabajador) usuario;
+            clienteInstancia = null;
+        } else {
+            clienteInstancia = (Cliente) usuario;
+            trabajadorInstancia = null;
+        }
     }
 
     public Usuario getUsuarioActivo(){
         return usuarioActivo;
     }
 
+    public Usuario setUsuarioActivo(){
+        return usuarioActivo;
+    }
+
     public void cerrarSesion(){
         usuarioActivo = null;
         trabajadorInstancia = null;
-        ClienteInstancia = null;
+        clienteInstancia = null;
     }
 }

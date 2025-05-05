@@ -12,7 +12,7 @@ public class TrabajadorController {
     private ProductoController productoController = ProductoController.getInstancia();
     private PedidoController pedidoController = PedidoController.getInstancia();
     private DescuentoController descuentoController = DescuentoController.getInstancia();
-    ;
+
 
 
 

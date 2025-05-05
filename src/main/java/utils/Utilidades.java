@@ -4,6 +4,11 @@ import exceptions.DatoIncorrectoException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 public class Utilidades {
     Scanner sc = new Scanner(System.in);
@@ -77,6 +82,45 @@ public class Utilidades {
             throw new RuntimeException("Error al hashear la contraseña",e);
 
         }
+    }
+
+    public static boolean validarEmail(String email) {
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(regex);
+    }
+
+    public static LocalDate validaFecha(String fechaInput){
+        ArrayList<String> formatos = new ArrayList<>();
+        String formato1 = "dd/MM/yyyy";
+        String formato2 = "dd-MM-yyyy";
+        String formato3 = "yyyy/MM/dd";
+        String formato4 = "yyyy-MM-dd";
+        String formato5 = "MM/dd/yyyy";
+        String formato6 = "MM-dd-yyyy";
+        String formato7 = "dd.MM.yyyy";
+        String formato8 = "yyyy.MM.dd";
+
+        formatos.add(formato1);
+        formatos.add(formato2);
+        formatos.add(formato3);
+        formatos.add(formato4);
+        formatos.add(formato5);
+        formatos.add(formato6);
+        formatos.add(formato7);
+        formatos.add(formato8);
+
+
+        for(String formato: formatos){
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formato);
+                return LocalDate.parse(fechaInput, formatter);
+            }catch (DateTimeParseException e){
+                // Ignorar la excepción y probar con el siguiente formato
+            }
+
+        }
+        throw new IllegalArgumentException("Formato de fecha no válido. Por favor, utiliza uno de los siguientes formatos: " + String.join(", ", formatos));
+
     }
 
 }
