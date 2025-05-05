@@ -18,6 +18,8 @@ public class Cliente extends Usuario{
     @XmlElement
     private int puntosAcumulados;
     @XmlElement
+    private ArrayList<Premio> premiosCanjeados;
+    @XmlElement
     private float saldo;
     @XmlElement
     private int ContadorInicioSesion;
@@ -63,6 +65,22 @@ public class Cliente extends Usuario{
         this.saldo = saldo;
     }
 
+    public ArrayList<Premio> getPremiosCanjeados() {
+        return premiosCanjeados;
+    }
+
+    public void setPremiosCanjeados(ArrayList<Premio> premiosCanjeados) {
+        this.premiosCanjeados = premiosCanjeados;
+    }
+
+    public int getContadorInicioSesion() {
+        return ContadorInicioSesion;
+    }
+
+    public void setContadorInicioSesion(int contadorInicioSesion) {
+        ContadorInicioSesion = contadorInicioSesion;
+    }
+
     @Override
     public String toString() {
         return super.toString() +
@@ -72,7 +90,7 @@ public class Cliente extends Usuario{
     }
 
     public Pedido crearSolicitudPedido(){
-        if (this.carro !=null && this.carro.getProductosCarro().isEmpty()){
+        if (this.carro !=null && !this.carro.getProductosCarro().isEmpty()){
             DetallesPedido detallesPedido = new DetallesPedido(this.carro);
             return new Pedido(LocalDate.now(),EstadoPedido.PENDIENTE,detallesPedido);
         }
