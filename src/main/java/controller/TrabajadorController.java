@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class TrabajadorController {
+    private static TrabajadorController instancia;
     private Trabajador trabajadorActivo = UsuarioActivoController.getTrabajadorInstancia();
     private AlmacenController almacenController = AlmacenController.getInstancia();
     private ProductoController productoController = ProductoController.getInstancia();
@@ -17,7 +18,13 @@ public class TrabajadorController {
 
 
 
-    public void sincronizarConControladores(){
+    public static TrabajadorController getInstancia() {
+        if (instancia == null) {
+            instancia = new TrabajadorController();
+        }
+        return instancia;
+    }
+    public synchronized void sincronizarConControladores(){
         ArrayList<Almacen> almacenesActualizados = new ArrayList<>();
         for (Almacen almacen : almacenController.getAlmacenes()){
             if (trabajadorActivo.getAlmacenesGestionados().contains(almacen)){
@@ -36,7 +43,7 @@ public class TrabajadorController {
 
         ArrayList<Pedido> pedidosCompletadosActualizados = new ArrayList<>();
         for (Pedido pedido : pedidoController.getListaPedidos()){
-            if (trabajadorActivo.getPedidosCompletados().contains(pedido)){
+            if (trabajadorActivo.getDescuentosCreados().contains(pedido)){
                 pedidosCompletadosActualizados.add(pedido);
             }
         }
@@ -52,6 +59,7 @@ public class TrabajadorController {
 
 
     }
+
 
     public boolean addAlmacen(Almacen almacen) {
         boolean added = false;

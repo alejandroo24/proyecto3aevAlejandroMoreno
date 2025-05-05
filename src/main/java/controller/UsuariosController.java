@@ -10,7 +10,7 @@ public class UsuariosController {
 
     private final String ficheroUsuarios = "Usuarios.xml";
     private static UsuariosController instancia;
-    private List<Usuario> listaUsuarios;
+    private List<Usuario> listaUsuarios = new ArrayList<>();
 
     public static UsuariosController getInstancia() {
         if (instancia == null) {
@@ -20,7 +20,10 @@ public class UsuariosController {
     }
 
     public UsuariosController(){
-        this.listaUsuarios = null;
+        cargarUsuarios();
+        if(listaUsuarios == null){
+            listaUsuarios = new ArrayList<>();
+        }
     }
     public UsuariosController(List<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
@@ -40,6 +43,9 @@ public class UsuariosController {
     }
 
     public boolean addUsuario(Usuario usuario) {
+        if (usuario == null) {
+            return false;
+        }
         listaUsuarios.add(usuario);
         guardarUsuarios();
         boolean añadido = true;
@@ -75,8 +81,9 @@ public class UsuariosController {
         List<Usuario> usuarioLeidos = XMLManager.readXML(new ArrayList<Usuario>(), ficheroUsuarios);
         if (usuarioLeidos != null) {
             listaUsuarios = usuarioLeidos;
-        } else {
+        }else{
             listaUsuarios = new ArrayList<>();
+            guardarUsuarios();
         }
     }
 

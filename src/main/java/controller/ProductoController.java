@@ -9,7 +9,7 @@ import java.util.List;
 public class ProductoController {
     private static String rutaArchivo = "productos.xml";
     private static ProductoController instancia;
-    private List<Producto> listaProductos;
+    private List<Producto> listaProductos = new ArrayList<>();
 
     public static ProductoController getInstancia() {
         if (instancia == null) {
@@ -18,7 +18,7 @@ public class ProductoController {
         return instancia;
     }
     public ProductoController() {
-        this.listaProductos = null;
+        this.listaProductos = new ArrayList<>();
     }
 
     public List<Producto> getListaProductos() {

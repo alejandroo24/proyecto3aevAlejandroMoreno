@@ -49,7 +49,7 @@ public class XMLManager {
             JAXBContext context = JAXBContext.newInstance(objeto.getClass());
 
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            result = (T) unmarshaller.unmarshal(new File(fileName));
+            result = (T) unmarshaller.unmarshal(file);
             // Se hace un casteo porque todas las clases heredan de Object.
         } catch (JAXBException e) {
             throw new RuntimeException(e);

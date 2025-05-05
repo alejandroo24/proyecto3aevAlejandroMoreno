@@ -20,6 +20,8 @@ public class Carro {
         return productosCarro;
     }
 
+    public double precioTotal;
+
     public void setProductosCarro(HashMap<Producto, Integer> productosCarro) {
         this.productosCarro = productosCarro;
     }
@@ -53,14 +55,19 @@ public void agregarProducto(Producto producto, int cantidad) {
         return total;
     }
 
-    public int getPrecioTotal() {
+    public double getPrecioTotal() {
         int total = 0;
         for (HashMap.Entry<Producto, Integer> entry : productosCarro.entrySet()) {
             Producto producto = entry.getKey();
-            int cantidad = entry.getValue();
+            double cantidad = entry.getValue();
             total += producto.getPrecio() * cantidad;
         }
-        return total;
+        this.precioTotal = total;
+        return precioTotal;
+    }
+
+    public void SetPrecioTotal(double precioTotal) {
+        this.precioTotal = precioTotal;
     }
 
 }

@@ -11,6 +11,8 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Pedido {
     @XmlElement
+    private Cliente cliente;
+    @XmlElement
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaCreacion;
     @XmlElement
@@ -20,7 +22,7 @@ public class Pedido {
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaEntrega;
     @XmlElement
-    private float precioPedido;
+    private double precioPedido;
     @XmlElement
     private EstadoPedido estadoPedido;
     @XmlElement
@@ -30,10 +32,19 @@ public class Pedido {
 
     }
 
-    public Pedido(LocalDate fechaCreacion, EstadoPedido estadoPedido, DetallesPedido detallesPedido) {
+    public Pedido(Cliente cliente, EstadoPedido estadoPedido, DetallesPedido detallesPedido) {
+        this.cliente = cliente;
         this.fechaCreacion = fechaCreacion;
         this.estadoPedido = estadoPedido;
         this.detallesPedido = detallesPedido;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public LocalDate getFechaCreacion() {
@@ -60,11 +71,11 @@ public class Pedido {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public float getPrecioPedido() {
+    public double getPrecioPedido() {
         return precioPedido;
     }
 
-    public void setPrecioPedido(float precioPedido) {
+    public void setPrecioPedido(double precioPedido) {
         this.precioPedido = precioPedido;
     }
 
@@ -88,7 +99,7 @@ public class Pedido {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pedido pedido = (Pedido) o;
-        return Float.compare(precioPedido, pedido.precioPedido) == 0 && Objects.equals(fechaCreacion, pedido.fechaCreacion) && Objects.equals(fechaLimite, pedido.fechaLimite) && Objects.equals(fechaEntrega, pedido.fechaEntrega) && estadoPedido == pedido.estadoPedido && Objects.equals(detallesPedido, pedido.detallesPedido);
+        return Double.compare(precioPedido, pedido.precioPedido) == 0 && Objects.equals(fechaCreacion, pedido.fechaCreacion) && Objects.equals(fechaLimite, pedido.fechaLimite) && Objects.equals(fechaEntrega, pedido.fechaEntrega) && estadoPedido == pedido.estadoPedido && Objects.equals(detallesPedido, pedido.detallesPedido);
     }
 
     @Override

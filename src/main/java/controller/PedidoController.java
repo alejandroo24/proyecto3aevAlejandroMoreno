@@ -10,7 +10,7 @@ import java.util.HashSet;
 public class PedidoController {
     private static String rutaArchivo = "pedidos.xml";
     private static PedidoController instancia;
-    private HashSet<Pedido> listaPedidos;
+    private HashSet<Pedido> listaPedidos = new HashSet<>();
 
     private PedidoController() {
         // Constructor privado para evitar instanciación externa

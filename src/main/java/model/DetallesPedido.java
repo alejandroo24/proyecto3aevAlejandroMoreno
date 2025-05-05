@@ -11,15 +11,15 @@ public class DetallesPedido {
     @XmlElement
     private Carro productosPedido;
     @XmlElement
-    private int precioTotal;
+    private double precioTotal;
 
     public DetallesPedido() {
         this.productosPedido = new Carro();
-        this.precioTotal = 0;
+        this.precioTotal = 2;
     }
     public DetallesPedido(Carro carroConProductos) {
         this.productosPedido = carroConProductos;
-        this.precioTotal = carroConProductos.getPrecioTotal();
+        this.precioTotal = this.precioTotal + carroConProductos.getPrecioTotal();
     }
 
     public Carro getProductosPedido() {
@@ -30,7 +30,7 @@ public class DetallesPedido {
         this.productosPedido = productosPedido;
     }
 
-    public int getPrecioTotal() {
+    public double getPrecioTotal() {
         return precioTotal;
     }
 
@@ -56,6 +56,10 @@ public class DetallesPedido {
                 "productosPedido=" + productosPedido +
                 ", precioTotal=" + precioTotal +
                 '}';
+    }
+
+    public void restarPrecioEnvío(){
+        this.precioTotal = this.precioTotal - 2;
     }
 }
 
