@@ -37,7 +37,7 @@ public class ClienteController {
     }
 
     public boolean canjearPremio(Cliente cliente, Premio premio) {
-        if (cliente != null && cliente.getPuntosAcumulados() >= premio.getPuntosNecesarios()) { // Suponiendo que se necesitan 100 puntos para canjear un premio
+        if (cliente != null && cliente.getPuntosAcumulados() >= premio.getPuntosNecesarios()) {
             cliente.setPuntosAcumulados(cliente.getPuntosAcumulados() - premio.getPuntosNecesarios());
             aplicarRecompensa(premio);
             return true;
@@ -52,7 +52,7 @@ public class ClienteController {
 
         switch (premio.getDescripcion()) {
             case "Descuento del 50% en la próxima compra":
-                clienteActivo.getCarro().SetPrecioTotal(Utilidades.hacerPorcentaje(20,clienteActivo.getCarro().getPrecioTotal()));
+                clienteActivo.getCarro().SetPrecioTotal(Utilidades.hacerPorcentaje(50,clienteActivo.getCarro().getPrecioTotal()));
                 break;
 
             case "Descuento del 20% en la próxima compra":

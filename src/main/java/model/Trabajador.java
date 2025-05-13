@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Trabajador extends Usuario {
     // Atributos
-    private int salario;
+    private float salario;
     private ArrayList<Almacen> almacenesGestionados;
     private ArrayList<Descuento> descuentosCreados;
     private ArrayList<Pedido> pedidosCompletados;
@@ -59,11 +59,11 @@ public class Trabajador extends Usuario {
 
     }
 
-    public int getSalario() {
+    public float getSalario() {
         return salario;
     }
 
-    public void setSalario(int salario) {
+    public void setSalario(float salario) {
         this.salario = salario;
     }
 

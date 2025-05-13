@@ -1,5 +1,7 @@
 package controller;
 
+import DAO.TrabajadorDAO;
+import DataBase.ConnectionBD;
 import exceptions.EstadoPedidoInvalidException;
 import model.*;
 
@@ -14,6 +16,7 @@ public class TrabajadorController {
     private ProductoController productoController = ProductoController.getInstancia();
     private PedidoController pedidoController = PedidoController.getInstancia();
     private DescuentoController descuentoController = DescuentoController.getInstancia();
+    private static TrabajadorDAO trabajadorDAO = new TrabajadorDAO(ConnectionBD.getConnection());
 
 
 
@@ -22,6 +25,7 @@ public class TrabajadorController {
     public static TrabajadorController getInstancia() {
         if (instancia == null) {
             instancia = new TrabajadorController();
+            instancia.trabajadorActivo.setSalario(trabajadorDAO.obtenerPorId(instancia.trabajadorActivo.getId()).getSalario());
         }
         return instancia;
     }
