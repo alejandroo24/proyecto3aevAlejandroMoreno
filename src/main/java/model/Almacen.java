@@ -5,14 +5,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 
-@XmlRootElement(name = "almacen")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Almacen {
-    @XmlElement
+
+    private int id;
+
     private String nombre;
-    @XmlElement
+
     private HashMap<Producto,Integer> productos;
-    @XmlElement
+
     private String localizacion;
 
     public Almacen(){
@@ -48,11 +49,19 @@ public class Almacen {
         this.localizacion = localizacion;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Almacen almacen = (Almacen) o;
-        return Objects.equals(nombre, almacen.nombre) && Objects.equals(localizacion, almacen.localizacion);
+        return Objects.equals(id, almacen.id) && Objects.equals(nombre, almacen.nombre) && Objects.equals(localizacion, almacen.localizacion);
     }
 
     @Override

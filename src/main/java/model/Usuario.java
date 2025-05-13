@@ -3,19 +3,12 @@ package model;
 import javax.xml.bind.annotation.*;
 import java.util.Objects;
 
-@XmlRootElement(name = "usuario")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlSeeAlso({Cliente.class, Trabajador.class})
 public class Usuario {
-    @XmlElement
+    private int id;
     private String nombre;
-    @XmlElement
     private String contraseña;
-    @XmlElement
     private String correo;
-    @XmlElement
     private String usuario;
-    @XmlElement
     private boolean esTrabajador;
 
     public Usuario() {
@@ -68,16 +61,24 @@ public class Usuario {
         this.esTrabajador = esTrabajador;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario1 = (Usuario) o;
-        return Objects.equals(correo, usuario1.correo) && Objects.equals(usuario, usuario1.usuario);
+        return esTrabajador == usuario1.esTrabajador && Objects.equals(id, usuario1.id) && Objects.equals(nombre, usuario1.nombre) && Objects.equals(contraseña, usuario1.contraseña) && Objects.equals(correo, usuario1.correo) && Objects.equals(usuario, usuario1.usuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(correo, usuario);
+        return Objects.hash(id, nombre, contraseña, correo, usuario, esTrabajador);
     }
 
     @Override

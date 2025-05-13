@@ -6,34 +6,35 @@ import controller.PedidoController;
 import controller.ProductoController;
 import exceptions.EstadoPedidoInvalidException;
 import exceptions.TipoUsuarioException;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Map;
 
-@XmlRootElement(name = "trabajador")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Trabajador extends Usuario {
-    @XmlElement
+    // Atributos
     private int salario;
-    @XmlElement
     private ArrayList<Almacen> almacenesGestionados;
-    @XmlElement
     private ArrayList<Descuento> descuentosCreados;
-    @XmlElement
     private ArrayList<Pedido> pedidosCompletados;
-    @XmlElement
     private ArrayList<Pedido> solicitudesPendientes = new ArrayList<>();
+
+
 
     AlmacenController almacenController = AlmacenController.getInstancia();
     ProductoController productoController = ProductoController.getInstancia();
     PedidoController pedidoController = PedidoController.getInstancia();
     DescuentoController descuentoController = DescuentoController.getInstancia();
+
     public Trabajador(){
 
+    }
+
+    public Trabajador(Usuario usuario){
+        super(usuario.getNombre(), usuario.getContraseña(), usuario.getCorreo(), usuario.getUsuario(), true);
+        this.solicitudesPendientes = new ArrayList<>();
+        this.almacenesGestionados = new ArrayList<>();
+        this.descuentosCreados = new ArrayList<>();
+        this.pedidosCompletados = new ArrayList<>();
+        this.salario = 0;
     }
 
     public Trabajador(String nombre, String contraseña, String correo, String usuario,boolean isTrabajador) throws TipoUsuarioException {

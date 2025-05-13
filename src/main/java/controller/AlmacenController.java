@@ -1,6 +1,5 @@
 package controller;
 
-import dataAccess.XMLManager;
 import model.Almacen;
 import model.Producto;
 
@@ -105,13 +104,4 @@ public class AlmacenController {
         return total;
     }
 
-    public boolean guardarAlmacenes() {
-        XMLManager.writeXML(almacenes, rutaArchivo);
-        return true;
-    }
-
-    public boolean cargarAlmacenes() {
-        almacenes = XMLManager.readXML(almacenes, rutaArchivo);
-        return almacenes != null;
-    }
 }

@@ -1,6 +1,5 @@
 package controller;
 
-import dataAccess.XMLManager;
 import model.DetallesPedido;
 import model.EstadoPedido;
 import model.Pedido;
@@ -67,21 +66,4 @@ public class PedidoController {
         }
         return false;
     }
-
-    public boolean guardarPedidos() {
-        XMLManager.writeXML(listaPedidos, rutaArchivo);
-        return true;
-    }
-
-    public boolean cargarPedidos() {
-        HashSet<Pedido> pedidosCargados = XMLManager.readXML(listaPedidos, rutaArchivo);
-        if (pedidosCargados != null) {
-            this.listaPedidos = pedidosCargados;
-            return true;
-        }
-        return false;
-    }
-
-
-
 }

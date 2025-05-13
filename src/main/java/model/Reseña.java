@@ -1,28 +1,21 @@
 package model;
 
-import dataAccess.LocalDateAdapter;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Reseña {
-    @XmlElement
+
+    private int id;
+
     private Producto producto;
-    @XmlElement
+
     private Cliente cliente;
-    @XmlElement
+
     private int calificacion;
-    @XmlElement
+
     private String comentario;
-    @XmlElement
-    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+
     private LocalDate fecha;
 
     public Reseña(){
@@ -77,16 +70,23 @@ public class Reseña {
         this.fecha = fecha;
     }
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Reseña reseña = (Reseña) o;
-        return calificacion == reseña.calificacion && Objects.equals(producto, reseña.producto) && Objects.equals(cliente, reseña.cliente) && Objects.equals(comentario, reseña.comentario) && Objects.equals(fecha, reseña.fecha);
+        return calificacion == reseña.calificacion && Objects.equals(id, reseña.id) && Objects.equals(producto, reseña.producto) && Objects.equals(cliente, reseña.cliente) && Objects.equals(comentario, reseña.comentario) && Objects.equals(fecha, reseña.fecha);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(producto, cliente, calificacion, comentario, fecha);
+        return Objects.hash(id, producto, cliente, calificacion, comentario, fecha);
     }
 
     @Override

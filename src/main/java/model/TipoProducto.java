@@ -4,6 +4,6 @@ package model;
 
 
 public enum TipoProducto {
-    CAMISETA,SUDADERA,PANTALON,CALZADO;
+    CAMISETA,SUDADERA,GORRA,CALZADO;
 
 }

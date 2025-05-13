@@ -2,37 +2,27 @@ package model;
 
 import exceptions.DatoIncorrectoException;
 import utils.Utilidades;
-
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Objects;
-@XmlRootElement(name = "producto")
-@XmlAccessorType(XmlAccessType.FIELD)
 
 public class Producto {
-    @XmlElement
+    private int id;
     private String descripcion;
-    @XmlElement
-    private int talla;
-    @XmlElement
-    private String color;
-    @XmlElement
+    private TallasProducto talla;
+    private ColorProducto color;
     private float precio;
-    @XmlElement
     private TipoProducto tipoProducto;
-    @XmlElement
     private Descuento descuento;
-    @XmlElement
     private ArrayList<Reseña> reseñas;
 
     public Producto() {
 
     }
 
-    public Producto(String descripcion, int talla, String color, float precio, TipoProducto tipoProducto) {
+    public Producto(String descripcion, TallasProducto talla, ColorProducto color, float precio, TipoProducto tipoProducto) {
 
         try {
-            if (talla > 0  || precio > 0) {
+            if (talla !=null  || precio > 0) {
                 this.descripcion = descripcion;
                 this.talla = talla;
                 this.color = color;
@@ -47,9 +37,9 @@ public class Producto {
 
     }
 
-    public Producto(String descripcion,int talla, float precio, TipoProducto tipoProducto, Descuento descuento) {
+    public Producto(String descripcion,TallasProducto talla, float precio,ColorProducto color, TipoProducto tipoProducto, Descuento descuento) {
         try {
-            if (precio > 0 || talla > 0 || descuento.getPorcentaje() > 0) {
+            if (precio > 0 || talla !=null || descuento.getPorcentaje() > 0) {
                 this.descripcion = descripcion;
                 this.precio = precio;
                 this.talla = talla;
@@ -72,21 +62,21 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public int getTalla() {
+    public TallasProducto getTalla() {
         return talla;
     }
 
-    public void setTalla(int talla) {
-       if(talla > 0) {
+    public void setTalla(TallasProducto talla) {
+       if(talla !=null) {
            this.talla = talla;
        }
     }
 
-    public String getColor() {
+    public ColorProducto getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(ColorProducto color) {
         this.color = color;
     }
 
@@ -127,17 +117,26 @@ public class Producto {
         this.reseñas = reseñas;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Producto producto = (Producto) o;
-        return talla == producto.talla && Float.compare(precio, producto.precio) == 0 && Objects.equals(descripcion, producto.descripcion) && Objects.equals(color, producto.color) && tipoProducto == producto.tipoProducto && Objects.equals(descuento, producto.descuento) && Objects.equals(reseñas, producto.reseñas);
+        return Float.compare(precio, producto.precio) == 0 && Objects.equals(id, producto.id) && Objects.equals(descripcion, producto.descripcion) && talla == producto.talla && color == producto.color && tipoProducto == producto.tipoProducto && Objects.equals(descuento, producto.descuento) && Objects.equals(reseñas, producto.reseñas);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(descripcion, talla, color, precio, tipoProducto, descuento, reseñas);
+        return Objects.hash(id, descripcion, talla, color, precio, tipoProducto, descuento, reseñas);
     }
+
 
     @Override
     public String toString() {

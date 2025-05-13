@@ -2,36 +2,37 @@ package model;
 
 import exceptions.TipoUsuarioException;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-@XmlRootElement(name = "cliente")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Cliente extends Usuario{
-    @XmlElement
     private Carro carro;
-    @XmlElement
+
     private int puntosAcumulados;
-    @XmlElement
+
     private float saldo;
-    @XmlElement
-    private int ContadorInicioSesion;
+
 
     public Cliente(){
 
     }
+
+    public Cliente(Usuario usuario){
+        super(usuario.getNombre(), usuario.getContraseña(), usuario.getCorreo(), usuario.getUsuario(), false);
+        this.carro = null;
+        this.puntosAcumulados = 0;
+        this.saldo = 0;
+    }
+
     public Cliente(String nombre, String contraseña, String correo, String usuario) throws TipoUsuarioException {
         super(nombre, contraseña, correo, usuario, false);
         try {
             if (!isTrabajador()) {
                 this.carro = null;
                 this.puntosAcumulados = 0;
-                this.ContadorInicioSesion = 0;
                 this.saldo = 0;
             }
         } catch (TipoUsuarioException e) {
@@ -63,15 +64,6 @@ public class Cliente extends Usuario{
         this.saldo = saldo;
     }
 
-
-
-    public int getContadorInicioSesion() {
-        return ContadorInicioSesion;
-    }
-
-    public void setContadorInicioSesion(int contadorInicioSesion) {
-        ContadorInicioSesion = contadorInicioSesion;
-    }
 
     @Override
     public String toString() {

@@ -4,6 +4,8 @@ import model.*;
 import utils.Utilidades;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -62,7 +64,7 @@ public class ClienteController {
                 // Marca el envío como gratuito
                 for (Pedido pedido : pedidoController.getListaPedidos()) {
                     if (pedido.getCliente().equals(clienteActivo)) {
-                        pedido.getDetallesPedido().restarPrecioEnvío();
+                        pedido.restarPrecioEnvío();
                         break;
                     }
                 }
@@ -126,8 +128,18 @@ public class ClienteController {
     public boolean crearSolicitudPedido(){
         boolean agregado = false;
         if (clienteActivo.getCarro() !=null && !clienteActivo.getCarro().getProductosCarro().isEmpty()){
-            DetallesPedido detallesPedido = new DetallesPedido(clienteActivo.getCarro());
-            Pedido nuevoPedido = new Pedido(clienteActivo,EstadoPedido.PENDIENTE,detallesPedido);
+
+            List<DetallesPedido>productosDetallePedido = new ArrayList<>();
+            Pedido nuevoPedido = new Pedido();
+
+            for (Producto producto : clienteActivo.getCarro().getProductosCarro().keySet()) {
+                if (productoController.getListaProductos().contains(producto)) {
+                    DetallesPedido detallesPedido = new DetallesPedido(producto, clienteActivo.getCarro().getProductosCarro().get(producto));
+                    productosDetallePedido.add(detallesPedido);
+                }
+                nuevoPedido = new Pedido(clienteActivo,EstadoPedido.PENDIENTE,productosDetallePedido);
+            }
+
             agregado = pedidoController.agregarPedido(nuevoPedido);
         }
         return agregado;

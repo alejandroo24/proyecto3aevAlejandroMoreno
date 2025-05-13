@@ -1,6 +1,5 @@
 package controller;
 
-import dataAccess.XMLManager;
 import model.Producto;
 
 import java.util.ArrayList;
@@ -63,17 +62,4 @@ public class ProductoController {
         }
         return productosEncontrados;
     }
-
-    public boolean guardarProductos() {
-        XMLManager.writeXML(listaProductos, rutaArchivo);
-
-        return true;
-    }
-
-    public boolean cargarProductos() {
-        listaProductos = XMLManager.readXML(listaProductos,rutaArchivo);
-        return listaProductos != null;
-    }
-
-
 }

@@ -1,21 +1,17 @@
 package model;
 
 import utils.Utilidades;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Premio {
-    @XmlElement
+
+    private int id;
+
     private String descripcion;
-    @XmlElement
+
     private int puntosNecesarios;
 
     public Premio(){
@@ -43,17 +39,24 @@ public class Premio {
         this.puntosNecesarios = puntosNecesarios;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Premio premio = (Premio) o;
-        return puntosNecesarios == premio.puntosNecesarios && Objects.equals(descripcion, premio.descripcion);
+        return puntosNecesarios == premio.puntosNecesarios && Objects.equals(id, premio.id) && Objects.equals(descripcion, premio.descripcion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(descripcion, puntosNecesarios);
+        return Objects.hash(id, descripcion, puntosNecesarios);
     }
 
     @Override
