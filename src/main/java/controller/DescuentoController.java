@@ -1,4 +1,7 @@
 package controller;
+import DAO.DescuentoDAO;
+import DataBase.ConnectionBD;
+import com.sun.jdi.connect.spi.Connection;
 import model.Descuento;
 import utils.Utilidades;
 
@@ -10,6 +13,9 @@ public class DescuentoController {
     private List<Descuento> descuentos;
     private static DescuentoController instancia;
     private final String archivoDescuentos = "descuentos.xml";
+    private static DescuentoDAO descuentoDAO= new DescuentoDAO(ConnectionBD.getConnection());
+
+
     public DescuentoController(){
         descuentos= new ArrayList<>();
     }
@@ -17,6 +23,7 @@ public class DescuentoController {
     public static DescuentoController getInstancia() {
         if (instancia == null) {
             instancia = new DescuentoController();
+            instancia.setDescuentos(descuentoDAO.obtenerTodos());
         }
         return instancia;
     }
@@ -41,10 +48,12 @@ public class DescuentoController {
             Utilidades.muestraMensaje("El descuento ya existe");
 
         } else if (fechaCaducidad.isBefore(LocalDate.now())) {
-            Utilidades.muestraMensaje("La fecha de caducidad no puede ser anterior a la fecha actual");
+            Utilidades.muestraMensaje("El descuento ha caducado");
 
         } else {
             Utilidades.muestraMensaje("Descuento creado correctamente");
+            añadeDescuento(descuentoNuevo);
+            descuentoDAO.insertar(descuentoNuevo);
             return true;
         }
         return false;
@@ -62,6 +71,7 @@ public class DescuentoController {
     public boolean eliminaDescuento(Descuento descuento) {
         if (descuentos.contains(descuento)) {
             descuentos.remove(descuento);
+            descuentoDAO.eliminar(descuento.getId());
             Utilidades.muestraMensaje("Descuento eliminado correctamente");
             return true;
         } else {
@@ -72,12 +82,16 @@ public class DescuentoController {
 
     public boolean modificaDescuento(Descuento descuento, String descripcion, int porcentaje, LocalDate fechaCaducidad) {
         if (descuentos.contains(descuento)) {
+            boolean modificado = false;
         eliminaDescuento(descuento);
-        return creaDescuento(descripcion, porcentaje, fechaCaducidad);
+        creaDescuento(descripcion, porcentaje, fechaCaducidad);
+        descuentoDAO.actualizar(descuento);
+        modificado = true;
         } else {
             Utilidades.muestraMensaje("El descuento no existe");
             return false;
         }
+        return true;
     }
 
     public List<Descuento> muestraDescuentos() {

@@ -1,5 +1,7 @@
 package controller;
 
+import DAO.AlmacenDAO;
+import DataBase.ConnectionBD;
 import model.Almacen;
 import model.Producto;
 
@@ -11,10 +13,12 @@ public class AlmacenController {
     private final String rutaArchivo = "almacen.txt";
     private static AlmacenController instancia;
     private ArrayList<Almacen> almacenes;
+    private static AlmacenDAO almacenDAO = new AlmacenDAO(ConnectionBD.getConnection());
 
     public static AlmacenController getInstancia() {
         if (instancia == null) {
             instancia = new AlmacenController(new ArrayList<>());
+            instancia.setAlmacenes((ArrayList<Almacen>) almacenDAO.obtenerTodos());
         }
         return instancia;
     }
@@ -24,10 +28,13 @@ public class AlmacenController {
     }
 
     public boolean agregarAlmacen(Almacen almacen) {
+        almacenDAO.insertar(almacen);
         return almacenes.add(almacen);
+
     }
 
     public boolean eliminarAlmacen(Almacen almacen) {
+        almacenDAO.eliminar(almacen.getId());
         return almacenes.remove(almacen);
     }
 

@@ -1,7 +1,9 @@
 package controller;
 
+import DataBase.ConnectionBD;
 import model.Premio;
 import utils.Utilidades;
+import DAO.PremiosDAO;
 
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -13,6 +15,9 @@ public class PremiosController {
     private final String rutaArchivo = "premios.txt";
     private static PremiosController instance;
     private final Random random = new Random();
+    private static PremiosDAO premiosDAO = new PremiosDAO(ConnectionBD.getConnection());
+
+
 
     private ArrayList<Premio> premios;
     private HashMap<String,Integer>codigosValidos;
@@ -28,6 +33,8 @@ public class PremiosController {
             "Duplicar puntos acumulados"
     );
 
+
+
     private PremiosController() {
         // Constructor privado para evitar instanciación externa
     }
@@ -35,6 +42,8 @@ public class PremiosController {
     public static PremiosController getInstance() {
         if (instance == null) {
             instance = new PremiosController();
+
+            instance.setPremios((ArrayList<Premio>) premiosDAO.obtenerTodos());
         }
         return instance;
     }
@@ -102,6 +111,11 @@ public class PremiosController {
     public void actualizarPremios(){
         premios.clear();
         premios.addAll(obtenerPremiosAleatorios());
+        for (Premio premio : premios) {
+            if (!premiosDAO.obtenerTodos().contains(premio)){
+                premiosDAO.insertar(premio);
+            }
+        }
     }
 
     private void programarActualizacionPremios() {
