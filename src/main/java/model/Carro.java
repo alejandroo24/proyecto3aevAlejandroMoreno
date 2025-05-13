@@ -1,16 +1,16 @@
 package model;
 
-import dataAccess.HashMapAdapter;
-
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.HashMap;
+import java.util.Objects;
 
-@XmlRootElement(name = "carro")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Carro {
-    @XmlJavaTypeAdapter(HashMapAdapter.class)
+
+    private int id;
     private HashMap<Producto, Integer> productosCarro;
+    private double precioTotal;
+
 
     public Carro() {
         this.productosCarro = new HashMap<>();
@@ -20,10 +20,28 @@ public class Carro {
         return productosCarro;
     }
 
-    public double precioTotal;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setProductosCarro(HashMap<Producto, Integer> productosCarro) {
         this.productosCarro = productosCarro;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Carro carro = (Carro) o;
+        return Objects.equals(id, carro.id) && Objects.equals(productosCarro, carro.productosCarro);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productosCarro);
     }
 
     @Override

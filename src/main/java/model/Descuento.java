@@ -1,20 +1,13 @@
 package model;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@XmlRootElement(name = "descuento")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Descuento {
-    @XmlElement
+
+    private int id;
     private String descripcion;
-    @XmlElement
     private int porcentaje;
-    @XmlElement
     private LocalDate fechaCaducidad;
 
     public Descuento() {
@@ -49,16 +42,24 @@ public class Descuento {
         this.fechaCaducidad = fechaCaducidad;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Descuento descuento = (Descuento) o;
-        return descripcion == descuento.descripcion && porcentaje == descuento.porcentaje && Objects.equals(fechaCaducidad, descuento.fechaCaducidad);
+        return porcentaje == descuento.porcentaje && Objects.equals(id, descuento.id) && Objects.equals(descripcion, descuento.descripcion) && Objects.equals(fechaCaducidad, descuento.fechaCaducidad);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(descripcion, porcentaje, fechaCaducidad);
+        return Objects.hash(id, descripcion, porcentaje, fechaCaducidad);
     }
 
     @Override

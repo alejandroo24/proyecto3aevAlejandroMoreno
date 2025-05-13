@@ -4,11 +4,12 @@ import exceptions.EstadoPedidoInvalidException;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class TrabajadorController {
     private static TrabajadorController instancia;
-    private Trabajador trabajadorActivo = UsuarioActivoController.getTrabajadorInstancia();
+    private Trabajador trabajadorActivo = (Trabajador) UsuarioActivoController.getInstancia().getUsuarioActivo();
     private AlmacenController almacenController = AlmacenController.getInstancia();
     private ProductoController productoController = ProductoController.getInstancia();
     private PedidoController pedidoController = PedidoController.getInstancia();
@@ -165,7 +166,7 @@ public class TrabajadorController {
         return almacen.addCantidad(producto,cantidadAñadida);
     }
 
-    public boolean creaProducto(String descripcion, int talla, String color,int cantidad, float precio, TipoProducto tipoProducto) {
+    public boolean creaProducto(String descripcion, TallasProducto talla, ColorProducto color,int cantidad, float precio, TipoProducto tipoProducto) {
         Producto productoNuevo= new Producto(descripcion, talla, color, precio, tipoProducto);
         return productoController.agregarProducto(productoNuevo);
     }
@@ -198,14 +199,13 @@ public class TrabajadorController {
 
         for (Pedido solicitud : trabajadorActivo.getSolicitudesPendientes()) {
             if (solicitud.getEstadoPedido() == EstadoPedido.PENDIENTE) {
-                DetallesPedido detalles = solicitud.getDetallesPedido();
+                List<DetallesPedido> detalles = solicitud.getDetallesPedido();
                 boolean stockSuficiente = true;
 
-                for (Map.Entry<Producto, Integer> entry : detalles.getProductosPedido().getProductosCarro().entrySet()) {
-                    Producto producto = entry.getKey();
-                    int cantidadSolicitada = entry.getValue();
-
-                    if (!compruebaStock(producto, cantidadSolicitada)) {
+                for (DetallesPedido detallesPedido : detalles) {
+                    Producto productoPedido = detallesPedido.GetProducto();
+                    int cantidadSolicitada = detallesPedido.getCantidad();
+                    if (!compruebaStock(productoPedido, cantidadSolicitada)) {
                         stockSuficiente = false;
                         break; // No hay suficiente stock para este producto
                     }

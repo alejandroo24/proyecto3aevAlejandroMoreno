@@ -38,11 +38,7 @@ public class AppManager {
         }
 
         private void cargarDatos() {
-            usuariosController.cargarUsuarios();
-            productoController.cargarProductos();
-            almacenController.cargarAlmacenes();
-            pedidoController.cargarPedidos();
-            descuentoController.cargarDescuentos();
+
         }
 
         public void start() {

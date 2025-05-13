@@ -4,62 +4,79 @@ import javax.xml.bind.annotation.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlSeeAlso(Carro.class)
+
+
+
 public class DetallesPedido {
-    @XmlElement
-    private Carro productosPedido;
-    @XmlElement
-    private double precioTotal;
+
+    private int id;
+    private Producto producto;
+    private int cantidad;
+    private float precioUnitario;
 
     public DetallesPedido() {
-        this.productosPedido = new Carro();
-        this.precioTotal = 2;
-    }
-    public DetallesPedido(Carro carroConProductos) {
-        this.productosPedido = carroConProductos;
-        this.precioTotal = this.precioTotal + carroConProductos.getPrecioTotal();
+        this.producto = new Producto();
+        this.precioUnitario = 0;
     }
 
-    public Carro getProductosPedido() {
-        return productosPedido;
+    public DetallesPedido(Producto producto, int cantidad) {
+        this.producto = producto;
+        this.precioUnitario = producto.getPrecio();
+        this.cantidad = cantidad;
     }
 
-    public void setProductosPedido(Carro productosPedido) {
-        this.productosPedido = productosPedido;
+    public Producto GetProducto() {
+        return producto;
     }
 
-    public double getPrecioTotal() {
-        return precioTotal;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
-    public void setPrecioTotal(int precioTotal) {
-        this.precioTotal = precioTotal;
+    public float getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(float precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public float getPrecioTotal() {
+        return precioUnitario * cantidad;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         DetallesPedido that = (DetallesPedido) o;
-        return precioTotal == that.precioTotal && Objects.equals(productosPedido, that.productosPedido);
+        return cantidad == that.cantidad && Float.compare(precioUnitario, that.precioUnitario) == 0 && Objects.equals(id, that.id) && Objects.equals(producto, that.producto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productosPedido, precioTotal);
+        return Objects.hash(id, producto, cantidad, precioUnitario);
     }
 
     @Override
     public String toString() {
         return "DetallesPedido{" +
-                "productosPedido=" + productosPedido +
-                ", precioTotal=" + precioTotal +
+                "productosPedido=" + producto +
+                ", precioTotal=" + precioUnitario +
                 '}';
-    }
-
-    public void restarPrecioEnvío(){
-        this.precioTotal = this.precioTotal - 2;
     }
 }
 

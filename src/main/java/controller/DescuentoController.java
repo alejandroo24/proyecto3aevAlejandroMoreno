@@ -1,5 +1,4 @@
 package controller;
-import dataAccess.XMLManager;
 import model.Descuento;
 import utils.Utilidades;
 
@@ -92,19 +91,5 @@ public class DescuentoController {
 
     public void eliminarDescuentosCaducados() {
         descuentos.removeIf(descuento -> descuento.getFechaCaducidad().isBefore(LocalDate.now()));
-    }
-
-    public void guardarDescuentos(){
-        XMLManager.writeXML(descuentos,archivoDescuentos);
-    }
-
-    public void cargarDescuentos(){
-        List<Descuento> descuentosCargados = XMLManager.readXML(descuentos,archivoDescuentos);
-        if (descuentosCargados != null) {
-            this.descuentos = descuentosCargados;
-            eliminarDescuentosCaducados();
-        } else {
-            Utilidades.muestraMensaje("No se han podido cargar los descuentos");
-        }
     }
 }

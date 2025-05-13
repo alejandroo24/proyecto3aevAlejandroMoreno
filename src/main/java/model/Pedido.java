@@ -1,38 +1,42 @@
 package model;
 
-import dataAccess.LocalDateAdapter;
 import utils.Utilidades;
-
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
-@XmlRootElement(name = "pedido")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Pedido {
-    @XmlElement
+
+    private int id;
+
     private Cliente cliente;
-    @XmlElement
-    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+
     private LocalDate fechaCreacion;
-    @XmlElement
-    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+
     private LocalDate fechaLimite;
-    @XmlElement
-    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+
     private LocalDate fechaEntrega;
-    @XmlElement
-    private double precioPedido;
-    @XmlElement
+
+    private float precioPedido;
+
     private EstadoPedido estadoPedido;
-    @XmlElement
-    private DetallesPedido detallesPedido;
+
+    private List<DetallesPedido> detallesPedido;
 
     public Pedido(){
 
     }
 
-    public Pedido(Cliente cliente, EstadoPedido estadoPedido, DetallesPedido detallesPedido) {
+    public Pedido (Cliente cliente, EstadoPedido estadoPedido){
+        this.cliente = cliente;
+        this.fechaCreacion = LocalDate.now();
+        this.fechaLimite = LocalDate.now().plusDays(3);
+        this.fechaEntrega = null;
+        this.precioPedido = 0;
+        this.estadoPedido = estadoPedido;
+        this.detallesPedido = null;
+    }
+    public Pedido(Cliente cliente, EstadoPedido estadoPedido, List<DetallesPedido> detallesPedido) {
         this.cliente = cliente;
         this.fechaCreacion = fechaCreacion;
         this.estadoPedido = estadoPedido;
@@ -71,11 +75,11 @@ public class Pedido {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public double getPrecioPedido() {
+    public float getPrecioPedido() {
         return precioPedido;
     }
 
-    public void setPrecioPedido(double precioPedido) {
+    public void setPrecioPedido(float precioPedido) {
         this.precioPedido = precioPedido;
     }
 
@@ -87,24 +91,32 @@ public class Pedido {
         this.estadoPedido = estadoPedido;
     }
 
-    public DetallesPedido getDetallesPedido() {
+    public List<DetallesPedido> getDetallesPedido() {
         return detallesPedido;
     }
 
-    public void setDetallesPedido(DetallesPedido detallesPedido) {
+    public void setDetallesPedido(List<DetallesPedido> detallesPedido) {
         this.detallesPedido = detallesPedido;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pedido pedido = (Pedido) o;
-        return Double.compare(precioPedido, pedido.precioPedido) == 0 && Objects.equals(fechaCreacion, pedido.fechaCreacion) && Objects.equals(fechaLimite, pedido.fechaLimite) && Objects.equals(fechaEntrega, pedido.fechaEntrega) && estadoPedido == pedido.estadoPedido && Objects.equals(detallesPedido, pedido.detallesPedido);
+        return Float.compare(precioPedido, pedido.precioPedido) == 0 && Objects.equals(id, pedido.id) && Objects.equals(cliente, pedido.cliente) && Objects.equals(fechaCreacion, pedido.fechaCreacion) && Objects.equals(fechaLimite, pedido.fechaLimite) && Objects.equals(fechaEntrega, pedido.fechaEntrega) && estadoPedido == pedido.estadoPedido && Objects.equals(detallesPedido, pedido.detallesPedido);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fechaCreacion, fechaLimite, fechaEntrega, precioPedido, estadoPedido, detallesPedido);
+        return Objects.hash(id, cliente, fechaCreacion, fechaLimite, fechaEntrega, precioPedido, estadoPedido, detallesPedido);
     }
 
     @Override
@@ -118,14 +130,16 @@ public class Pedido {
                 "detalles Pedido:" + detallesPedido ;
     }
 
-    public boolean creaPedido(DetallesPedido detallesPedido) {
+    public boolean creaPedido(DetallesPedido detallesPedidoCrear) {
         if (detallesPedido != null) {
-            this.detallesPedido = detallesPedido;
+            this.detallesPedido.add(detallesPedidoCrear);
             this.fechaCreacion = LocalDate.now();
             this.fechaLimite = LocalDate.now().plusDays(3);
             this.fechaEntrega = null;
             this.estadoPedido = EstadoPedido.PENDIENTE;
-            this.precioPedido = detallesPedido.getPrecioTotal();
+            for (DetallesPedido detallesDelPedido : detallesPedido ) {
+                this.precioPedido += detallesDelPedido.getPrecioUnitario() * detallesDelPedido.getCantidad();
+            }
             return true;
         }
         return false;
@@ -141,14 +155,18 @@ public class Pedido {
         return false;
     }
 
-    public boolean modificarPedido(DetallesPedido detallesPedido) {
-        if (this.estadoPedido == EstadoPedido.PENDIENTE) {
-            this.detallesPedido = detallesPedido;
-            this.precioPedido = detallesPedido.getPrecioTotal();
-            return true;
+    public boolean modificarPedido(DetallesPedido detallesPedidoModificar) {
+       if (estadoPedido == EstadoPedido.PENDIENTE) {
+            for (DetallesPedido detallesDelPedido : detallesPedido) {
+                if (detallesDelPedido.equals(detallesPedidoModificar)) {
+                    detallesDelPedido.setCantidad(detallesPedidoModificar.getCantidad());
+                    detallesDelPedido.setPrecioUnitario(detallesPedidoModificar.getPrecioUnitario());
+                    return true;
+                }
+            }
         }else{
-            Utilidades.muestraMensaje("El pedido no se puede modificar porque ya ha sido entregado o está en proceso de entrega.");
-        }
+           Utilidades.muestraMensaje("El pedido no se puede modificar porque ya ha sido entregado o está en proceso de entrega.");
+       }
         return false;
     }
 
@@ -165,5 +183,10 @@ public class Pedido {
         return false;
     }
 
-
+    public void restarPrecioEnvío(){
+        this.precioPedido = this.precioPedido - 3;
+    }
 }
+
+
+
