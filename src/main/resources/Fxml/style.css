@@ -1,0 +1,18 @@
+/* Ejemplo: Clase para Glassmorphism */
+.glass-pane {
+    -fx-background-color: linear-gradient(to bottom right, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+    -fx-background-radius: 15;
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+/* Ejemplo: Clase para Gradient Meshes */
+.gradient-mesh {
+    -fx-background-color:linear-gradient(to right, #0575e6, #021b79);
+}
+
+.text-field {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white; /* Cambia el color del texto a blanco */
+}

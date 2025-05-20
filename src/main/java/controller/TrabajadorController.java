@@ -1,6 +1,7 @@
 package controller;
 
-import DAO.TrabajadorDAO;
+import DAO.*;
+
 import DataBase.ConnectionBD;
 import exceptions.EstadoPedidoInvalidException;
 import model.*;
@@ -8,6 +9,9 @@ import model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class TrabajadorController {
     private static TrabajadorController instancia;
@@ -17,6 +21,10 @@ public class TrabajadorController {
     private PedidoController pedidoController = PedidoController.getInstancia();
     private DescuentoController descuentoController = DescuentoController.getInstancia();
     private static TrabajadorDAO trabajadorDAO = new TrabajadorDAO(ConnectionBD.getConnection());
+    private static TrabajadorPedidoPendienteDAO trabajadorPedidoPendienteDAO = new TrabajadorPedidoPendienteDAO(ConnectionBD.getConnection());
+    private static TrabajadorPedidoCompletadoDAO trabajadorPedidoCompletadoDAO = new TrabajadorPedidoCompletadoDAO(ConnectionBD.getConnection());
+    private static TrabajadorDescuentoDAO trabajadorDescuentoDAO = new TrabajadorDescuentoDAO(ConnectionBD.getConnection());
+    private static TrabajadorAlmacenDAO trabajadorAlmacenDAO = new TrabajadorAlmacenDAO(ConnectionBD.getConnection());
 
 
 
@@ -207,7 +215,7 @@ public class TrabajadorController {
                 boolean stockSuficiente = true;
 
                 for (DetallesPedido detallesPedido : detalles) {
-                    Producto productoPedido = detallesPedido.GetProducto();
+                    Producto productoPedido = detallesPedido.getProducto();
                     int cantidadSolicitada = detallesPedido.getCantidad();
                     if (!compruebaStock(productoPedido, cantidadSolicitada)) {
                         stockSuficiente = false;
@@ -219,6 +227,7 @@ public class TrabajadorController {
                     solicitud.setEstadoPedido(EstadoPedido.PROCESADO);
                     pedidoController.confirmarPedido(solicitud);
                     trabajadorActivo.getPedidosCompletados().add(solicitud); // Añadir a la lista de pedidos completados
+                    sumaSalario(100); // Aumentar el salario del trabajador
                 } else {
                     System.out.println("No hay suficiente stock para procesar el pedido: " + solicitud);
                 }
@@ -252,6 +261,23 @@ public class TrabajadorController {
         }
 
         return false; // No hay suficiente stock en ningún almacén
+    }
+
+    public void sumaSalario(float salario) {
+        trabajadorActivo.setSalario(trabajadorActivo.getSalario() + salario);
+        trabajadorDAO.actualizarSalario(trabajadorActivo.getId(),trabajadorActivo.getSalario());
+    }
+
+    public void salarioA0() {
+        trabajadorActivo.setSalario(0);
+        trabajadorActivo.setPedidosCompletados(null);
+        trabajadorDAO.actualizarSalario(trabajadorActivo.getId(),trabajadorActivo.getSalario());
+
+    }
+
+    private void programarActualizacionSalario() {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(this::salarioA0,0,30, TimeUnit.DAYS);
     }
 
 }

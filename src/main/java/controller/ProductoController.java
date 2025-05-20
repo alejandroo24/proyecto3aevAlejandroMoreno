@@ -63,7 +63,7 @@ public class ProductoController {
 
     public List<Producto> buscarProducto(String criterio) {
         List<Producto> productosEncontrados = new ArrayList<>();
-        for (Producto producto : listaProductos) {
+        for (Producto producto : productoDAO.obtenerTodos()) {
             if (producto.getDescripcion().contains(criterio)) {
                 productosEncontrados.add(producto);
             }

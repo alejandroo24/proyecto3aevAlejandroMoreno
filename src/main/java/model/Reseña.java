@@ -50,7 +50,7 @@ public class Reseña {
         return calificacion;
     }
 
-    public void setCalificación(int calificación) {
+    public void setCalificacion(int calificación) {
         this.calificacion = calificación;
     }
 

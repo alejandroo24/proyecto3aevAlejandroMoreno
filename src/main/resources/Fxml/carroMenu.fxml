@@ -34,6 +34,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -44,9 +45,9 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="559.0" prefWidth="1922.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+    <AnchorPane id="boxBlurSaldo" maxHeight="-1.0" maxWidth="-1.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
       <children>
-            <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#00000025" height="120.0" layoutX="-0.8" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1929.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-7.0" />
+            <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#1f131329" height="120.0" layoutX="-0.8" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1929.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-7.0" />
             <Label fx:id="bienvenidaLabel" layoutX="17.0" layoutY="33.0" text="Bienvenido," textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="38.0" />
@@ -57,45 +58,60 @@
                   <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
                </image>
             </ImageView>
-            <Text fx:id="saldoInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="500.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="ALMACENES" wrappingWidth="261.64599609375">
-               <font>
-                  <Font size="42.0" />
-               </font></Text>
-            <Text accessibleRole="BUTTON" fill="WHITE" layoutX="805.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="DESCUENTOS">
-               <font>
-                  <Font size="42.0" />
-               </font>
-            </Text>
-            <Text fx:id="pedidosInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="1126.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
-               <font>
-                  <Font size="42.0" />
-               </font></Text>
-            <Text fx:id="pedidosInicioButton1" accessibleRole="BUTTON" fill="WHITE" layoutX="1357.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PRODUCTOS">
-               <font>
-                  <Font size="42.0" />
-               </font>
-            </Text>
-            <Rectangle fx:id="calzadoInicioButton111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="844.0" layoutX="68.0" layoutY="163.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="479.0">
+            <Rectangle id="boxBlurSaldo" fx:id="calzadoInicioButton11111" accessibleRole="BUTTON" arcHeight="40.0" arcWidth="40.0" fill="#00000026" height="858.0" layoutX="52.0" layoutY="170.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1261.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <BoxBlur />
+               </effect>
+            </Rectangle>
+            <Rectangle fx:id="btnañadirSaldo1" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="1419.0" layoutY="898.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="133.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comisión pedidos">
+            <Text fill="WHITE" layoutX="1455.0" layoutY="961.0" strokeType="OUTSIDE" strokeWidth="0.0" text="realizar pedido">
                <font>
-                  <Font name="System Bold" size="42.0" />
+                  <Font size="43.0" />
                </font>
             </Text>
-            <Label fx:id="bienvenidaLabel1" layoutX="207.0" layoutY="323.0" text="label salario" textFill="WHITE">
+            <ImageView fitHeight="60.0" fitWidth="59.0" layoutX="1754.0" layoutY="914.0">
+               <image>
+                  <Image url="@../../../../../../../Downloads/bolsa-de-la-compra%20(1).png" />
+               </image>
+            </ImageView>
+            <Text fx:id="btnvolver" accessibleRole="BUTTON" fill="WHITE" layoutX="1749.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="INICIO">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="837.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CARRO">
+               <font>
+                  <Font name="System Bold" size="61.0" />
+               </font>
+            </Text>
+            <Label fx:id="bienvenidaLabel1" layoutX="174.0" layoutY="269.0" text="labels para detallespedido" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="38.0" />
                </font>
             </Label>
-            <Label fx:id="bienvenidaLabel11" layoutX="97.0" layoutY="443.0" text="label pedidos pendientes" textFill="WHITE">
+            <Label fx:id="bienvenidaLabel11" layoutX="1476.0" layoutY="812.0" text="label para total" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="38.0" />
                </font>
             </Label>
-            <Label fx:id="bienvenidaLabel111" layoutX="88.0" layoutY="563.0" prefHeight="55.0" prefWidth="435.0" text="label pedidos completados" textFill="WHITE">
+            <Label fx:id="bienvenidaLabel111" layoutX="1476.0" layoutY="747.0" text="label descuento" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="38.0" />
+               </font>
+            </Label>
+            <Label fx:id="bienvenidaLabel1111" layoutX="1476.0" layoutY="687.0" text="label envío" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="38.0" />
+               </font>
+            </Label>
+            <Label fx:id="bienvenidaLabel11111" layoutX="1476.0" layoutY="627.0" text="label carro" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="38.0" />
                </font>

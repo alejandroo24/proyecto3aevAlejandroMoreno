@@ -23,6 +23,7 @@ public class Cliente extends Usuario{
     public Cliente(Usuario usuario){
         super(usuario.getNombre(), usuario.getContraseña(), usuario.getCorreo(), usuario.getUsuario(), false);
         this.carro = null;
+        this.carro.setIdCliente(getId());
         this.puntosAcumulados = 0;
         this.saldo = 0;
     }

@@ -1,9 +1,6 @@
 package DAO;
 import interfaces.*;
-import model.ColorProducto;
-import model.Producto;
-import model.TallasProducto;
-import model.TipoProducto;
+import model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -106,6 +103,7 @@ public class ProductosDAO implements InterfazDAO<Producto> {
         }
         return productos;
     }
+
     public List<Producto> obtenerPorTipo(TipoProducto tipo) {
         String sql = "SELECT * FROM productos WHERE tipoProducto = ?";
         List<Producto> productos = new ArrayList<>();
@@ -127,6 +125,7 @@ public class ProductosDAO implements InterfazDAO<Producto> {
         }
         return productos;
     }
+
     public List<Producto> obtenerPorTalla(TallasProducto talla) {
         String sql = "SELECT * FROM productos WHERE talla = ?";
         List<Producto> productos = new ArrayList<>();
@@ -149,4 +148,14 @@ public class ProductosDAO implements InterfazDAO<Producto> {
         return productos;
     }
 
+    public void añadirDescuento(int id, Descuento descuento) {
+        String sql = "UPDATE productos SET descuento_id = ? WHERE id = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, descuento.getId());
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

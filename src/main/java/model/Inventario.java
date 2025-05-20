@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Inventario {
         private int id;
-        private int idAlmacen;
-        private int idProducto;
+        private Almacen almacen;
+        private Producto producto;
         private int cantidad;
 
 
@@ -13,9 +13,9 @@ public class Inventario {
 
         }
 
-        public Inventario(int idAlmacen, int idProducto, int cantidad) {
-            this.idAlmacen = idAlmacen;
-            this.idProducto = idProducto;
+        public Inventario(Almacen almacen, Producto producto, int cantidad) {
+            this.almacen = almacen;
+            this.producto = producto;
             this.cantidad = cantidad;
         }
 
@@ -27,20 +27,20 @@ public class Inventario {
         this.id = id;
     }
 
-    public int getIdAlmacen() {
-            return idAlmacen;
+    public Almacen getAlmacen() {
+            return almacen;
         }
 
-        public void setIdAlmacen(int idAlmacen) {
-            this.idAlmacen = idAlmacen;
+        public void setAlmacen(Almacen almacen) {
+            this.almacen = almacen;
         }
 
-        public int getIdProducto() {
-            return idProducto;
+        public Producto getProducto() {
+            return producto;
         }
 
-        public void setIdProducto(int idProducto) {
-            this.idProducto = idProducto;
+        public void setProducto(Producto producto) {
+            this.producto = producto;
         }
 
         public int getCantidad() {
@@ -55,12 +55,12 @@ public class Inventario {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Inventario that = (Inventario) o;
-        return idAlmacen == that.idAlmacen && idProducto == that.idProducto && cantidad == that.cantidad;
+        return id == that.id && cantidad == that.cantidad && Objects.equals(almacen, that.almacen) && Objects.equals(producto, that.producto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idAlmacen, idProducto, cantidad);
+        return Objects.hash(id, almacen, producto, cantidad);
     }
 }
 

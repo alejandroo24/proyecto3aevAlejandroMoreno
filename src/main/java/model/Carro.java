@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Carro {
 
     private int id;
+    private int idCliente;
     private HashMap<Producto, Integer> productosCarro;
     private double precioTotal;
 
@@ -26,6 +27,14 @@ public class Carro {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     public void setProductosCarro(HashMap<Producto, Integer> productosCarro) {
