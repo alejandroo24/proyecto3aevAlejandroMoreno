@@ -34,6 +34,8 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -42,7 +44,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlController.InicioController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
       <children>
@@ -57,20 +59,20 @@
                   <Font name="Ebrima" size="52.0" />
                </font>
             </Label>
-            <ImageView fx:id="carro" accessibleRole="BUTTON" fitHeight="20.0" fitWidth="20.0" layoutX="656.0" layoutY="6.0">
+            <ImageView fx:id="carro" accessibleRole="BUTTON" fitHeight="20.0" fitWidth="20.0" layoutX="656.0" layoutY="6.0" onMouseClicked="#irACarro">
                <image>
-                  <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
+                  <Image url="/Fxml/grocery-store.png" />
                </image>
             </ImageView>
-            <Text fx:id="saldoInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="603.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="SALDO" wrappingWidth="156.04595947265625">
+            <Text fx:id="saldobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="603.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="SALDO" wrappingWidth="156.04595947265625" onMouseClicked="#irASaldo">
                <font>
                   <Font size="42.0" />
                </font></Text>
-            <Text accessibleRole="BUTTON" fill="WHITE" layoutX="890.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PREMIOS">
+            <Text fx:id="premiobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="890.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PREMIOS" onMouseClicked="#irAPremios">
                <font>
                   <Font size="42.0" />
                </font></Text>
-            <Text fx:id="pedidosInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="1169.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
+            <Text fx:id="pedidosInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="1169.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS" onMouseClicked="#irAPedidos">
                <font>
                   <Font size="42.0" />
                </font></Text>
@@ -94,19 +96,19 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Rectangle fx:id="btnañadirSaldo1" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="33.0" layoutY="878.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
+            <Rectangle fx:id="añadircamisetabtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="33.0" layoutY="878.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="84.0" layoutY="939.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
+            <Text fill="WHITE" layoutX="99.0" layoutY="937.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
                <font>
                   <Font size="42.0" />
                </font>
             </Text>
             <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="374.0" layoutY="897.0">
                <image>
-                  <Image url="@../../../../../../../Downloads/mas.png" />
+                  <Image url="/Fxml/plus.png" />
                </image>
             </ImageView>
             <Rectangle fx:id="btnañadirSaldo11" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="512.0" layoutY="881.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
@@ -114,14 +116,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="563.0" layoutY="942.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
+            <Text fill="WHITE" layoutX="583.0" layoutY="940.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
                <font>
                   <Font size="42.0" />
                </font>
             </Text>
             <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="853.0" layoutY="900.0">
                <image>
-                  <Image url="@../../../../../../../Downloads/mas.png" />
+                   <Image url="/Fxml/plus.png" />
                </image>
             </ImageView>
             <Rectangle fx:id="btnañadirSaldo111" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="992.0" layoutY="879.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
@@ -129,14 +131,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="1043.0" layoutY="940.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
+            <Text fill="WHITE" layoutX="1062.0" layoutY="939.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
                <font>
                   <Font size="42.0" />
                </font>
             </Text>
             <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="1333.0" layoutY="898.0">
                <image>
-                  <Image url="@../../../../../../../Downloads/mas.png" />
+                   <Image url="/Fxml/plus.png" />
                </image>
             </ImageView>
             <Rectangle fx:id="btnañadirSaldo1111" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="1472.0" layoutY="879.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
@@ -144,21 +146,61 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="1523.0" layoutY="940.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
+            <Text fill="WHITE" layoutX="1549.0" layoutY="939.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
                <font>
                   <Font size="42.0" />
                </font>
             </Text>
             <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="1813.0" layoutY="898.0">
                <image>
-                  <Image url="@../../../../../../../Downloads/mas.png" />
+                   <Image url="/Fxml/plus.png" />
                </image>
             </ImageView>
-            <ImageView layoutX="1718.0" layoutY="37.0">
+            <ImageView fx:id="carrobtn" layoutX="1717.0" layoutY="29.0" onMouseClicked="#irACarro">
                <image>
-                  <Image url="@../../../../../../../Downloads/carro%20(1).png" />
+                  <Image url="@grocery-store.png" />
                </image>
             </ImageView>
+            <MenuButton fx:id="colorcamisetabtn" layoutX="143.0" layoutY="628.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="166.0" text="color:">
+              <items>
+                <MenuItem fx:id="colornegroitem" mnemonicParsing="false" text="negro " />
+                <MenuItem fx:id="colormarronitem" mnemonicParsing="false" text="marrón" />
+              </items>
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </MenuButton>
+            <MenuButton fx:id="tallacamisetabtn" layoutX="143.0" layoutY="735.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="166.0" text="talla:">
+               <items>
+                  <MenuItem fx:id="tallaScamisetaitem" mnemonicParsing="false" text="S" />
+                  <MenuItem fx:id="tallaMcamisetaitem" mnemonicParsing="false" text="M" />
+                  <MenuItem fx:id="tallaLcamisetaitem" mnemonicParsing="false" text="L" />
+                  <MenuItem fx:id="tallaXLcamisetaitem" mnemonicParsing="false" text="XL" />
+               </items>
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </MenuButton>
+            <MenuButton fx:id="colorsudaderabtn" layoutX="629.0" layoutY="625.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="166.0" text="color:">
+               <items>
+                  <MenuItem fx:id="colorblancosudaderaitem" mnemonicParsing="false" text="blanco" />
+                  <MenuItem fx:id="colornegrosudaderaitem" mnemonicParsing="false" text="negro" />
+               </items>
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </MenuButton>
+            <MenuButton fx:id="tallasudaderabtn" layoutX="629.0" layoutY="733.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="166.0" text="talla:">
+               <items>
+                  <MenuItem fx:id="tallaSsudaderaitem" mnemonicParsing="false" text="S" />
+                  <MenuItem fx:id="tallaMsudaderaitem" mnemonicParsing="false" text="M" />
+                  <MenuItem fx:id="tallaLsudaderaitem" mnemonicParsing="false" text="L" />
+                  <MenuItem fx:id="tallaXLsudaderaitem" mnemonicParsing="false" text="XL" />
+               </items>
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </MenuButton>
       </children>
     </AnchorPane>
   </children>

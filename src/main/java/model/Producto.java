@@ -19,6 +19,16 @@ public class Producto {
 
     }
 
+    public Producto(String descripcion, TallasProducto talla, ColorProducto color,TipoProducto tipoProducto) {
+        this.descripcion = descripcion;
+        this.talla = talla;
+        this.color = color;
+        this.precio = precio;
+        this.tipoProducto = tipoProducto;
+        this.descuento = descuento;
+        this.reseñas = new ArrayList<>();
+    }
+
     public Producto(String descripcion, TallasProducto talla, ColorProducto color, float precio, TipoProducto tipoProducto) {
 
         try {

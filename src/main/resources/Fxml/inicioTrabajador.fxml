@@ -57,45 +57,60 @@
                   <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
                </image>
             </ImageView>
-            <Text fx:id="saldoInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="500.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="ALMACENES" wrappingWidth="261.64599609375">
-               <font>
-                  <Font size="42.0" />
-               </font></Text>
-            <Text accessibleRole="BUTTON" fill="WHITE" layoutX="805.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="DESCUENTOS">
-               <font>
-                  <Font size="42.0" />
-               </font>
-            </Text>
-            <Text fx:id="pedidosInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="1126.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
-               <font>
-                  <Font size="42.0" />
-               </font></Text>
-            <Text fx:id="pedidosInicioButton1" accessibleRole="BUTTON" fill="WHITE" layoutX="1357.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PRODUCTOS">
-               <font>
-                  <Font size="42.0" />
-               </font>
-            </Text>
-            <Rectangle fx:id="calzadoInicioButton111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="844.0" layoutX="68.0" layoutY="163.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="479.0">
+            <Rectangle fx:id="calzadoInicioButton111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="844.0" layoutX="22.0" layoutY="155.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="452.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="133.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comisión pedidos">
+            <Rectangle fx:id="calzadoInicioButton1111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="844.0" layoutX="492.0" layoutY="155.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="452.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Rectangle fx:id="calzadoInicioButton11111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="844.0" layoutX="965.0" layoutY="154.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="452.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Rectangle fx:id="calzadoInicioButton111111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="844.0" layoutX="1441.0" layoutY="154.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="452.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="1275.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pedidos pendientes:">
                <font>
                   <Font name="System Bold" size="42.0" />
                </font>
             </Text>
-            <Label fx:id="bienvenidaLabel1" layoutX="207.0" layoutY="323.0" text="label salario" textFill="WHITE">
+            <Text fx:id="saldoInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="132.0" layoutY="600.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="ALMACENES" wrappingWidth="261.64599609375">
+               <font>
+                  <Font size="42.0" />
+               </font></Text>
+            <Text accessibleRole="BUTTON" fill="WHITE" layoutX="580.0" layoutY="591.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="DESCUENTOS">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <Text fx:id="pedidosInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="1107.0" layoutY="586.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
+               <font>
+                  <Font size="42.0" />
+               </font></Text>
+            <Text fx:id="pedidosInicioButton1" accessibleRole="BUTTON" fill="WHITE" layoutX="1541.0" layoutY="579.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PRODUCTOS">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="431.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comisión pedidos:">
+               <font>
+                  <Font name="System Bold" size="42.0" />
+               </font>
+            </Text>
+            <Label fx:id="bienvenidaLabel1" layoutX="829.0" layoutY="39.0" text="label salario" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="38.0" />
                </font>
             </Label>
-            <Label fx:id="bienvenidaLabel11" layoutX="97.0" layoutY="443.0" text="label pedidos pendientes" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima" size="38.0" />
-               </font>
-            </Label>
-            <Label fx:id="bienvenidaLabel111" layoutX="88.0" layoutY="563.0" prefHeight="55.0" prefWidth="435.0" text="label pedidos completados" textFill="WHITE">
+            <Label fx:id="bienvenidaLabel11" layoutX="1696.0" layoutY="39.0" text="0" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="38.0" />
                </font>

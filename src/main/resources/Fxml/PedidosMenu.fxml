@@ -64,15 +64,15 @@
                   <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
                </image>
             </ImageView>
-            <Text fx:id="saldoInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="603.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="SALDO" wrappingWidth="156.04595947265625">
+            <Text fx:id="saldobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="603.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="SALDO" wrappingWidth="156.04595947265625">
                <font>
                   <Font size="42.0" />
                </font></Text>
-            <Text accessibleRole="BUTTON" fill="WHITE" layoutX="890.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PREMIOS">
+            <Text fx:id="premiosbtn" accessibleRole="BUTTON" fill="WHITE" layoutX="890.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PREMIOS">
                <font>
                   <Font size="42.0" />
                </font></Text>
-            <Text fx:id="pedidosInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="1169.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
+            <Text fx:id="pedidosbtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1169.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
                <font>
                   <Font size="42.0" />
                </font></Text>
@@ -94,7 +94,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="1356.0" layoutY="951.0" strokeType="OUTSIDE" strokeWidth="0.0" text="cancelar">
+            <Text fill="WHITE" layoutX="1288.0" layoutY="951.0" strokeType="OUTSIDE" strokeWidth="0.0" text="cancelar pedido">
                <font>
                   <Font size="48.0" />
                </font>
@@ -104,27 +104,27 @@
                   <Image url="@../../../../../../../Downloads/error.png" />
                </image>
             </ImageView>
-            <Label fx:id="bienvenidaLabel1" layoutX="203.0" layoutY="388.0" prefHeight="75.0" prefWidth="493.0" text="pedido 1" textFill="WHITE">
+            <Label fx:id="labelpedido1" layoutX="203.0" layoutY="388.0" prefHeight="75.0" prefWidth="493.0" text="pedido 1" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="52.0" />
                </font>
             </Label>
-            <Label fx:id="bienvenidaLabel11" layoutX="200.0" layoutY="497.0" prefHeight="75.0" prefWidth="502.0" text="pedido 2" textFill="WHITE">
+            <Label fx:id="labelpedido2" layoutX="200.0" layoutY="497.0" prefHeight="75.0" prefWidth="502.0" text="pedido 2" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="52.0" />
                </font>
             </Label>
-            <Label fx:id="bienvenidaLabel111" layoutX="198.0" layoutY="606.0" prefHeight="75.0" prefWidth="502.0" text="pedido 3" textFill="WHITE">
+            <Label fx:id="labelpedido3" layoutX="198.0" layoutY="606.0" prefHeight="75.0" prefWidth="502.0" text="pedido 3" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="52.0" />
                </font>
             </Label>
-            <Label fx:id="bienvenidaLabel112" layoutX="200.0" layoutY="707.0" prefHeight="75.0" prefWidth="502.0" text="pedido 4 " textFill="WHITE">
+            <Label fx:id="labelpedido4" layoutX="200.0" layoutY="707.0" prefHeight="75.0" prefWidth="502.0" text="pedido 4 " textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="52.0" />
                </font>
             </Label>
-            <Label fx:id="bienvenidaLabel113" layoutX="200.0" layoutY="807.0" prefHeight="75.0" prefWidth="502.0" text="pedido 5" textFill="WHITE">
+            <Label fx:id="labelpedido5" layoutX="200.0" layoutY="807.0" prefHeight="75.0" prefWidth="502.0" text="pedido 5" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="52.0" />
                </font>
@@ -164,11 +164,16 @@
                   <Font size="24.0" />
                </font>
             </RadioButton>
-            <Text fx:id="btnvolver" accessibleRole="BUTTON" fill="WHITE" layoutX="1749.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="INICIO">
+            <Text fx:id="iniciobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1749.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="INICIO">
                <font>
                   <Font size="42.0" />
                </font>
             </Text>
+            <Label fx:id="labelpedidoseleccionado" layoutX="1348.0" layoutY="314.0" prefHeight="75.0" prefWidth="207.0" text="pedido 1" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="52.0" />
+               </font>
+            </Label>
       </children>
     </AnchorPane>
   </children>
