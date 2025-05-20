@@ -12,13 +12,14 @@ import java.util.List;
 public class AlmacenController {
     private final String rutaArchivo = "almacen.txt";
     private static AlmacenController instancia;
-    private ArrayList<Almacen> almacenes;
+    private List<Almacen> almacenes;
     private static AlmacenDAO almacenDAO = new AlmacenDAO(ConnectionBD.getConnection());
+    private static UsuarioActivoController usuarioActivo = UsuarioActivoController.getInstancia();
 
     public static AlmacenController getInstancia() {
         if (instancia == null) {
             instancia = new AlmacenController(new ArrayList<>());
-            instancia.setAlmacenes((ArrayList<Almacen>) almacenDAO.obtenerTodos());
+            instancia.setAlmacenes(almacenDAO.obtenerTodos());
         }
         return instancia;
     }
@@ -51,7 +52,7 @@ public class AlmacenController {
         return almacenes;
     }
 
-    public void setAlmacenes(ArrayList<Almacen> almacenes) {
+    public void setAlmacenes(List<Almacen> almacenes) {
         this.almacenes = almacenes;
     }
 

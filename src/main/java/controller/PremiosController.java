@@ -1,6 +1,8 @@
 package controller;
 
+import DAO.CodigoDAO;
 import DataBase.ConnectionBD;
+import model.Codigo;
 import model.Premio;
 import utils.Utilidades;
 import DAO.PremiosDAO;
@@ -16,12 +18,13 @@ public class PremiosController {
     private static PremiosController instance;
     private final Random random = new Random();
     private static PremiosDAO premiosDAO = new PremiosDAO(ConnectionBD.getConnection());
-
+    private static CodigoDAO codigoDAO = new CodigoDAO(ConnectionBD.getConnection());
 
 
     private ArrayList<Premio> premios;
-    private HashMap<String,Integer>codigosValidos;
-    private HashSet<String>codigosUsados;
+    private ArrayList<Premio> premiosCanjeados;
+    private HashSet<Codigo>codigosValidos;
+    private HashSet<Codigo>codigosUsados;
     private final List<String> descripciones = Arrays.asList(
             "Descuento del 20% en la próxima compra",
             "Descuento del 50% en la próxima compra",
@@ -68,6 +71,14 @@ public class PremiosController {
         return premios;
     }
 
+    public ArrayList<Premio> getPremiosCanjeados() {
+        return premiosCanjeados;
+    }
+
+    public void setPremiosCanjeados(ArrayList<Premio> premiosCanjeados) {
+        this.premiosCanjeados = premiosCanjeados;
+    }
+
     public void setPremiosDisponibles(ArrayList<Premio> premios) {
         this.premios = premios;
     }
@@ -76,19 +87,19 @@ public class PremiosController {
         return rutaArchivo;
     }
 
-    public HashMap<String, Integer> getCodigosValidos() {
+    public HashSet<Codigo> getCodigosValidos() {
         return codigosValidos;
     }
 
-    public void setCodigosValidos(HashMap<String, Integer> codigosValidos) {
+    public void setCodigosValidos(HashSet<Codigo> codigosValidos) {
         this.codigosValidos = codigosValidos;
     }
 
-    public HashSet<String> getCodigosUsados() {
+    public HashSet<Codigo> getCodigosUsados() {
         return codigosUsados;
     }
 
-    public void setCodigosUsados(HashSet<String> codigosUsados) {
+    public void setCodigosUsados(HashSet<Codigo> codigosUsados) {
         this.codigosUsados = codigosUsados;
     }
 
@@ -110,6 +121,7 @@ public class PremiosController {
 
     public void actualizarPremios(){
         premios.clear();
+        premiosCanjeados.clear();
         premios.addAll(obtenerPremiosAleatorios());
         for (Premio premio : premios) {
             if (!premiosDAO.obtenerTodos().contains(premio)){
@@ -123,20 +135,35 @@ public class PremiosController {
         scheduler.scheduleAtFixedRate(this::actualizarPremios,0,7, TimeUnit.DAYS);
     }
 
-    public void generarCodigo(int valorCodigo){
-        String codigoGenerado = null;
+    public Codigo generarCodigo(int valorCodigo){
+        Codigo codigo = new Codigo();
         do {
-             codigoGenerado = Utilidades.CrearCodigoAleatorio(9);
-        }while (codigosUsados.contains(codigoGenerado));
-        codigosValidos.put(codigoGenerado,valorCodigo);
+             codigo.setCodigo(Utilidades.CrearCodigoAleatorio(9));
+             codigo.setValor(valorCodigo);
+        }while (codigosUsados.contains(codigo));
+        codigosValidos.add(codigo);
+        codigoDAO.insertar(codigo);
+        return codigo;
     }
 
-    public void canjearCodigo(String codigo){
-        if (codigosValidos.containsKey(codigo)){
+    public void canjearCodigo(Codigo codigo){
+        if (codigosValidos.contains(codigo)){
+            codigo.setUsado(true);
             codigosUsados.add(codigo);
             codigosValidos.remove(codigo);
+            codigoDAO.codigoUsado(codigo);
         }else{
             Utilidades.muestraMensaje("El código no es válido o ya ha sido usado");
+        }
+    }
+
+    public void canjearPremio(Premio premio){
+        if (premios.contains(premio)){
+            premios.remove(premio);
+            premiosCanjeados.add(premio);
+            premiosDAO.eliminar(premio.getId());
+        }else{
+            Utilidades.muestraMensaje("El premio no es válido o ya ha sido canjeado");
         }
     }
 

@@ -10,6 +10,7 @@ import java.util.Objects;
 public class DetallesPedido {
 
     private int id;
+    private int idPedido;
     private Producto producto;
     private int cantidad;
     private float precioUnitario;
@@ -25,13 +26,22 @@ public class DetallesPedido {
         this.cantidad = cantidad;
     }
 
-    public Producto GetProducto() {
+    public Producto getProducto() {
         return producto;
     }
 
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
+
+    public int getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
+    }
+
 
     public float getPrecioUnitario() {
         return precioUnitario;

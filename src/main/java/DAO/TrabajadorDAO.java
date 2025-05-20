@@ -85,4 +85,15 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
         }
         return null;
     }
+
+    public void actualizarSalario(int id, float salario) {
+        String sql = "UPDATE trabajadores SET salario = ? WHERE id = ?";
+        try (var stmt = con.prepareStatement(sql)) {
+            stmt.setFloat(1, salario);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

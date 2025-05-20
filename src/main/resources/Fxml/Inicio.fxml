@@ -44,9 +44,9 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" style="-fx-background-color: #d7e3fc;" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
       <children>
-            <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#abc4ff" height="120.0" layoutX="-0.8" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1929.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-7.0" />
+            <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#00000027" height="120.0" layoutX="-0.8" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1929.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-7.0" />
             <Label fx:id="bienvenidaLabel" layoutX="17.0" layoutY="33.0" text="Bienvenido," textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="38.0" />
@@ -74,26 +74,91 @@
                <font>
                   <Font size="42.0" />
                </font></Text>
-            <Rectangle fx:id="calzadoInicioButton111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#adc6ff87" height="858.0" layoutX="18.0" layoutY="168.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="453.0">
+            <Rectangle fx:id="calzadoInicioButton111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="858.0" layoutX="18.0" layoutY="168.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="453.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Rectangle fx:id="calzadoInicioButton1111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#adc6ff87" height="858.0" layoutX="494.0" layoutY="168.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="453.0">
+            <Rectangle fx:id="calzadoInicioButton1111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="858.0" layoutX="494.0" layoutY="168.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="453.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Rectangle fx:id="calzadoInicioButton11111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#adc6ff87" height="858.0" layoutX="973.0" layoutY="168.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="453.0">
+            <Rectangle fx:id="calzadoInicioButton11111" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="858.0" layoutX="973.0" layoutY="168.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="453.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Rectangle fx:id="calzadoInicioButton11112" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#adc6ff87" height="858.0" layoutX="1448.0" layoutY="168.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="453.0">
+            <Rectangle fx:id="calzadoInicioButton11112" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="858.0" layoutX="1448.0" layoutY="168.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="453.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
+            <Rectangle fx:id="btnañadirSaldo1" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="33.0" layoutY="878.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="84.0" layoutY="939.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="374.0" layoutY="897.0">
+               <image>
+                  <Image url="@../../../../../../../Downloads/mas.png" />
+               </image>
+            </ImageView>
+            <Rectangle fx:id="btnañadirSaldo11" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="512.0" layoutY="881.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="563.0" layoutY="942.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="853.0" layoutY="900.0">
+               <image>
+                  <Image url="@../../../../../../../Downloads/mas.png" />
+               </image>
+            </ImageView>
+            <Rectangle fx:id="btnañadirSaldo111" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="992.0" layoutY="879.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="1043.0" layoutY="940.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="1333.0" layoutY="898.0">
+               <image>
+                  <Image url="@../../../../../../../Downloads/mas.png" />
+               </image>
+            </ImageView>
+            <Rectangle fx:id="btnañadirSaldo1111" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="1472.0" layoutY="879.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="1523.0" layoutY="940.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir al carro">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="1813.0" layoutY="898.0">
+               <image>
+                  <Image url="@../../../../../../../Downloads/mas.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="1718.0" layoutY="37.0">
+               <image>
+                  <Image url="@../../../../../../../Downloads/carro%20(1).png" />
+               </image>
+            </ImageView>
       </children>
     </AnchorPane>
   </children>

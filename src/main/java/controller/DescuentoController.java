@@ -105,5 +105,10 @@ public class DescuentoController {
 
     public void eliminarDescuentosCaducados() {
         descuentos.removeIf(descuento -> descuento.getFechaCaducidad().isBefore(LocalDate.now()));
+        for (Descuento descuento : descuentos) {
+            if (descuento.getFechaCaducidad().isBefore(LocalDate.now())) {
+                descuentoDAO.eliminar(descuento.getId());
+            }
+        }
     }
 }

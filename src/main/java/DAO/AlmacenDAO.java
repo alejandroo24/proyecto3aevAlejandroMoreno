@@ -24,7 +24,7 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
 
     @Override
     public void insertar(Almacen almacen) {
-        String sql = "INSERT INTO almacen (nombre, direccion) VALUES (?, ?)";
+        String sql = "INSERT INTO almacenes (nombre, direccion) VALUES (?, ?)";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, almacen.getNombre());
             stmt.setString(2, almacen.getLocalizacion());
@@ -36,7 +36,7 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
 
     @Override
     public void actualizar(Almacen almacen) {
-        String sql = "UPDATE almacen SET nombre = ?, direccion = ? WHERE id = ?";
+        String sql = "UPDATE almacenes SET nombre = ?, direccion = ? WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, almacen.getNombre());
             stmt.setString(2, almacen.getLocalizacion());
@@ -49,7 +49,7 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
 
     @Override
     public void eliminar(int id) {
-    String sql = "DELETE FROM almacen WHERE id = ?";
+    String sql = "DELETE FROM almacenes WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
@@ -60,7 +60,7 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
 
     @Override
     public Almacen obtenerPorId(int id) {
-        String sql = "SELECT * FROM almacen WHERE id = ?";
+        String sql = "SELECT * FROM almacenes WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -79,7 +79,7 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
 
     @Override
     public List<Almacen> obtenerTodos() {
-    String sql = "SELECT * FROM almacen";
+    String sql = "SELECT * FROM almacenes";
         List<Almacen> almacenes = new ArrayList<>();
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();

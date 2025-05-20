@@ -1,5 +1,9 @@
 package controller;
 
+import DAO.CarroDAO;
+import DAO.ClienteDAO;
+import DAO.CodigoDAO;
+import DataBase.ConnectionBD;
 import model.*;
 import utils.Utilidades;
 
@@ -16,6 +20,7 @@ public class ClienteController {
     private PedidoController pedidoController = PedidoController.getInstancia();
     private ProductoController productoController = ProductoController.getInstancia();
     private TrabajadorController trabajadorController = TrabajadorController.getInstancia();
+    private ClienteDAO clienteDAO = new ClienteDAO(ConnectionBD.getConnection());
     private final Random random = new Random();
     private ClienteController() {
         // Constructor privado para evitar instanciación externa
@@ -36,7 +41,7 @@ public class ClienteController {
         this.clienteActivo = clienteActivo;
     }
 
-    public boolean canjearPremio(Cliente cliente, Premio premio) {
+    public boolean conseguirPremio(Cliente cliente, Premio premio) {
         if (cliente != null && cliente.getPuntosAcumulados() >= premio.getPuntosNecesarios()) {
             cliente.setPuntosAcumulados(cliente.getPuntosAcumulados() - premio.getPuntosNecesarios());
             aplicarRecompensa(premio);
@@ -53,11 +58,13 @@ public class ClienteController {
         switch (premio.getDescripcion()) {
             case "Descuento del 50% en la próxima compra":
                 clienteActivo.getCarro().SetPrecioTotal(Utilidades.hacerPorcentaje(50,clienteActivo.getCarro().getPrecioTotal()));
+                premiosController.canjearPremio(premio);
                 break;
 
             case "Descuento del 20% en la próxima compra":
                 // Aplica un descuento al cliente
                 clienteActivo.getCarro().SetPrecioTotal(Utilidades.hacerPorcentaje(20,clienteActivo.getCarro().getPrecioTotal()));
+                premiosController.canjearPremio(premio);
                 break;
 
             case "Envío gratuito":
@@ -65,6 +72,7 @@ public class ClienteController {
                 for (Pedido pedido : pedidoController.getListaPedidos()) {
                     if (pedido.getCliente().equals(clienteActivo)) {
                         pedido.restarPrecioEnvío();
+                        premiosController.canjearPremio(premio);
                         break;
                     }
                 }
@@ -74,23 +82,28 @@ public class ClienteController {
                 // Agrega un producto gratis al carro
                 Producto productoGratis = productoController.getListaProductos().get(random.nextInt(productoController.getListaProductos().size()));
                 clienteActivo.getCarro().agregarProducto(productoGratis, 1);
+                premiosController.canjearPremio(premio);
                 break;
 
             case "Duplicar puntos acumulados":
                 // Duplica los puntos acumulados
                 clienteActivo.setPuntosAcumulados(clienteActivo.getPuntosAcumulados() * 2);
+                premiosController.canjearPremio(premio);
                 break;
 
 
             case "Tarjeta de regalo valorada en 10€":
                 premiosController.generarCodigo(10);
+                premiosController.canjearPremio(premio);
                 break;
             case "Tarjeta de regalo valorada en 20€":
                 premiosController.generarCodigo(20);
+                premiosController.canjearPremio(premio);
                 break;
 
             case "Tarjeta de regalo valorada en 50€":
                 premiosController.generarCodigo(50);
+                premiosController.canjearPremio(premio);
                 break;
         }
 
@@ -100,6 +113,7 @@ public class ClienteController {
     public void addProductoCarro(Producto producto, int cantidad) {
         if (clienteActivo != null && producto != null) {
             clienteActivo.getCarro().agregarProducto(producto, cantidad);
+            CarroDAO carroDAO = new CarroDAO(ConnectionBD.getConnection());
         } else {
             Utilidades.muestraMensaje("No se puede añadir el producto al carro");
         }
@@ -174,21 +188,6 @@ public class ClienteController {
         return false;
     }
 
-    public boolean canjearCodigo(String codigo) {
-        if(premiosController.getCodigosValidos().containsKey(codigo) && !premiosController.getCodigosUsados().contains(codigo)) {
-
-            int valor = premiosController.getCodigosValidos().get(codigo);
-            premiosController.canjearCodigo(codigo);
-            añadirSaldo(valor);
-            return true;
-        } else if (premiosController.getCodigosUsados().contains(codigo)) {
-            Utilidades.muestraMensaje("El código ya ha sido canjeado");
-        } else {
-            Utilidades.muestraMensaje("El código no es válido");
-        }
-        return false;
-    }
-
     public void verCarro() {
         if (clienteActivo != null) {
             clienteActivo.getCarro().toString();
@@ -205,7 +204,25 @@ public class ClienteController {
         }
     }
 
+    public void CrearTarjetaRegalo(int valor){
+        Codigo codigo = new Codigo();
+        do {
+        codigo = premiosController.generarCodigo(valor);
+        }while (premiosController.getCodigosUsados().contains(codigo));
+    }
 
+    public boolean canjearCodigo(Codigo codigo) {
+        if(premiosController.getCodigosValidos().contains(codigo) && !premiosController.getCodigosUsados().contains(codigo)) {
+            premiosController.canjearCodigo(codigo);
+            añadirSaldo(codigo.getValor());
+            return true;
+        } else if (premiosController.getCodigosUsados().contains(codigo)) {
+            Utilidades.muestraMensaje("El código ya ha sido canjeado");
+        } else {
+            Utilidades.muestraMensaje("El código no es válido");
+        }
+        return false;
+    }
 
 
 }

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane id="boxBlurSaldo" maxHeight="-1.0" maxWidth="-1.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
+      <children>
+            <Rectangle fx:id="calzadoInicioButton111111" accessibleRole="BUTTON" arcHeight="40.0" arcWidth="40.0" fill="#00000026" height="858.0" layoutX="1028.0" layoutY="180.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="811.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#1f131329" height="120.0" layoutX="-0.8" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1929.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-7.0" />
+            <Label fx:id="bienvenidaLabel" layoutX="17.0" layoutY="33.0" text="Bienvenido," textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="38.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="carro" accessibleRole="BUTTON" fitHeight="20.0" fitWidth="20.0" layoutX="656.0" layoutY="6.0">
+               <image>
+                  <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
+               </image>
+            </ImageView>
+            <Text fx:id="saldoInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="603.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="SALDO" wrappingWidth="156.04595947265625">
+               <font>
+                  <Font size="42.0" />
+               </font></Text>
+            <Text accessibleRole="BUTTON" fill="WHITE" layoutX="890.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PREMIOS">
+               <font>
+                  <Font size="42.0" />
+               </font></Text>
+            <Text fx:id="pedidosInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="1169.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
+               <font>
+                  <Font size="42.0" />
+               </font></Text>
+            <Rectangle id="boxBlurSaldo" fx:id="calzadoInicioButton11111" accessibleRole="BUTTON" arcHeight="40.0" arcWidth="40.0" fill="#00000026" height="858.0" layoutX="52.0" layoutY="170.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="811.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <BoxBlur />
+               </effect>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="288.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tus premios:">
+               <font>
+                  <Font size="61.0" />
+               </font>
+            </Text>
+            <Rectangle fx:id="btnañadirSaldo1" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="1229.0" layoutY="488.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="1342.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="canjear">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="1225.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Canjear premio">
+               <font>
+                  <Font size="61.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="60.0" fitWidth="66.0" layoutX="1557.0" layoutY="503.0">
+               <image>
+                  <Image url="@../../../../../../../Downloads/regalo.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="bienvenidaLabel1" layoutX="223.0" layoutY="328.0" prefHeight="75.0" prefWidth="493.0" text="premio1" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="52.0" />
+               </font>
+            </Label>
+            <Label fx:id="bienvenidaLabel11" layoutX="220.0" layoutY="437.0" prefHeight="75.0" prefWidth="502.0" text="premio2" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="52.0" />
+               </font>
+            </Label>
+            <Text fill="WHITE" layoutX="111.0" layoutY="599.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Los premios se actualizarán cada semana*">
+               <font>
+                  <Font size="38.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="288.0" layoutY="689.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tus puntos:">
+               <font>
+                  <Font size="61.0" />
+               </font>
+            </Text>
+            <Label fx:id="bienvenidaLabel12" layoutX="218.0" layoutY="756.0" prefHeight="75.0" prefWidth="493.0" text="puntos" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="52.0" />
+               </font>
+            </Label>
+            <MenuButton layoutX="1335.0" layoutY="351.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="214.0" text="Premios">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </MenuButton>
+            <Label fx:id="bienvenidaLabel13" layoutX="1182.0" layoutY="724.0" prefHeight="75.0" prefWidth="493.0" text="codigo" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="52.0" />
+               </font>
+            </Label>
+            <Text fx:id="btnvolver" accessibleRole="BUTTON" fill="WHITE" layoutX="1699.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="INICIO">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

@@ -3,6 +3,7 @@ package DAO;
 import interfaces.InterfazDAO;
 import model.Almacen;
 import model.Inventario;
+import model.Producto;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ public class InventarioDAO implements InterfazDAO<Inventario>{
     public void insertar(Inventario inventario) {
         String sql = "INSERT INTO inventario (almacen_id, producto_id, cantidad) VALUES (?, ?, ?)";
         try (var stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, inventario.getIdAlmacen());
-            stmt.setInt(2, inventario.getIdProducto());
+            stmt.setInt(1, inventario.getAlmacen().getId());
+            stmt.setInt(2, inventario.getProducto().getId());
             stmt.setInt(3, inventario.getCantidad());
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -33,8 +34,8 @@ public class InventarioDAO implements InterfazDAO<Inventario>{
     public void actualizar(Inventario inventario) {
     String sql = "UPDATE inventario SET almacen_id = ?, producto_id = ?, cantidad = ? WHERE id = ?";
         try (var stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, inventario.getIdAlmacen());
-            stmt.setInt(2, inventario.getIdProducto());
+            stmt.setInt(1, inventario.getAlmacen().getId());
+            stmt.setInt(2, inventario.getProducto().getId());
             stmt.setInt(3, inventario.getCantidad());
             stmt.setInt(4, inventario.getId());
             stmt.executeUpdate();
@@ -63,8 +64,19 @@ public class InventarioDAO implements InterfazDAO<Inventario>{
             if (rs.next()) {
                 Inventario inventario = new Inventario();
                 inventario.setId(rs.getInt("id"));
-                inventario.setIdAlmacen(rs.getInt("almacen_id"));
-                inventario.setIdProducto(rs.getInt("producto_id"));
+                for (Almacen almacen : new AlmacenDAO(con).obtenerTodos()) {
+                    if (almacen.getId() == rs.getInt("almacen_id")) {
+                        inventario.setAlmacen(almacen);
+                        break;
+                    }
+                }
+
+                for (Producto producto : new ProductosDAO(con).obtenerTodos()) {
+                    if (producto.getId() == rs.getInt("producto_id")) {
+                        inventario.setProducto(producto);
+                        break;
+                    }
+                }
                 inventario.setCantidad(rs.getInt("cantidad"));
                 return inventario;
             }
@@ -83,8 +95,18 @@ public class InventarioDAO implements InterfazDAO<Inventario>{
             while (rs.next()) {
                 Inventario inventario = new Inventario();
                 inventario.setId(rs.getInt("id"));
-                inventario.setIdAlmacen(rs.getInt("almacen_id"));
-                inventario.setIdProducto(rs.getInt("producto_id"));
+                for (Almacen almacen: new AlmacenDAO(con).obtenerTodos()) {
+                    if (almacen.getId() == rs.getInt("almacen_id")) {
+                        inventario.setAlmacen(almacen);
+                        break;
+                    }
+                }
+                for (Producto producto: new ProductosDAO(con).obtenerTodos()) {
+                    if (producto.getId() == rs.getInt("producto_id")) {
+                        inventario.setProducto(producto);
+                        break;
+                    }
+                }
                 inventario.setCantidad(rs.getInt("cantidad"));
                 listaInventarios.add(inventario);
             }
