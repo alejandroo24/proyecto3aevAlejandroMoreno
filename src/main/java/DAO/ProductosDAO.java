@@ -158,4 +158,24 @@ public class ProductosDAO implements InterfazDAO<Producto> {
             e.printStackTrace();
         }
     }
+
+    public Producto obtenerPorAtributos(String descripcion, TallasProducto talla, ColorProducto color, TipoProducto tipo) {
+        String sql = "SELECT * FROM productos WHERE descripcion = ? AND talla = ? AND color = ? AND tipoProducto = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, descripcion);
+            stmt.setString(2, talla.name());
+            stmt.setString(3, color.name());
+            stmt.setString(4, tipo.name());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Producto producto = new Producto();
+                producto.setId(rs.getInt("id"));
+                // Asigna los demás atributos...
+                return producto;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

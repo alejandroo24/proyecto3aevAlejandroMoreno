@@ -18,13 +18,18 @@ public class UsuarioDAO implements InterfazDAO<Usuario> {
 
     @Override
     public void insertar(Usuario usuario) {
-        String sql = "INSERT INTO usuarios (nombre, contraseña, correo, usuario) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+        String sql = "INSERT INTO usuarios (nombre, contraseña, correo, usuario, esTrabajador) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, usuario.getNombre());
             stmt.setString(2, usuario.getContraseña());
             stmt.setString(3, usuario.getCorreo());
             stmt.setString(4, usuario.getUsuario());
+            stmt.setBoolean(5, usuario.isTrabajador());
             stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                usuario.setId(rs.getInt(1));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -197,6 +202,20 @@ public class UsuarioDAO implements InterfazDAO<Usuario> {
             e.printStackTrace();
         }
         return total;
+    }
+
+    public boolean existeCorreo(String correo) {
+        String sql = "SELECT COUNT(*) AS total FROM usuarios WHERE correo = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, correo);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total") > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

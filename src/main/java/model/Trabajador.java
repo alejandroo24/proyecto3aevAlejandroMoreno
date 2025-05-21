@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class Trabajador extends Usuario {
     // Atributos
+    private int id;
     private float salario;
     private ArrayList<Almacen> almacenesGestionados;
     private ArrayList<Descuento> descuentosCreados;
@@ -35,6 +36,7 @@ public class Trabajador extends Usuario {
         this.descuentosCreados = new ArrayList<>();
         this.pedidosCompletados = new ArrayList<>();
         this.salario = 0;
+        this.id = usuario.getId();
     }
 
     public Trabajador(String nombre, String contraseña, String correo, String usuario,boolean isTrabajador) throws TipoUsuarioException {
@@ -57,6 +59,16 @@ public class Trabajador extends Usuario {
             throw new TipoUsuarioException("El usuario no es un trabajador");
         }
 
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     public float getSalario() {

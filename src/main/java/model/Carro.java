@@ -1,5 +1,8 @@
 package model;
 
+import DAO.CarroDAO;
+import DataBase.ConnectionBD;
+
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ public class Carro {
     private HashMap<Producto, Integer> productosCarro;
     private double precioTotal;
 
+    CarroDAO carroDAO = new CarroDAO(ConnectionBD.getConnection());
 
     public Carro() {
         this.productosCarro = new HashMap<>();
@@ -45,12 +49,12 @@ public class Carro {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Carro carro = (Carro) o;
-        return Objects.equals(id, carro.id) && Objects.equals(productosCarro, carro.productosCarro);
+        return id == carro.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productosCarro);
+        return Objects.hashCode(id);
     }
 
     @Override

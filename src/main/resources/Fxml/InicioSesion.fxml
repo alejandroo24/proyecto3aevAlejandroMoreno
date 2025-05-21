@@ -46,55 +46,55 @@
          <children>
             <Pane layoutX="-4.0" layoutY="-1.0" prefHeight="252.0" prefWidth="1636.0" styleClass="gradient-mesh" stylesheets="@style.css">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1d1f2430" height="255.0" layoutX="3.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1638.0" />
-                  <Text fill="WHITE" layoutX="520.0" layoutY="97.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a Forever Damned" textAlignment="CENTER" wrappingWidth="596.0">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1d1f2430" height="233.0" layoutX="3.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1638.0" />
+                  <Text fill="WHITE" layoutX="480.0" layoutY="97.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a Forever Damned" textAlignment="CENTER" wrappingWidth="596.0">
                      <font>
-                        <Font size="53.0" />
+                        <Font size="47.0" />
                      </font>
                   </Text>
                </children>
             </Pane>
             <Pane layoutX="-1.0" layoutY="247.0" prefHeight="625.0" prefWidth="1634.0" styleClass="gradient-mesh" stylesheets="@style.css">
                <children>
-                  <PasswordField fx:id="txtContraseña" layoutX="609.0" layoutY="288.0" prefHeight="51.0" prefWidth="396.0" promptText="contraseña" style="-fx-background-radius: 8px;">
+                  <PasswordField fx:id="txtContraseña" layoutX="569.0" layoutY="215.0" prefHeight="51.0" prefWidth="396.0" promptText="contraseña" style="-fx-background-radius: 8px;">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </PasswordField>
-                  <Text fill="WHITE" layoutX="430.0" layoutY="84.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicia sesión para acceder al programa" textAlignment="CENTER" wrappingWidth="759.9999389648438">
+                  <Text fill="WHITE" layoutX="390.0" layoutY="74.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicia sesión para acceder al programa" textAlignment="CENTER" wrappingWidth="759.9999389648438">
                      <font>
-                        <Font size="48.0" />
+                        <Font size="44.0" />
                      </font>
                   </Text>
-                  <Rectangle fx:id="btnIniciarSesion" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#1f21262e" height="45.0" layoutX="676.0" layoutY="411.0" onMouseClicked="#iniciarSesion" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="261.0" />
-                  <Text fill="WHITE" layoutX="721.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar Sesión" textAlignment="CENTER">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="26.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No tienes una cuenta? ">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Text>
-                  <Rectangle fx:id="btnRegistrarse" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="442.0" layoutY="555.0" onMouseClicked="#registrar" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="235.0" />
-                  <Text fill="WHITE" layoutX="478.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrarse" textAlignment="CENTER" wrappingWidth="158.800048828125">
+                  <Rectangle fx:id="btnIniciarSesion" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#1f21262e" height="45.0" layoutX="636.0" layoutY="318.0" onMouseClicked="#iniciarSesion" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="261.0" />
+                  <Text fill="WHITE" layoutX="681.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar Sesión" textAlignment="CENTER">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" layoutX="1185.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acceder como invitado" wrappingWidth="384.7359619140625">
+                  <Text fill="WHITE" layoutX="22.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No tienes una cuenta? ">
                      <font>
                         <Font size="36.0" />
                      </font>
                   </Text>
-                  <Rectangle fx:id="btnInvitado" accessibleRole="BUTTON" arcHeight="70.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="921.0" layoutY="559.0" onMouseClicked="#invitado" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="235.0" />
-                  <TextField fx:id="txtUsuario" accessibleRole="TEXT_FIELD" layoutX="611.0" layoutY="210.0" prefHeight="51.0" prefWidth="394.0" promptText="usuario" style="-fx-background-radius: 8px;">
+                  <Rectangle fx:id="btnRegistrarse" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="412.0" layoutY="450.0" onMouseClicked="#registrar" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="235.0" />
+                  <Text fill="WHITE" layoutX="446.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrarse" textAlignment="CENTER" wrappingWidth="158.800048828125">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="1145.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acceder como invitado" wrappingWidth="384.7359619140625">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Rectangle fx:id="btnInvitado" accessibleRole="BUTTON" arcHeight="70.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="881.0" layoutY="454.0" onMouseClicked="#invitado" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="235.0" />
+                  <TextField fx:id="txtUsuario" accessibleRole="TEXT_FIELD" layoutX="571.0" layoutY="137.0" prefHeight="51.0" prefWidth="394.0" promptText="usuario" style="-fx-background-radius: 8px;">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </TextField>
-                  <Text fill="WHITE" layoutX="977.0" layoutY="591.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invitado" textAlignment="CENTER" wrappingWidth="126.58007812499993">
+                  <Text fill="WHITE" layoutX="937.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invitado" textAlignment="CENTER" wrappingWidth="126.58007812499993">
                      <font>
                         <Font size="30.0" />
                      </font>

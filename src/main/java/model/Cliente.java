@@ -9,6 +9,8 @@ import java.util.HashSet;
 
 
 public class Cliente extends Usuario{
+   private int id;
+
     private Carro carro;
 
     private int puntosAcumulados;
@@ -22,8 +24,8 @@ public class Cliente extends Usuario{
 
     public Cliente(Usuario usuario){
         super(usuario.getNombre(), usuario.getContraseña(), usuario.getCorreo(), usuario.getUsuario(), false);
-        this.carro = null;
-        this.carro.setIdCliente(getId());
+        this.carro = new Carro();
+        this.id= usuario.getId();
         this.puntosAcumulados = 0;
         this.saldo = 0;
     }
@@ -32,7 +34,7 @@ public class Cliente extends Usuario{
         super(nombre, contraseña, correo, usuario, false);
         try {
             if (!isTrabajador()) {
-                this.carro = null;
+                this.carro = new Carro();
                 this.puntosAcumulados = 0;
                 this.saldo = 0;
             }
@@ -65,6 +67,15 @@ public class Cliente extends Usuario{
         this.saldo = saldo;
     }
 
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

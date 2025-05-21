@@ -1,6 +1,7 @@
 package FxmlController;
 
 import DAO.ClienteDAO;
+import DAO.ProductosDAO;
 import controller.UsuarioActivoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,11 +10,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.*;
+import utils.Utilidades;
 
 public class InicioController {
 
     UsuarioActivoController usuarioActivoController = UsuarioActivoController.getInstancia();
     ClienteDAO clienteDAO = new ClienteDAO(ConnectionBD.getConnection());
+    ProductosDAO productosDAO = new ProductosDAO(ConnectionBD.getConnection());
     Cliente cliente = clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId());
 
 
@@ -84,6 +87,15 @@ public class InicioController {
     @FXML
     private void initialize() {
         inicio();
+        if (cliente == null) {
+            Utilidades.muestraMensaje("Error: el cliente no existe en la base de datos.");
+            return;
+        }
+        if (cliente.getCarro() == null) {
+            cliente.setCarro(new Carro());
+            cliente.getCarro().setIdCliente(cliente.getId());
+            clienteDAO.actualizar(cliente);
+        }
         añadirCamisetaCarro();
         añadirSudaderaCarro();
     }
@@ -91,7 +103,10 @@ public class InicioController {
 
     private void inicio() {
         bienvenidaLabel.setText("Bienvenido, " + usuarioActivoController.getUsuarioActivo().getNombre() + "!");
-        int cantidadProductos = (clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId()).getCarro().cantidadProductos());
+        int cantidadProductos = 0;
+        if (cliente != null && cliente.getCarro() != null){
+            cantidadProductos = cliente.getCarro().cantidadProductos();
+        }
         contadorCarro.setText(String.valueOf(cantidadProductos));
     }
 
@@ -113,47 +128,100 @@ public class InicioController {
     }
 
     private void añadirCamisetaCarro() {
-        colornegroitemc.setOnAction(event -> colorSeleccionadoc = ColorProducto.BLANCO);
-        colormarronitemc.setOnAction(event ->  colorSeleccionadoc = ColorProducto.MARRON);
+        colornegroitemc.setOnAction(event -> {
+            Utilidades.muestraMensaje("Camiseta negra seleccionada");
+            colorSeleccionadoc = ColorProducto.NEGRO;
+            intentarAñadirCamiseta();
+        });
+        colormarronitemc.setOnAction(event -> {
+            colorSeleccionadoc = ColorProducto.MARRON;
+            intentarAñadirCamiseta();
+        });
 
-        // Configurar acciones para las tallas
-        tallaScamisetaitem.setOnAction(event -> tallaSeleccionadac= TallasProducto.S);
-        tallaMcamisetaitem.setOnAction(event -> tallaSeleccionadac = TallasProducto.M);
-        tallaLcamisetaitem.setOnAction(event -> tallaSeleccionadac = TallasProducto.L);
-        tallaXLcamisetaitem.setOnAction(event -> tallaSeleccionadac = TallasProducto.XL);
-
-        if (colorSeleccionadoc != null && tallaSeleccionadac != null) {
-
-            Producto camiseta = new Producto("Camiseta majesty",tallaSeleccionadac,colorSeleccionadoc, TipoProducto.CAMISETA);
-            cliente.getCarro().agregarProducto(camiseta,1);
-        }
-
-        clienteDAO.actualizar(cliente);
-
-        int cantidadProductos = (clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId()).getCarro().cantidadProductos());
-        contadorCarro.setText(String.valueOf(cantidadProductos));
-
+        tallaScamisetaitem.setOnAction(event -> {
+            tallaSeleccionadac = TallasProducto.S;
+            intentarAñadirCamiseta();
+        });
+        tallaMcamisetaitem.setOnAction(event -> {
+            tallaSeleccionadac = TallasProducto.M;
+            intentarAñadirCamiseta();
+        });
+        tallaLcamisetaitem.setOnAction(event -> {
+            tallaSeleccionadac = TallasProducto.L;
+            intentarAñadirCamiseta();
+        });
+        tallaXLcamisetaitem.setOnAction(event -> {
+            tallaSeleccionadac = TallasProducto.XL;
+            intentarAñadirCamiseta();
+        });
     }
 
-    private void añadirSudaderaCarro(){
-        colorblancosudaderaitem.setOnAction(event -> colorSeleccionadoS = ColorProducto.BLANCO);
-        colornegrosudaderaitem.setOnAction(event ->  colorSeleccionadoS = ColorProducto.NEGRO);
-
-        // Configurar acciones para las tallas
-        tallaScamisetaitem.setOnAction(event -> tallaSeleccionadaS = TallasProducto.S);
-        tallaMcamisetaitem.setOnAction(event -> tallaSeleccionadaS = TallasProducto.M);
-        tallaLcamisetaitem.setOnAction(event -> tallaSeleccionadaS = TallasProducto.L);
-        tallaXLcamisetaitem.setOnAction(event -> tallaSeleccionadaS = TallasProducto.XL);
-
-        if (colorSeleccionadoS != null && tallaSeleccionadaS != null) {
-
-            Producto sudadera = new Producto("Sudadera forever damned",tallaSeleccionadaS,colorSeleccionadoS, TipoProducto.SUDADERA);
-            cliente.getCarro().agregarProducto(sudadera,1);
+    private void intentarAñadirCamiseta() {
+        if (colorSeleccionadoc != null && tallaSeleccionadac != null && cliente != null) {
+            Producto camiseta = productosDAO.obtenerPorAtributos(
+                    "Camiseta majesty", tallaSeleccionadac, colorSeleccionadoc, TipoProducto.CAMISETA
+            );
+            if (camiseta != null) {
+                cliente.getCarro().agregarProducto(camiseta, 1);
+                clienteDAO.actualizar(cliente);
+                cliente = clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId());
+                int cantidadProductos = cliente.getCarro().cantidadProductos();
+                contadorCarro.setText(String.valueOf(cantidadProductos));
+                Utilidades.muestraMensaje("producto añadido al carro");
+            } else {
+                Utilidades.muestraMensaje("No se encontró el producto en la base de datos");
+            }
+            colorSeleccionadoc = null;
+            tallaSeleccionadac = null;
         }
-        clienteDAO.actualizar(cliente);
+    }
 
-        int cantidadProductos = (clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId()).getCarro().cantidadProductos());
-        contadorCarro.setText(String.valueOf(cantidadProductos));
+    private void añadirSudaderaCarro() {
+        colorblancosudaderaitem.setOnAction(event -> {
+            colorSeleccionadoS = ColorProducto.BLANCO;
+            intentarAñadirSudadera();
+        });
+        colornegrosudaderaitem.setOnAction(event -> {
+            colorSeleccionadoS = ColorProducto.NEGRO;
+            intentarAñadirSudadera();
+        });
+
+        tallaSsudaderaitem.setOnAction(event -> {
+            tallaSeleccionadaS = TallasProducto.S;
+            intentarAñadirSudadera();
+        });
+        tallaMsudaderaitem.setOnAction(event -> {
+            tallaSeleccionadaS = TallasProducto.M;
+            intentarAñadirSudadera();
+        });
+        tallaLsudaderaitem.setOnAction(event -> {
+            tallaSeleccionadaS = TallasProducto.L;
+            intentarAñadirSudadera();
+        });
+        tallaXLsudaderaitem.setOnAction(event -> {
+            tallaSeleccionadaS = TallasProducto.XL;
+            intentarAñadirSudadera();
+        });
+    }
+
+    private void intentarAñadirSudadera() {
+        if (colorSeleccionadoS != null && tallaSeleccionadaS != null && cliente != null) {
+            Producto sudadera = productosDAO.obtenerPorAtributos(
+                    "Sudadera forever damned", tallaSeleccionadaS, colorSeleccionadoS, TipoProducto.SUDADERA
+            );
+            if (sudadera != null) {
+                cliente.getCarro().agregarProducto(sudadera, 1);
+                clienteDAO.actualizar(cliente);
+                cliente = clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId());
+                int cantidadProductos = cliente.getCarro().cantidadProductos();
+                contadorCarro.setText(String.valueOf(cantidadProductos));
+                Utilidades.muestraMensaje("producto añadido al carro");
+            } else {
+                Utilidades.muestraMensaje("No se encontró el producto en la base de datos");
+            }
+            colorSeleccionadoS = null;
+            tallaSeleccionadaS = null;
+        }
     }
 
     @FXML

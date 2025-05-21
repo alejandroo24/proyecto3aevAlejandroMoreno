@@ -17,8 +17,9 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
 
     @Override
     public void insertar(Trabajador objeto) {
-        String sql = "INSERT INTO trabajadores (salario) VALUES (?)";
+        String sql = "INSERT INTO trabajadores (id,salario) VALUES (?,?)";
         try (var stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, objeto.getId());
             stmt.setFloat(1, objeto.getSalario());
             stmt.executeUpdate();
         } catch (Exception e) {

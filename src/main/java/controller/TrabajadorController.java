@@ -33,7 +33,11 @@ public class TrabajadorController {
     public static TrabajadorController getInstancia() {
         if (instancia == null) {
             instancia = new TrabajadorController();
-            instancia.trabajadorActivo.setSalario(trabajadorDAO.obtenerPorId(instancia.trabajadorActivo.getId()).getSalario());
+            if (instancia.trabajadorActivo != null) {
+                instancia.trabajadorActivo.setSalario(
+                        trabajadorDAO.obtenerPorId(instancia.trabajadorActivo.getId()).getSalario()
+                );
+            }
         }
         return instancia;
     }

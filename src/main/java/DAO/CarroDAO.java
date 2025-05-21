@@ -8,6 +8,8 @@ import model.Cliente;
 import model.Producto;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +28,15 @@ public class CarroDAO implements InterfazDAO<Carro> {
 
     @Override
     public void insertar(Carro carro) {
+        String sqlCarro = "INSERT INTO carro (id_cliente, fecha_actualizacion) VALUES (?, ?)";
+        try (var stmt = con.prepareStatement(sqlCarro)) {
+            stmt.setInt(1, carro.getIdCliente());
+            stmt.setDate(2, Date.valueOf(java.time.LocalDate.now()));
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         String sql = "INSERT INTO carro_productos (cliente_id, producto_id, cantidad) VALUES (?, ?, ?)";
         try (var stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, carro.getIdCliente());
@@ -41,22 +52,29 @@ public class CarroDAO implements InterfazDAO<Carro> {
 
     @Override
     public void actualizar(Carro carro) {
-        for (Producto producto : carro.getProductosCarro().keySet()) {
-            ArrayList<Producto> productosAñadidos = new ArrayList<>();
-            String sql = "INSERT INTO carro_productos (cliente_id, producto_id, cantidad) VALUES (?, ?, ?)";
-            try (var stmt = con.prepareStatement(sql)) {
-                stmt.setInt(1, carro.getIdCliente());
-                stmt.setInt(2, producto.getId());
-                stmt.setInt(3, carro.getProductosCarro().get(producto));
-                stmt.executeUpdate();
-            } catch (Exception e) {
-                e.printStackTrace();
+        // 1. Eliminar los productos actuales del carro en la base de datos
+        String deleteSQL = "DELETE FROM carro_productos WHERE cliente_id = ?";
+        try (var deleteStmt = con.prepareStatement(deleteSQL)) {
+            deleteStmt.setInt(1, carro.getIdCliente());
+            deleteStmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 2. Insertar los productos actuales del carro
+        String insertSQL = "INSERT INTO carro_productos (cliente_id, producto_id, cantidad) VALUES (?, ?, ?)";
+        try (var insertStmt = con.prepareStatement(insertSQL)) {
+            for (Producto producto : carro.getProductosCarro().keySet()) {
+                insertStmt.setInt(1, carro.getIdCliente());
+                insertStmt.setInt(2, producto.getId());
+                insertStmt.setInt(3, carro.getProductosCarro().get(producto));
+                insertStmt.executeUpdate();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-
-    //TODO: TERMINAR ELIMINAR
     @Override
     public void eliminar(int id) {
          {
@@ -113,5 +131,24 @@ public class CarroDAO implements InterfazDAO<Carro> {
                 e.printStackTrace();
             }
             return carros;
+        }
+
+        public Carro obtenerPorIdCliente (int idCliente) {
+            String sql = "SELECT * FROM carro_productos WHERE cliente_id = ?";
+            try (var stmt = con.prepareStatement(sql)) {
+                stmt.setInt(1, idCliente);
+                var rs = stmt.executeQuery();
+                Carro carro = new Carro();
+                carro.setIdCliente(idCliente);
+                while (rs.next()) {
+                    Producto producto = new Producto();
+                    producto.setId(rs.getInt("producto_id"));
+                    carro.agregarProducto(producto, rs.getInt("cantidad"));
+                }
+                return carro;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
         }
 }
