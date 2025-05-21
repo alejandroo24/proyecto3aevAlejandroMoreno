@@ -46,39 +46,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane id="boxBlurSaldo" maxHeight="-1.0" maxWidth="-1.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
       <children>
-            <Rectangle fx:id="calzadoInicioButton111111" accessibleRole="BUTTON" arcHeight="40.0" arcWidth="40.0" fill="#00000026" height="858.0" layoutX="1028.0" layoutY="180.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="811.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
-            <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#1f131329" height="120.0" layoutX="-0.8" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1929.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-7.0" />
-            <Label fx:id="bienvenidaLabel" layoutX="17.0" layoutY="33.0" text="Bienvenido," textFill="WHITE">
-               <font>
-                  <Font name="Ebrima" size="38.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="carro" accessibleRole="BUTTON" fitHeight="20.0" fitWidth="20.0" layoutX="656.0" layoutY="6.0">
-               <image>
-                  <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
-               </image>
-            </ImageView>
-            <Text fx:id="saldobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="603.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="SALDO" wrappingWidth="156.04595947265625">
-               <font>
-                  <Font size="42.0" />
-               </font></Text>
-            <Text fx:id="premiosbtn" accessibleRole="BUTTON" fill="WHITE" layoutX="890.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PREMIOS">
-               <font>
-                  <Font size="42.0" />
-               </font></Text>
-            <Text fx:id="pedidosbtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1169.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
-               <font>
-                  <Font size="42.0" />
-               </font></Text>
-            <Rectangle id="boxBlurSaldo" fx:id="calzadoInicioButton11111" accessibleRole="BUTTON" arcHeight="40.0" arcWidth="40.0" fill="#00000026" height="858.0" layoutX="52.0" layoutY="170.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="811.0">
+            <Rectangle id="boxBlurSaldo" fx:id="calzadoInicioButton111111" accessibleRole="BUTTON" arcHeight="40.0" arcWidth="40.0" fill="#00000026" height="625.0" layoutX="810.0" layoutY="141.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="680.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -86,118 +58,135 @@
                   <BoxBlur />
                </effect>
             </Rectangle>
-            <Text fill="WHITE" layoutX="303.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tu saldo:">
+            <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#1f131329" height="120.0" layoutX="-0.8" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1929.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-7.0" />
+            <Label fx:id="bienvenidaLabel" layoutX="37.0" layoutY="40.0" text="Bienvenido," textFill="WHITE">
                <font>
-                  <Font size="61.0" />
-               </font>
-            </Text>
-            <Label fx:id="saldolabel" layoutX="553.0" layoutY="218.0" text="0 €" textFill="WHITE">
-               <font>
-                  <Font size="51.0" />
+                  <Font name="Ebrima" size="26.0" />
                </font>
             </Label>
-            <Rectangle fx:id="añadirsaldobtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="237.0" layoutY="323.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
+            <ImageView fx:id="carro" accessibleRole="BUTTON" fitHeight="20.0" fitWidth="20.0" layoutX="656.0" layoutY="6.0">
+               <image>
+                  <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
+               </image>
+            </ImageView>
+            <Text fx:id="saldobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="475.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="SALDO" wrappingWidth="95.24591064453125">
+               <font>
+                  <Font size="25.0" />
+               </font></Text>
+            <Text fx:id="premiosbtn" accessibleRole="BUTTON" fill="WHITE" layoutX="706.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PREMIOS">
+               <font>
+                  <Font size="25.0" />
+               </font></Text>
+            <Text fx:id="pedidosbtn" accessibleRole="BUTTON" fill="WHITE" layoutX="966.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
+               <font>
+                  <Font size="25.0" />
+               </font></Text>
+            <Rectangle id="boxBlurSaldo" fx:id="calzadoInicioButton11111" accessibleRole="BUTTON" arcHeight="40.0" arcWidth="40.0" fill="#00000026" height="625.0" layoutX="30.0" layoutY="139.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="680.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <effect>
+                  <BoxBlur />
+               </effect>
             </Rectangle>
-            <Text fill="WHITE" layoutX="296.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir saldo">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Text>
-            <Rectangle fx:id="canjearbtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="1229.0" layoutY="578.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
-            <Text fill="WHITE" layoutX="1364.0" layoutY="641.0" strokeType="OUTSIDE" strokeWidth="0.0" text="canjear">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" layoutX="1156.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Canjear tarjeta regalo">
-               <font>
-                  <Font size="61.0" />
-               </font>
-            </Text>
-            <TextField fx:id="codigocanjeartxt" layoutX="1170.0" layoutY="431.0" prefHeight="66.0" prefWidth="566.0" promptText="introduce aquí tu código" style="-fx-font-style: white;" styleClass="glass-pane">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </TextField>
-            <ImageView fitHeight="67.0" fitWidth="67.0" layoutX="1556.0" layoutY="591.0">
-               <image>
-                  <Image url="@../../../../../../../Downloads/tarjeta.png" />
-               </image>
-            </ImageView>
-            <Text fill="WHITE" layoutX="150.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generar tarjeta regalo">
-               <font>
-                  <Font size="61.0" />
-               </font>
-            </Text>
-            <Rectangle fx:id="generarcodigobtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="372.0" layoutY="719.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
-            <Text fill="WHITE" layoutX="491.0" layoutY="782.0" strokeType="OUTSIDE" strokeWidth="0.0" text="generar">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Text>
-            <ImageView fitHeight="74.0" fitWidth="76.0" layoutX="1698.0" layoutY="26.0">
-               <image>
-                  <Image url="@../../../../../../../Downloads/carro%20(1).png" />
-               </image>
-            </ImageView>
-            <Label fx:id="codigolabel" layoutX="276.0" layoutY="875.0" text="123456789" textFill="WHITE">
-               <font>
-                  <Font size="65.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="btnCopiar" accessibleRole="BUTTON" layoutX="638.0" layoutY="882.0">
-               <image>
-                  <Image url="@../../../../../../../Downloads/clon.png" />
-               </image>
-            </ImageView>
-            <MenuButton id="menu_button" fx:id="valormenubtn" layoutX="127.0" layoutY="736.0" mnemonicParsing="false" text="Valor">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-              </items>
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </MenuButton>
-            <Text fill="WHITE" layoutX="98.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" text="al generar la tarjeta se descontará el valor de esta del saldo*" wrappingWidth="699.2618408203125">
-               <font>
-                  <Font size="38.0" />
-               </font>
-            </Text>
-            <Text fx:id="iniciobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1736.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="INICIO">
+            <Text fill="WHITE" layoutX="218.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tu saldo:">
                <font>
                   <Font size="42.0" />
                </font>
             </Text>
-            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="584.0" layoutY="349.0">
+            <Label fx:id="saldolabel" layoutX="395.0" layoutY="198.0" text="0 €" textFill="WHITE">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Label>
+            <Rectangle fx:id="añadirsaldobtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="60.0" layoutX="189.0" layoutY="293.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="283.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="234.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="añadir saldo">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Text>
+            <Rectangle fx:id="canjearbtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="92.0" layoutX="942.0" layoutY="452.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="414.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="1047.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="canjear">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="945.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Canjear tarjeta regalo">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <TextField fx:id="codigocanjeartxt" layoutX="923.0" layoutY="311.0" prefHeight="54.0" prefWidth="449.0" promptText="introduce aquí tu código" style="-fx-font-style: white;" styleClass="glass-pane">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <Text fill="WHITE" layoutX="128.0" layoutY="441.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generar tarjeta regalo">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+            <Rectangle fx:id="generarcodigobtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="51.0" layoutX="333.0" layoutY="544.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="216.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Rectangle>
+            <Text fill="WHITE" layoutX="379.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" text="generar">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+            <Label fx:id="codigolabel" layoutX="200.0" layoutY="644.0" text="123456789" textFill="WHITE">
+               <font>
+                  <Font size="39.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="btnCopiar" accessibleRole="BUTTON" fitHeight="51.0" fitWidth="50.0" layoutX="419.0" layoutY="643.0">
+               <image>
+                  <Image url="@../../../../../../../Downloads/clon.png" />
+               </image>
+            </ImageView>
+            <MenuButton id="menu_button" fx:id="valormenubtn" layoutX="120.0" layoutY="550.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="117.0" text="Valor">
+              <items>
+                <MenuItem fx:id="diezemnit" mnemonicParsing="false" text="10€" />
+                <MenuItem fx:id="veinteemnit" mnemonicParsing="false" text="20€" />
+                  <MenuItem fx:id="cincuentaemnit" mnemonicParsing="false" text="50€" />
+              </items>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </MenuButton>
+            <Text fill="WHITE" layoutX="78.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="al generar la tarjeta se descontará el valor de esta del saldo*" wrappingWidth="699.2618408203125">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <Text fx:id="iniciobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1394.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="INICIO">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="424.0" layoutY="306.0">
                <image>
                   <Image url="@plus.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="49.0" fitWidth="49.0" layoutX="707.0" layoutY="742.0">
-               <image>
-                  <Image url="@idea.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="copiarbtn" accessibleRole="BUTTON" fitHeight="56.0" fitWidth="56.0" layoutX="666.0" layoutY="890.0">
-               <image>
-                  <Image url="@copy.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="1566.0" layoutY="593.0">
+            <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="1269.0" layoutY="467.0">
                <image>
                   <Image url="@gift-box.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="31.0" fitWidth="32.0" layoutX="493.0" layoutY="555.0">
+               <image>
+                  <Image url="@idea.png" />
                </image>
             </ImageView>
       </children>

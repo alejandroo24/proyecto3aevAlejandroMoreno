@@ -157,6 +157,15 @@ public class PremiosController {
         }
     }
 
+    public void añadirCodigo(Codigo codigo){
+        if (!codigosUsados.contains(codigo)){
+            codigosValidos.add(codigo);
+            codigoDAO.insertar(codigo);
+        }else{
+            Utilidades.muestraMensaje("El código ya ha sido usado");
+        }
+    }
+
     public void canjearPremio(Premio premio){
         if (premios.contains(premio)){
             premios.remove(premio);

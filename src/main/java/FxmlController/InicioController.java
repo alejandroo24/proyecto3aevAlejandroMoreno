@@ -71,17 +71,48 @@ public class InicioController {
     @FXML
     private MenuItem tallaXLsudaderaitem;
 
+    @FXML
+    private MenuButton colorgorrabtn;
+    @FXML
+    private MenuItem colorRosagorra;
+
+    @FXML
+    private MenuButton colorcalzadobtn;
+    @FXML
+    private MenuItem colornegrocalzado;
+    @FXML
+    private MenuItem colorblancocalzado;
+
+    @FXML
+    private MenuButton tallacalzadobtn;
+    @FXML
+    private MenuItem tallactrescalzado;
+
+
+
+
+
+
+
+
 
     @FXML
     private Rectangle añadircamisetabtn;
     @FXML
     private Rectangle añadirsudaderabtn;
+    @FXML
+    private Rectangle añadirgorrabtn;
+    @FXML
+    private Rectangle añadircalzadobtn;
 
     private ColorProducto colorSeleccionadoc = null;
     private TallasProducto tallaSeleccionadac = null;
     private ColorProducto colorSeleccionadoS = null;
     private TallasProducto tallaSeleccionadaS = null;
-
+    private ColorProducto colorSeleccionadoC = null;
+    private TallasProducto tallaSeleccionadoC = null;
+    private ColorProducto colorSeleccionadoG = null;
+    private TallasProducto tallaSeleccionadoG = null;
 
 
     @FXML
@@ -116,6 +147,8 @@ public class InicioController {
             javafx.scene.Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource(rutaFXML));
             javafx.stage.Stage stage = (javafx.stage.Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root));
+            stage.setScene(new javafx.scene.Scene(root, 1280, 720));
+            stage.setMaximized(true);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -221,6 +254,70 @@ public class InicioController {
             }
             colorSeleccionadoS = null;
             tallaSeleccionadaS = null;
+        }
+    }
+
+    private void añadirGorraCarro() {
+        colorRosagorra.setOnAction(event -> {
+            colorSeleccionadoG = ColorProducto.ROJO;
+            intentarAñadirGorra();
+        });
+    }
+
+    private void intentarAñadirGorra(){
+        if (colorSeleccionadoG != null && cliente != null) {
+            Producto gorra = productosDAO.obtenerPorAtributos(
+                    "Gorra", TallasProducto.TALLA_UNICA, colorSeleccionadoG, TipoProducto.GORRA
+            );
+            if (gorra != null) {
+                cliente.getCarro().agregarProducto(gorra, 1);
+                clienteDAO.actualizar(cliente);
+                cliente = clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId());
+                int cantidadProductos = cliente.getCarro().cantidadProductos();
+                contadorCarro.setText(String.valueOf(cantidadProductos));
+                Utilidades.muestraMensaje("producto añadido al carro");
+            } else {
+                Utilidades.muestraMensaje("No se encontró el producto en la base de datos");
+            }
+            colorSeleccionadoG = null;
+        }
+    }
+
+    private void añadirCalzadoCarro() {
+        colornegrocalzado.setOnAction(event -> {
+            colorSeleccionadoC = ColorProducto.NEGRO;
+            intentarAñadirCalzado();
+
+        });
+
+
+        colorblancocalzado.setOnAction(actionEvent -> {
+                colorSeleccionadoC = ColorProducto.BLANCO;
+            intentarAñadirCalzado();
+        });
+
+        tallactrescalzado.setOnAction(actionEvent -> {
+        tallaSeleccionadoC = TallasProducto.CUARENTA_TRES;
+        intentarAñadirCalzado();
+        });
+    };
+
+    private void intentarAñadirCalzado(){
+        if (colorSeleccionadoC != null && cliente != null) {
+            Producto calzado = productosDAO.obtenerPorAtributos(
+                    "chanclas", tallaSeleccionadoC, colorSeleccionadoG, TipoProducto.CALZADO
+            );
+            if (calzado != null) {
+                cliente.getCarro().agregarProducto(calzado, 1);
+                clienteDAO.actualizar(cliente);
+                cliente = clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId());
+                int cantidadProductos = cliente.getCarro().cantidadProductos();
+                contadorCarro.setText(String.valueOf(cantidadProductos));
+                Utilidades.muestraMensaje("producto añadido al carro");
+            } else {
+                Utilidades.muestraMensaje("No se encontró el producto en la base de datos");
+            }
+            colorSeleccionadoG = null;
         }
     }
 

@@ -178,7 +178,7 @@ public class ClienteController {
         return false;
     }
 
-    public boolean añadirSaldo (int cantidad){
+    public boolean añadirSaldo (float cantidad){
         if (clienteActivo != null && cantidad > 0) {
             clienteActivo.setSaldo(clienteActivo.getSaldo() + cantidad);
             return true;
@@ -204,11 +204,12 @@ public class ClienteController {
         }
     }
 
-    public void CrearTarjetaRegalo(int valor){
+    public String CrearTarjetaRegalo(int valor){
         Codigo codigo = new Codigo();
         do {
         codigo = premiosController.generarCodigo(valor);
         }while (premiosController.getCodigosUsados().contains(codigo));
+        return codigo.getCodigo();
     }
 
     public boolean canjearCodigo(Codigo codigo) {

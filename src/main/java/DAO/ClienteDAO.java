@@ -39,7 +39,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public void actualizar(Cliente cliente) {
-        String sql = "UPDATE clientes SET puntosAcumulados = ?, saldo = ? WHERE id = ?";
+        String sql = "UPDATE clientes SET puntosAcumulados = ?, saldo = ? WHERE id_usuario = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, cliente.getPuntosAcumulados());
             stmt.setFloat(2, cliente.getSaldo());
