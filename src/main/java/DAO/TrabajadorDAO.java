@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TrabajadorDAO implements InterfazDAO<Trabajador> {
 
-    private static Connection con;
+    private Connection con;
 
     public TrabajadorDAO(Connection con) {
         this.con = con;
@@ -17,10 +17,14 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
 
     @Override
     public void insertar(Trabajador objeto) {
-        String sql = "INSERT INTO trabajadores (id,salario) VALUES (?,?)";
+        String sql = "INSERT INTO trabajadores (id, nombre, usuario, contraseña, correo, salario) VALUES (?, ?, ?, ?, ?, ?)";
         try (var stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, objeto.getId());
-            stmt.setFloat(1, objeto.getSalario());
+            stmt.setString(2, objeto.getNombre());
+            stmt.setString(3, objeto.getUsuario());
+            stmt.setString(4, objeto.getContraseña());
+            stmt.setString(5, objeto.getCorreo());
+            stmt.setDouble(6, objeto.getSalario());
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,10 +33,14 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
 
     @Override
     public void actualizar(Trabajador objeto) {
-    String sql = "UPDATE trabajadores SET salario = ? WHERE id = ?";
+    String sql = "UPDATE trabajadores SET nombre = ?, usuario = ?, contraseña = ?, correo = ?, salario = ? WHERE id = ?";
         try (var stmt = con.prepareStatement(sql)) {
-            stmt.setFloat(1, objeto.getSalario());
-            stmt.setInt(2, objeto.getId());
+            stmt.setString(1, objeto.getNombre());
+            stmt.setString(2, objeto.getUsuario());
+            stmt.setString(3, objeto.getContraseña());
+            stmt.setString(4, objeto.getCorreo());
+            stmt.setDouble(5, objeto.getSalario());
+            stmt.setInt(6, objeto.getId());
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,16 +48,15 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
     }
 
     @Override
-    public void eliminar(int id) {
-    String sql =" DELETE FROM trabajadores WHERE id = ?";
+    public void eliminar(Trabajador trabajador) {
+        String sql = "DELETE FROM trabajadores WHERE id = ?";
         try (var stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, trabajador.getId());
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     @Override
     public Trabajador obtenerPorId(int id) {
         String sql = "SELECT * FROM trabajadores WHERE id = ?";
@@ -59,6 +66,10 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
             if (rs.next()) {
                 Trabajador trabajador = new Trabajador();
                 trabajador.setId(rs.getInt("id"));
+                trabajador.setNombre(rs.getString("nombre"));
+                trabajador.setUsuario(rs.getString("usuario"));
+                trabajador.setContraseña(rs.getString("contraseña"));
+                trabajador.setCorreo(rs.getString("correo"));
                 trabajador.setSalario(rs.getFloat("salario"));
                 return trabajador;
             }
@@ -71,30 +82,22 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
     @Override
     public List<Trabajador> obtenerTodos() {
         String sql = "SELECT * FROM trabajadores";
+        List<Trabajador> trabajadores = new ArrayList<>();
         try (var stmt = con.prepareStatement(sql)) {
             var rs = stmt.executeQuery();
-            List<Trabajador> trabajadores = new ArrayList<>();
             while (rs.next()) {
                 Trabajador trabajador = new Trabajador();
                 trabajador.setId(rs.getInt("id"));
+                trabajador.setNombre(rs.getString("nombre"));
+                trabajador.setUsuario(rs.getString("usuario"));
+                trabajador.setContraseña(rs.getString("contraseña"));
+                trabajador.setCorreo(rs.getString("correo"));
                 trabajador.setSalario(rs.getFloat("salario"));
                 trabajadores.add(trabajador);
             }
-            return trabajadores;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
-    }
-
-    public void actualizarSalario(int id, float salario) {
-        String sql = "UPDATE trabajadores SET salario = ? WHERE id = ?";
-        try (var stmt = con.prepareStatement(sql)) {
-            stmt.setFloat(1, salario);
-            stmt.setInt(2, id);
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    return trabajadores;
     }
 }

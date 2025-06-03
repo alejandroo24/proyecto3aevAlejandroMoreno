@@ -1,13 +1,11 @@
 package controller;
 
 import DAO.PedidoDAO;
-import DAO.TrabajadorPedidoPendienteDAO;
 import DataBase.ConnectionBD;
 import model.DetallesPedido;
 import model.EstadoPedido;
 import model.Pedido;
 
-import java.sql.Connection;
 import java.util.HashSet;
 
 public class PedidoController {

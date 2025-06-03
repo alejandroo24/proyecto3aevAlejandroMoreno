@@ -1,7 +1,6 @@
 package DAO;
 
 import interfaces.InterfazDAO;
-import model.Carro;
 import model.Cliente;
 
 import java.sql.*;
@@ -12,26 +11,23 @@ import java.util.List;
 
 public class ClienteDAO implements InterfazDAO<Cliente> {
 
-    private static Connection con;
+    private  Connection con;
 
     public ClienteDAO(Connection con) {
         this.con = con;
     }
 
-    private CarroDAO carroDAO = new CarroDAO(con);
-
     @Override
     public void insertar(Cliente cliente) {
-        String sql = "INSERT INTO clientes (id_usuario, puntosAcumulados, saldo) VALUES (?, ?, ?)";
-        try (PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        String sql = "INSERT INTO clientes (id, nombre, usuario, contraseña, correo, puntos) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, cliente.getId());
-            stmt.setInt(2, cliente.getPuntosAcumulados());
-            stmt.setFloat(3, cliente.getSaldo());
+            stmt.setString(2, cliente.getNombre());
+            stmt.setString(3, cliente.getUsuario());
+            stmt.setString(4, cliente.getContraseña());
+            stmt.setString(5, cliente.getCorreo());
+            stmt.setInt(6, cliente.getPuntos());
             stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                cliente.setId(rs.getInt(1));
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -39,27 +35,25 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public void actualizar(Cliente cliente) {
-        String sql = "UPDATE clientes SET puntosAcumulados = ?, saldo = ? WHERE id_usuario = ?";
+    String sql = "UPDATE clientes SET nombre = ?, usuario = ?, contraseña = ?, correo = ?, puntos = ? WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, cliente.getPuntosAcumulados());
-            stmt.setFloat(2, cliente.getSaldo());
-            stmt.setInt(3, cliente.getId());
+            stmt.setString(1, cliente.getNombre());
+            stmt.setString(2, cliente.getUsuario());
+            stmt.setString(3, cliente.getContraseña());
+            stmt.setString(4, cliente.getCorreo());
+            stmt.setInt(5, cliente.getPuntos());
+            stmt.setInt(6, cliente.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Actualizar el carro asociado
-        if (cliente.getCarro() != null) {
-            CarroDAO carroDAO = new CarroDAO(con);
-            carroDAO.actualizar(cliente.getCarro());
-        }
     }
 
     @Override
-    public void eliminar(int id) {
-        String sql = "DELETE FROM clientes WHERE id_usuario = ?";
+    public void eliminar(Cliente cliente) {
+    String sql = "DELETE FROM clientes WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, cliente.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,19 +62,18 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public Cliente obtenerPorId(int id) {
-        String sql = "SELECT * FROM clientes WHERE id_usuario = ?";
+        String sql = "SELECT * FROM clientes WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Cliente cliente = new Cliente();
-                cliente.setId(rs.getInt("id_usuario"));
-                cliente.setPuntosAcumulados(rs.getInt("puntosAcumulados"));
-                cliente.setSaldo(rs.getFloat("saldo"));
-                // Obtener el carro asociado
-                CarroDAO carroDAO = new CarroDAO(con);
-                Carro carro = carroDAO.obtenerPorIdCliente(cliente.getId());
-                cliente.setCarro(carro);
+                cliente.setId(rs.getInt("id"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setUsuario(rs.getString("usuario"));
+                cliente.setContraseña(rs.getString("contraseña"));
+                cliente.setCorreo(rs.getString("correo"));
+                cliente.setPuntos(rs.getInt("puntos"));
                 return cliente;
             }
         } catch (SQLException e) {
@@ -91,24 +84,23 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public List<Cliente> obtenerTodos() {
-        List<Cliente> clientes = new ArrayList<>();
         String sql = "SELECT * FROM clientes";
+        List<Cliente> clientes = new ArrayList<>();
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Cliente cliente = new Cliente();
-                cliente.setId(rs.getInt("id_usuario"));
-                cliente.setPuntosAcumulados(rs.getInt("puntosAcumulados"));
-                cliente.setSaldo(rs.getFloat("saldo"));
-                // Obtener el carro asociado
-                CarroDAO carroDAO = new CarroDAO(con);
-                Carro carro = carroDAO.obtenerPorIdCliente(cliente.getId());
-                cliente.setCarro(carro);
+                cliente.setId(rs.getInt("id"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setUsuario(rs.getString("usuario"));
+                cliente.setContraseña(rs.getString("contraseña"));
+                cliente.setCorreo(rs.getString("correo"));
+                cliente.setPuntos(rs.getInt("puntos"));
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return clientes;
+         return  clientes;
     }
 }

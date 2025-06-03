@@ -8,59 +8,27 @@ import java.util.Objects;
 public class Producto {
     private int id;
     private String descripcion;
-    private TallasProducto talla;
-    private ColorProducto color;
+    private int stock;
     private float precio;
-    private TipoProducto tipoProducto;
-    private Descuento descuento;
-    private ArrayList<Reseña> reseñas;
+    private Categoria categoria;
+    private Almacen almacen;
+
 
     public Producto() {
 
     }
 
-    public Producto(String descripcion, TallasProducto talla, ColorProducto color,TipoProducto tipoProducto) {
+    public Producto(String descripcion, Categoria categoria) {
         this.descripcion = descripcion;
-        this.talla = talla;
-        this.color = color;
         this.precio = precio;
-        this.tipoProducto = tipoProducto;
-        this.descuento = descuento;
-        this.reseñas = new ArrayList<>();
+        this.categoria = categoria;
     }
 
-    public Producto(String descripcion, TallasProducto talla, ColorProducto color, float precio, TipoProducto tipoProducto) {
-
-        try {
-            if (talla !=null  || precio > 0) {
-                this.descripcion = descripcion;
-                this.talla = talla;
-                this.color = color;
-                this.precio = precio;
-                this.tipoProducto = tipoProducto;
-                this.descuento = null;
-                this.reseñas = new ArrayList<>();
-            }
-        }catch (DatoIncorrectoException e) {
-            System.out.println(e.getMessage()+ "Ni la talla, ni la cantidad ni el precio pueden ser menores o iguales a 0");
-        }
-
-    }
-
-    public Producto(String descripcion,TallasProducto talla, float precio,ColorProducto color, TipoProducto tipoProducto, Descuento descuento) {
-        try {
-            if (precio > 0 || talla !=null || descuento.getPorcentaje() > 0) {
-                this.descripcion = descripcion;
-                this.precio = precio;
-                this.talla = talla;
-                this.tipoProducto = tipoProducto;
-                this.descuento = descuento;
-                this.reseñas = new ArrayList<>();
-                aplicarDescuento();
-            }
-
-        }catch (DatoIncorrectoException e){
-            Utilidades.muestraMensaje(e.getMessage()+ "Ni el precio, ni la talla ni el descuento pueden ser menores o iguales a 0");
+    public Producto(String descripcion, float precio, Categoria categoria) {
+        if (precio > 0) {
+            this.descripcion = descripcion;
+            this.precio = precio;
+            this.categoria = categoria;
         }
     }
 
@@ -72,61 +40,6 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public TallasProducto getTalla() {
-        return talla;
-    }
-
-    public void setTalla(TallasProducto talla) {
-       if(talla !=null) {
-           this.talla = talla;
-       }
-    }
-
-    public ColorProducto getColor() {
-        return color;
-    }
-
-    public void setColor(ColorProducto color) {
-        this.color = color;
-    }
-
-
-    public float getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(float precio) {
-        if (precio > 0) {
-            this.precio = precio;
-        }
-    }
-
-    public TipoProducto getTipoProducto() {
-        return tipoProducto;
-    }
-
-    public void setTipoProducto(TipoProducto tipoProducto) {
-        this.tipoProducto = tipoProducto;
-    }
-
-    public Descuento getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(Descuento descuento) {
-        if( descuento.getPorcentaje() > 0) {
-            this.descuento = descuento;
-        }
-    }
-
-    public ArrayList<Reseña> getReseñas() {
-        return reseñas;
-    }
-
-    public void setReseñas(ArrayList<Reseña> reseñas) {
-        this.reseñas = reseñas;
-    }
-
     public int getId() {
         return id;
     }
@@ -135,74 +48,49 @@ public class Producto {
         this.id = id;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Producto producto = (Producto) o;
-        return Float.compare(precio, producto.precio) == 0 && Objects.equals(id, producto.id) && Objects.equals(descripcion, producto.descripcion) && talla == producto.talla && color == producto.color && tipoProducto == producto.tipoProducto && Objects.equals(descuento, producto.descuento) && Objects.equals(reseñas, producto.reseñas);
+        return id == producto.id && stock == producto.stock && Float.compare(precio, producto.precio) == 0 && Objects.equals(descripcion, producto.descripcion) && categoria == producto.categoria && Objects.equals(almacen, producto.almacen);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, descripcion, talla, color, precio, tipoProducto, descuento, reseñas);
+        return Objects.hash(id, descripcion, stock, precio, categoria, almacen);
     }
-
-
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "descripcion='" + descripcion + '\'' +
-                ", talla=" + talla +
-                ", color='" + color + '\'' +
-                ", precio=" + precio +
-                ", tipoProducto=" + tipoProducto +
-                ", descuento=" + descuento +
-                ", reseñas=" + reseñas +
-                '}';
-    }
-
-    public boolean addReseña(Reseña reseña) {
-        if (reseñas.contains(reseña)) {
-            return false;
-        } else {
-            reseñas.add(reseña);
-            return true;
-        }
-    }
-
-    public double calificacionPromedio() {
-        if (reseñas.isEmpty()) {
-            return 0.0;
-        }
-        return reseñas.stream()
-                .mapToInt(Reseña::getCalificacion)
-                .average()
-                .orElse(0.0);
-    }
-
-    public String listarReseñas() {
-        StringBuilder sb = new StringBuilder("Reseñas del producto:\n");
-        for (Reseña reseña : reseñas) {
-            sb.append(reseña.toString()).append("\n");
-        }
-        return sb.toString();
-    }
-
-    public boolean aplicarDescuento(){
-        if (descuento != null && descuento.getFechaCaducidad().isAfter(java.time.LocalDate.now())) {
-            this.precio = this.precio - (this.precio * this.descuento.getPorcentaje() / 100);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean actualizarPrecio(){
-        boolean actualizado = false;
-        if (descuento != null){
-             actualizado = aplicarDescuento();
-        }
-        return actualizado;
-    }
-
 }
+
+

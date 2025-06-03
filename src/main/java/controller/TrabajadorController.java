@@ -8,7 +8,6 @@ import model.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -182,7 +181,7 @@ public class TrabajadorController {
         return almacen.addCantidad(producto,cantidadAñadida);
     }
 
-    public boolean creaProducto(String descripcion, TallasProducto talla, ColorProducto color,int cantidad, float precio, TipoProducto tipoProducto) {
+    public boolean creaProducto(String descripcion, TallasProducto talla, ColorProducto color,int cantidad, float precio, Categoria tipoProducto) {
         Producto productoNuevo= new Producto(descripcion, talla, color, precio, tipoProducto);
         return productoController.agregarProducto(productoNuevo);
     }

@@ -2,7 +2,7 @@ package controller;
 
 import DataBase.ConnectionBD;
 import model.Producto;
-import DAO.ProductosDAO;
+import DAO.ProductoDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class ProductoController {
     private static String rutaArchivo = "productos.xml";
     private static ProductoController instancia;
     private List<Producto> listaProductos = new ArrayList<>();
-    private static ProductosDAO productoDAO = new ProductosDAO(ConnectionBD.getConnection());
+    private static ProductoDAO productoDAO = new ProductoDAO(ConnectionBD.getConnection());
 
     public static ProductoController getInstancia() {
         if (instancia == null) {

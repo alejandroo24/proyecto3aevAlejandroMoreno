@@ -1,7 +1,7 @@
 package FxmlController;
 
 import DAO.ClienteDAO;
-import DAO.ProductosDAO;
+import DAO.ProductoDAO;
 import controller.UsuarioActivoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,7 +16,7 @@ public class InicioController {
 
     UsuarioActivoController usuarioActivoController = UsuarioActivoController.getInstancia();
     ClienteDAO clienteDAO = new ClienteDAO(ConnectionBD.getConnection());
-    ProductosDAO productosDAO = new ProductosDAO(ConnectionBD.getConnection());
+    ProductoDAO productosDAO = new ProductoDAO(ConnectionBD.getConnection());
     Cliente cliente = clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId());
 
 
@@ -192,7 +192,7 @@ public class InicioController {
     private void intentarAñadirCamiseta() {
         if (colorSeleccionadoc != null && tallaSeleccionadac != null && cliente != null) {
             Producto camiseta = productosDAO.obtenerPorAtributos(
-                    "Camiseta majesty", tallaSeleccionadac, colorSeleccionadoc, TipoProducto.CAMISETA
+                    "Camiseta majesty", tallaSeleccionadac, colorSeleccionadoc, Categoria.CAMISETA
             );
             if (camiseta != null) {
                 cliente.getCarro().agregarProducto(camiseta, 1);
@@ -240,7 +240,7 @@ public class InicioController {
     private void intentarAñadirSudadera() {
         if (colorSeleccionadoS != null && tallaSeleccionadaS != null && cliente != null) {
             Producto sudadera = productosDAO.obtenerPorAtributos(
-                    "Sudadera forever damned", tallaSeleccionadaS, colorSeleccionadoS, TipoProducto.SUDADERA
+                    "Sudadera forever damned", tallaSeleccionadaS, colorSeleccionadoS, Categoria.SUDADERA
             );
             if (sudadera != null) {
                 cliente.getCarro().agregarProducto(sudadera, 1);
@@ -267,7 +267,7 @@ public class InicioController {
     private void intentarAñadirGorra(){
         if (colorSeleccionadoG != null && cliente != null) {
             Producto gorra = productosDAO.obtenerPorAtributos(
-                    "Gorra", TallasProducto.TALLA_UNICA, colorSeleccionadoG, TipoProducto.GORRA
+                    "Gorra", TallasProducto.TALLA_UNICA, colorSeleccionadoG, Categoria.GORRA
             );
             if (gorra != null) {
                 cliente.getCarro().agregarProducto(gorra, 1);
@@ -305,7 +305,7 @@ public class InicioController {
     private void intentarAñadirCalzado(){
         if (colorSeleccionadoC != null && cliente != null) {
             Producto calzado = productosDAO.obtenerPorAtributos(
-                    "chanclas", tallaSeleccionadoC, colorSeleccionadoG, TipoProducto.CALZADO
+                    "chanclas", tallaSeleccionadoC, colorSeleccionadoG, Categoria.CALZADO
             );
             if (calzado != null) {
                 cliente.getCarro().agregarProducto(calzado, 1);

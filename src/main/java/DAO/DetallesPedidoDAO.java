@@ -69,7 +69,7 @@ public class DetallesPedidoDAO implements InterfazDAO<DetallesPedido> {
                 int productoId = rs.getInt("producto_id");
                 detallePedido.setCantidad(rs.getInt("cantidad"));
                 detallePedido.setPrecioUnitario(rs.getFloat("precio_unitario"));
-                ProductosDAO productosDAO = new ProductosDAO(con);
+                ProductoDAO productosDAO = new ProductoDAO(con);
                 Producto producto = productosDAO.obtenerPorId(productoId);
                 detallePedido.setProducto(producto);
                 return detallePedido;
@@ -92,7 +92,7 @@ public class DetallesPedidoDAO implements InterfazDAO<DetallesPedido> {
                 int productoId = rs.getInt("producto_id");
                 detallePedido.setCantidad(rs.getInt("cantidad"));
                 detallePedido.setPrecioUnitario(rs.getFloat("precio_unitario"));
-                ProductosDAO productosDAO = new ProductosDAO(con);
+                ProductoDAO productosDAO = new ProductoDAO(con);
                 Producto producto = productosDAO.obtenerPorId(productoId);
                 detallePedido.setProducto(producto);
                 detallesPedidos.add(detallePedido);
@@ -116,7 +116,7 @@ public class DetallesPedidoDAO implements InterfazDAO<DetallesPedido> {
                 int productoId = rs.getInt("producto_id");
                 detallePedido.setCantidad(rs.getInt("cantidad"));
                 detallePedido.setPrecioUnitario(rs.getFloat("precio_unitario"));
-                ProductosDAO productosDAO = new ProductosDAO(con);
+                ProductoDAO productosDAO = new ProductoDAO(con);
                 Producto producto = productosDAO.obtenerPorId(productoId);
                 detallePedido.setProducto(producto);
                 detallesPedidos.add(detallePedido);

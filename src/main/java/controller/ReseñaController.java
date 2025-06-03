@@ -1,8 +1,6 @@
 package controller;
 
-import DAO.ReseñasDAO;
 import DataBase.ConnectionBD;
-import model.Reseña;
 
 import java.util.ArrayList;
 

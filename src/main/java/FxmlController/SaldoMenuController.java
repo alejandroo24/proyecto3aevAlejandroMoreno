@@ -1,9 +1,7 @@
 package FxmlController;
 
 import DAO.ClienteDAO;
-import DAO.CodigoDAO;
-import DAO.PremiosDAO;
-import DAO.ProductosDAO;
+import DAO.ProductoDAO;
 import DataBase.ConnectionBD;
 import controller.ClienteController;
 import controller.PremiosController;
@@ -15,15 +13,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import model.Cliente;
-import model.Codigo;
-
-import java.awt.*;
 
 public class SaldoMenuController {
 
     UsuarioActivoController usuarioActivoController = UsuarioActivoController.getInstancia();
     ClienteDAO clienteDAO = new ClienteDAO(ConnectionBD.getConnection());
-    ProductosDAO productosDAO = new ProductosDAO(ConnectionBD.getConnection());
+    ProductoDAO productosDAO = new ProductoDAO(ConnectionBD.getConnection());
     ClienteController clienteController = ClienteController.getInstancia();
     Cliente cliente = clienteDAO.obtenerPorId(usuarioActivoController.getUsuarioActivo().getId());
     PremiosController premiosController = PremiosController.getInstance();

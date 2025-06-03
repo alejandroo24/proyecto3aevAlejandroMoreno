@@ -1,7 +1,5 @@
 package dataAccess;
 
-import model.Pedido;
-import model.Premio;
 import model.Producto;
 import model.Usuario;
 

@@ -1,8 +1,5 @@
 package controller;
-import DAO.DescuentoDAO;
 import DataBase.ConnectionBD;
-import com.sun.jdi.connect.spi.Connection;
-import model.Descuento;
 import utils.Utilidades;
 
 import java.time.LocalDate;

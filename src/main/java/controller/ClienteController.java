@@ -1,13 +1,10 @@
 package controller;
 
-import DAO.CarroDAO;
 import DAO.ClienteDAO;
-import DAO.CodigoDAO;
 import DataBase.ConnectionBD;
 import model.*;
 import utils.Utilidades;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

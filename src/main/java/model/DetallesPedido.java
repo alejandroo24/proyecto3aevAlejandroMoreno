@@ -8,21 +8,27 @@ import java.util.Objects;
 
 
 public class DetallesPedido {
-
-    private int id;
-    private int idPedido;
+    private Pedido pedido;
     private Producto producto;
     private int cantidad;
-    private float precioUnitario;
+    private float precio;
+    private int descuento;
 
     public DetallesPedido() {
         this.producto = new Producto();
-        this.precioUnitario = 0;
+        precio=0;
     }
 
-    public DetallesPedido(Producto producto, int cantidad) {
+    public DetallesPedido(Pedido pedido, Producto producto) {
+        this.pedido = pedido;
         this.producto = producto;
-        this.precioUnitario = producto.getPrecio();
+        this.precio = producto.getPrecio();
+        this.cantidad = 1;
+    }
+
+    public DetallesPedido(Pedido pedido,Producto producto, int cantidad) {
+        this.producto = producto;
+        this.precio = producto.getPrecio();
         this.cantidad = cantidad;
     }
 
@@ -34,59 +40,36 @@ public class DetallesPedido {
         this.producto = producto;
     }
 
-    public int getIdPedido() {
-        return idPedido;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
-    }
-
-
-    public float getPrecioUnitario() {
-        return precioUnitario;
-    }
-
-    public void setPrecioUnitario(float precioUnitario) {
-        this.precioUnitario = precioUnitario;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public int getCantidad() {
         return cantidad;
     }
+
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
-    public int getId() {
-        return id;
+    public float getPrecio() {
+        return precio;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    public float getPrecioTotal() {
-        return precioUnitario * cantidad;
+    public void setPrecio(float precio) {
+        this.precio = precio;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        DetallesPedido that = (DetallesPedido) o;
-        return cantidad == that.cantidad && Float.compare(precioUnitario, that.precioUnitario) == 0 && Objects.equals(id, that.id) && Objects.equals(producto, that.producto);
+    public int getDescuento() {
+        return descuento;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, producto, cantidad, precioUnitario);
-    }
-
-    @Override
-    public String toString() {
-        return "DetallesPedido{" +
-                "productosPedido=" + producto +
-                ", precioTotal=" + precioUnitario +
-                '}';
+    public void setDescuento(int descuento) {
+        this.descuento = descuento;
     }
 }
 

@@ -2,7 +2,6 @@
 package FxmlController;
 
 import DAO.ClienteDAO;
-import DAO.UsuarioDAO;
 import DataBase.ConnectionBD;
 import controller.ClienteController;
 import controller.TrabajadorController;

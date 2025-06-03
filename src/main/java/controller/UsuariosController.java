@@ -1,12 +1,10 @@
 package controller;
 
-import DAO.UsuarioDAO;
 import DataBase.ConnectionBD;
 import model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
-import DAO.UsuarioDAO;
 
 public class UsuariosController {
 

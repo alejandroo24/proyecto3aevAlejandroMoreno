@@ -9,11 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductosDAO implements InterfazDAO<Producto> {
+public class ProductoDAO implements InterfazDAO<Producto> {
 
     private final Connection con;
 
-    public ProductosDAO(Connection con) {
+    public ProductoDAO(Connection con) {
         this.con = con;
     }
 
@@ -72,7 +72,7 @@ public class ProductosDAO implements InterfazDAO<Producto> {
                 producto.setTalla(TallasProducto.valueOf(rs.getString("talla")));
                 producto.setColor(ColorProducto.valueOf(rs.getString("color")));
                 producto.setPrecio(rs.getFloat("precio"));
-                producto.setTipoProducto(TipoProducto.valueOf(rs.getString("tipoProducto")));
+                producto.setTipoProducto(Categoria.valueOf(rs.getString("tipoProducto")));
                 return producto;
             }
         } catch (SQLException e) {
@@ -95,7 +95,7 @@ public class ProductosDAO implements InterfazDAO<Producto> {
                 producto.setTalla(TallasProducto.valueOf(rs.getString("talla")));
                 producto.setColor(ColorProducto.valueOf(rs.getString("color")));
                 producto.setPrecio(rs.getFloat("precio"));
-                producto.setTipoProducto(TipoProducto.valueOf(rs.getString("tipoProducto")));
+                producto.setTipoProducto(Categoria.valueOf(rs.getString("tipoProducto")));
                 productos.add(producto);
             }
         } catch (SQLException e) {
@@ -104,7 +104,7 @@ public class ProductosDAO implements InterfazDAO<Producto> {
         return productos;
     }
 
-    public List<Producto> obtenerPorTipo(TipoProducto tipo) {
+    public List<Producto> obtenerPorTipo(Categoria tipo) {
         String sql = "SELECT * FROM productos WHERE tipoProducto = ?";
         List<Producto> productos = new ArrayList<>();
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
@@ -117,7 +117,7 @@ public class ProductosDAO implements InterfazDAO<Producto> {
                 producto.setTalla(TallasProducto.valueOf(rs.getString("talla")));
                 producto.setColor(ColorProducto.valueOf(rs.getString("color")));
                 producto.setPrecio(rs.getFloat("precio"));
-                producto.setTipoProducto(TipoProducto.valueOf(rs.getString("tipoProducto")));
+                producto.setTipoProducto(Categoria.valueOf(rs.getString("tipoProducto")));
                 productos.add(producto);
             }
         } catch (SQLException e) {
@@ -139,7 +139,7 @@ public class ProductosDAO implements InterfazDAO<Producto> {
                 producto.setTalla(TallasProducto.valueOf(rs.getString("talla")));
                 producto.setColor(ColorProducto.valueOf(rs.getString("color")));
                 producto.setPrecio(rs.getFloat("precio"));
-                producto.setTipoProducto(TipoProducto.valueOf(rs.getString("tipoProducto")));
+                producto.setTipoProducto(Categoria.valueOf(rs.getString("tipoProducto")));
                 productos.add(producto);
             }
         } catch (SQLException e) {
@@ -159,7 +159,7 @@ public class ProductosDAO implements InterfazDAO<Producto> {
         }
     }
 
-    public Producto obtenerPorAtributos(String descripcion, TallasProducto talla, ColorProducto color, TipoProducto tipo) {
+    public Producto obtenerPorAtributos(String descripcion, TallasProducto talla, ColorProducto color, Categoria tipo) {
         String sql = "SELECT * FROM productos WHERE descripcion = ? AND talla = ? AND color = ? AND tipoProducto = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, descripcion);

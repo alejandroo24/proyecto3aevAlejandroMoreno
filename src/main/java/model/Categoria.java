@@ -3,7 +3,7 @@ package model;
 
 
 
-public enum TipoProducto {
+public enum Categoria {
     CAMISETA,SUDADERA,GORRA,CALZADO;
 
 }

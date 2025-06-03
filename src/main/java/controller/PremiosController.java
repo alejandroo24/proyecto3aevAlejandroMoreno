@@ -1,11 +1,7 @@
 package controller;
 
-import DAO.CodigoDAO;
 import DataBase.ConnectionBD;
-import model.Codigo;
-import model.Premio;
 import utils.Utilidades;
-import DAO.PremiosDAO;
 
 import java.util.*;
 import java.util.concurrent.Executors;
