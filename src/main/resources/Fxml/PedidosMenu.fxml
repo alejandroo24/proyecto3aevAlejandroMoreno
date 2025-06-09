@@ -32,30 +32,17 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.effect.BoxBlur?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane id="boxBlurSaldo" maxHeight="-1.0" maxWidth="-1.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
       <children>
-            <Rectangle id="boxBlurSaldo" fx:id="calzadoInicioButton111112" accessibleRole="BUTTON" arcHeight="40.0" arcWidth="40.0" fill="#00000026" height="635.0" layoutX="862.0" layoutY="141.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="518.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <BoxBlur />
-               </effect>
-            </Rectangle>
             <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#1f131329" height="120.0" layoutX="-0.8" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1540.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="382.0" />
             <Label fx:id="bienvenidaLabel" layoutX="17.0" layoutY="33.0" text="Bienvenido," textFill="WHITE">
                <font>
@@ -67,111 +54,42 @@
                   <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
                </image>
             </ImageView>
-            <Text fx:id="saldobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="420.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="SALDO" wrappingWidth="97.19999999999999">
-               <font>
-                  <Font size="25.0" />
-               </font></Text>
-            <Text fx:id="premiosbtn" accessibleRole="BUTTON" fill="WHITE" layoutX="690.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PREMIOS">
-               <font>
-                  <Font size="25.0" />
-               </font></Text>
-            <Text fx:id="pedidosbtn" accessibleRole="BUTTON" fill="WHITE" layoutX="969.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
-               <font>
-                  <Font size="25.0" />
-               </font></Text>
-            <Rectangle id="boxBlurSaldo" fx:id="calzadoInicioButton11111" accessibleRole="BUTTON" arcHeight="40.0" arcWidth="40.0" fill="#00000026" height="635.0" layoutX="122.0" layoutY="140.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="518.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <BoxBlur />
-               </effect>
-            </Rectangle>
-            <Text fill="WHITE" layoutX="280.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tus pedidos:">
+            <Text fill="WHITE" layoutX="424.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tus pedidos:">
                <font>
                   <Font size="35.0" />
                </font>
             </Text>
-            <Rectangle fx:id="btnañadirSaldo1" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="68.0" layoutX="971.0" layoutY="675.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="306.0">
+            <Rectangle fx:id="btnañadirSaldo1" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#fa2c2cb2" height="68.0" layoutX="961.0" layoutY="475.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="306.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="1010.0" layoutY="718.0" strokeType="OUTSIDE" strokeWidth="0.0" text="cancelar pedido">
+            <Text fill="WHITE" layoutX="1010.0" layoutY="520.0" strokeType="OUTSIDE" strokeWidth="0.0" text="cancelar pedido">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
-            <Label fx:id="labelpedido1" layoutX="166.0" layoutY="325.0" prefHeight="75.0" prefWidth="493.0" text="pedido 1" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelpedido2" layoutX="166.0" layoutY="393.0" prefHeight="75.0" prefWidth="502.0" text="pedido 2" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelpedido4" layoutX="167.0" layoutY="538.0" prefHeight="75.0" prefWidth="502.0" text="pedido 4 " textFill="WHITE">
-               <font>
-                  <Font name="Ebrima" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelpedido5" layoutX="166.0" layoutY="607.0" prefHeight="75.0" prefWidth="502.0" text="pedido 5" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelpedido3" layoutX="166.0" layoutY="467.0" prefHeight="75.0" prefWidth="502.0" text="pedido 3" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima" size="25.0" />
-               </font>
-            </Label>
-            <Text fill="WHITE" layoutX="178.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="solo se mostrarán los últimos 5 pedidos* ">
+            <Text fill="WHITE" layoutX="178.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0">
                <font>
                   <Font size="21.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="956.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="pedido seleccionado:">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Text>
-            <RadioButton fx:id="radiopedido1" layoutX="475.0" layoutY="345.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="radiopedido2" layoutX="474.0" layoutY="413.0" mnemonicParsing="false" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="radiopedido3" layoutX="474.0" layoutY="483.0" mnemonicParsing="false" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="radiopedido4" layoutX="474.0" layoutY="554.0" mnemonicParsing="false" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="radiopedido5" layoutX="474.0" layoutY="627.0" mnemonicParsing="false" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </RadioButton>
-            <Text fx:id="iniciobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1369.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="INICIO">
+            <Text fx:id="iniciobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1169.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="VOLVER AL INICIO">
                <font>
                   <Font size="25.0" />
                </font>
             </Text>
-            <Label fx:id="labelpedidoseleccionado" layoutX="1050.0" layoutY="294.0" prefHeight="75.0" prefWidth="145.0" text="pedido 1" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima" size="30.0" />
-               </font>
-            </Label>
+            <TableView layoutX="189.0" layoutY="221.0" prefHeight="529.0" prefWidth="657.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="ID Pedido" />
+                <TableColumn prefWidth="75.0" text="Fecha " />
+                  <TableColumn prefWidth="75.0" text="estado" />
+                  <TableColumn prefWidth="75.0" text="Precio total" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
       </children>
     </AnchorPane>
   </children>
