@@ -1,21 +1,20 @@
 package model;
 
-import javax.xml.bind.annotation.*;
 import java.util.Objects;
 
 public class Usuario {
     private int id;
     private String nombre;
-    private String usuario;
+    private String nickname;
     private String contraseña;
     private String correo;
     public Usuario() {
     }
-    public Usuario(String nombre, String contraseña, String correo, String usuario) {
+    public Usuario(String nombre, String contraseña, String correo, String nickname) {
         this.nombre = nombre;
         this.contraseña = contraseña;
         this.correo = correo;
-        this.usuario = usuario;
+        this.nickname = nickname;
     }
 
     public String getNombre() {
@@ -42,12 +41,12 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
 
@@ -63,12 +62,12 @@ public class Usuario {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario1 = (Usuario) o;
-        return id == usuario1.id && Objects.equals(nombre, usuario1.nombre) && Objects.equals(usuario, usuario1.usuario) && Objects.equals(contraseña, usuario1.contraseña) && Objects.equals(correo, usuario1.correo);
+        return id == usuario1.id && Objects.equals(nombre, usuario1.nombre) && Objects.equals(nickname, usuario1.nickname) && Objects.equals(contraseña, usuario1.contraseña) && Objects.equals(correo, usuario1.correo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, usuario, contraseña, correo);
+        return Objects.hash(id, nombre, nickname, contraseña, correo);
     }
 
     @Override
@@ -77,6 +76,6 @@ public class Usuario {
                 "nombre:" + nombre + '\'' +
                 "contraseña:" + contraseña + '\'' +
                 "correo:" + correo + '\'' +
-                "usuario:" + usuario + '\'';
+                "usuario:" + nickname + '\'';
     }
 }

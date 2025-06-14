@@ -1,10 +1,12 @@
 package DAO;
 
 import interfaces.InterfazDAO;
+import model.Cliente;
 import model.EstadoPedido;
 import model.Pedido;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +21,13 @@ public class PedidoDAO implements InterfazDAO<Pedido> {
 
     @Override
     public void insertar(Pedido pedido) {
-        String sql = "INSERT INTO pedidos (cliente_id, estado, fecha_creacion, fecha_limite) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO pedido (id, fecha, Precio_total, estado, id_cliente) VALUES (?, ?, ?, ?, ?)";
         try (var stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, pedido.getCliente().getId());
-            stmt.setString(2, pedido.getEstadoPedido().name());
-            stmt.setDate(3, java.sql.Date.valueOf(pedido.getFechaCreacion()));
-            stmt.setDate(4, java.sql.Date.valueOf(pedido.getFechaLimite()));
+            stmt.setInt(1, pedido.getId());
+            stmt.setDate(2,java.sql.Date.valueOf(pedido.getFechaCreacion()));
+            stmt.setFloat(3, pedido.getPrecioTotal());
+            stmt.setString(4, pedido.getEstadoPedido().toString());
+            stmt.setInt(5, pedido.getCliente().getId());
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,12 +36,12 @@ public class PedidoDAO implements InterfazDAO<Pedido> {
 
     @Override
     public void actualizar(Pedido pedido) {
-    String sql ="UPDATE pedidos SET cliente_id = ?, estado = ?, fecha_creacion = ?, fecha_limite = ? WHERE id = ?";
+    String sql = "UPDATE pedido SET fecha = ?, Precio_total = ?, estado = ?, id_cliente = ? WHERE id = ?";
         try (var stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, pedido.getCliente().getId());
-            stmt.setString(2, pedido.getEstadoPedido().name());
-            stmt.setDate(3, java.sql.Date.valueOf(pedido.getFechaCreacion()));
-            stmt.setDate(4, java.sql.Date.valueOf(pedido.getFechaLimite()));
+            stmt.setDate(1, java.sql.Date.valueOf(pedido.getFechaCreacion()));
+            stmt.setFloat(2, pedido.getPrecioTotal());
+            stmt.setString(3, pedido.getEstadoPedido().toString());
+            stmt.setInt(4, pedido.getCliente().getId());
             stmt.setInt(5, pedido.getId());
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -47,30 +50,38 @@ public class PedidoDAO implements InterfazDAO<Pedido> {
     }
 
     @Override
-    public void eliminar(int id) {
-        String sql = "DELETE FROM pedidos WHERE id = ?";
+    public void eliminar(Pedido pedido) {
+    String sql = "DELETE FROM pedido WHERE id = ?";
         try (var stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setInt(1, pedido.getId());
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    //TODO: terminar el método obtenerPorId
     @Override
     public Pedido obtenerPorId(int id) {
-        String sql = "SELECT * FROM pedidos WHERE id = ?";
+        String sql = "SELECT * FROM pedido WHERE id = ?";
         try (var stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             var rs = stmt.executeQuery();
             if (rs.next()) {
-                Pedido pedido= new Pedido();
-                pedido.setId(rs.getInt("id"));
-                pedido.setEstadoPedido(EstadoPedido.valueOf(rs.getString("estado")));
-                pedido.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
-                pedido.setFechaLimite(rs.getDate("fecha_limite").toLocalDate());
-                ;
+                int pedidoId = rs.getInt("id");
+                LocalDate fecha = rs.getDate("fecha").toLocalDate();
+                float precioTotal = rs.getFloat("Precio_total");
+                EstadoPedido estado = EstadoPedido.valueOf(rs.getString("estado"));
+                int clienteId = rs.getInt("id_cliente");
+
+                ClienteDAO clienteDAO = new ClienteDAO(con);
+                Cliente cliente = clienteDAO.obtenerPorId(clienteId);
+
+                Pedido pedido = new Pedido();
+                pedido.setId(pedidoId);
+                pedido.setFechaCreacion(fecha);
+                pedido.setPrecioTotal(precioTotal);
+                pedido.setEstadoPedido(estado);
+                pedido.setCliente(cliente);
                 return pedido;
             }
         } catch (Exception e) {
@@ -78,39 +89,35 @@ public class PedidoDAO implements InterfazDAO<Pedido> {
         }
         return null;
     }
+
     @Override
     public List<Pedido> obtenerTodos() {
-    String sql = "SELECT * FROM pedidos";
+        String sql = "SELECT * FROM pedido";
+        List<Pedido> pedidos = new ArrayList<>();
         try (var stmt = con.prepareStatement(sql)) {
             var rs = stmt.executeQuery();
-            List<Pedido> pedidos = new ArrayList<>();
             while (rs.next()) {
+                int pedidoId = rs.getInt("id");
+                LocalDate fecha = rs.getDate("fecha").toLocalDate();
+                float precioTotal = rs.getFloat("Precio_total");
+                EstadoPedido estado = EstadoPedido.valueOf(rs.getString("estado"));
+                int clienteId = rs.getInt("id_cliente");
+
+                ClienteDAO clienteDAO = new ClienteDAO(con);
+                Cliente cliente = clienteDAO.obtenerPorId(clienteId);
+
                 Pedido pedido = new Pedido();
-                pedido.setId(rs.getInt("id"));
-                pedido.setEstadoPedido(EstadoPedido.valueOf(rs.getString("estado")));
-                pedido.setFechaCreacion(rs.getDate("fecha_creacion").toLocalDate());
-                pedido.setFechaLimite(rs.getDate("fecha_limite").toLocalDate());
+                pedido.setId(pedidoId);
+                pedido.setFechaCreacion(fecha);
+                pedido.setPrecioTotal(precioTotal);
+                pedido.setEstadoPedido(estado);
+                pedido.setCliente(cliente);
+
                 pedidos.add(pedido);
             }
-            return pedidos;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return pedidos;
     }
-
-    public void actualizarEstado(int id, EstadoPedido nuevoEstado) {
-        String sql = "UPDATE pedidos SET estado = ? WHERE id = ?";
-        try (var stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, nuevoEstado.name());
-            stmt.setInt(2, id);
-            if (nuevoEstado == EstadoPedido.ENTREGADO) {
-                obtenerPorId(id).setFechaEntrega(LocalDate.now());
-            }
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }

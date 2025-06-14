@@ -4,10 +4,8 @@ import controller.AlmacenController;
 import controller.DescuentoController;
 import controller.PedidoController;
 import controller.ProductoController;
-import exceptions.EstadoPedidoInvalidException;
 import exceptions.TipoUsuarioException;
-import java.util.ArrayList;
-import java.util.Map;
+
 import java.util.Objects;
 
 public class Trabajador extends Usuario {
@@ -19,7 +17,7 @@ public class Trabajador extends Usuario {
     }
 
     public Trabajador(Usuario usuario){
-        super(usuario.getNombre(), usuario.getContraseña(), usuario.getCorreo(), usuario.getUsuario());
+        super(usuario.getNombre(), usuario.getContraseña(), usuario.getCorreo(), usuario.getNickname());
         this.salario = 0;
     }
     public Trabajador(String nombre, String contraseña, String correo, String usuario) throws TipoUsuarioException {

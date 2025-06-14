@@ -1,11 +1,6 @@
 package model;
 
-import exceptions.TipoUsuarioException;
 
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Objects;
 
 
@@ -17,13 +12,13 @@ public class Cliente extends Usuario {
 
     }
 
-    public Cliente(String nombre, String contraseña, String correo, String usuario) throws TipoUsuarioException {
+    public Cliente(String nombre, String contraseña, String correo, String usuario)  {
         super(nombre, contraseña, correo, usuario);
         this.puntos = 0;
     }
 
     public Cliente(Usuario usuario) {
-        super(usuario.getNombre(), usuario.getContraseña(), usuario.getCorreo(), usuario.getUsuario());
+        super(usuario.getNombre(), usuario.getContraseña(), usuario.getCorreo(), usuario.getNickname());
         this.puntos = 0;
     }
 

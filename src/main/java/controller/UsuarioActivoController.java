@@ -6,7 +6,6 @@ import model.Usuario;
 
 public class UsuarioActivoController {
 
-    private final static Usuario invitado = new Usuario("invitado","invitado","invitado@gmail.com","invitado",false);
     private static UsuarioActivoController instancia;
     private Usuario usuarioActivo;
 
@@ -27,12 +26,10 @@ public class UsuarioActivoController {
         return usuarioActivo;
     }
 
-    public void usarInvitado(){
-        usuarioActivo = invitado;
-    }
+
 
     public boolean esTrabajadorActivo() {
-        return usuarioActivo != null && usuarioActivo.isTrabajador();
+        return usuarioActivo != null && usuarioActivo.getClass() == Trabajador.class;
     }
 
     public void cerrarSesion(){

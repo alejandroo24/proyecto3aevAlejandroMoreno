@@ -32,18 +32,23 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlController.InicioController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlController.InicioController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="822.0" prefWidth="1622.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
       <children>
-            <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#00000027" height="121.0" layoutX="-0.8" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1545.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="377.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000027" height="121.0" layoutX="-0.8" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1545.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="377.0" />
             <Label fx:id="bienvenidaLabel" layoutX="17.0" layoutY="43.0" text="Bienvenido," textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="29.0" />
@@ -54,15 +59,11 @@
                   <Font name="Ebrima" size="31.0" />
                </font>
             </Label>
-            <Text fx:id="premiobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="520.0" layoutY="67.0" onMouseClicked="#irAPremios" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Tus puntos:">
+            <Text fx:id="pedidosbtn" accessibleRole="BUTTON" fill="WHITE" layoutX="989.0" layoutY="72.0" onMouseClicked="#irAPedidos" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
                <font>
                   <Font size="25.0" />
                </font></Text>
-            <Text fx:id="pedidosInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="989.0" layoutY="67.0" onMouseClicked="#irAPedidos" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
-               <font>
-                  <Font size="25.0" />
-               </font></Text>
-            <Rectangle fx:id="añadircamisetabtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#25dd31b2" height="50.0" layoutX="1176.0" layoutY="375.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="274.0">
+            <Rectangle fx:id="añadirProducto" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#25dd31b2" height="50.0" layoutX="1176.0" layoutY="375.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="274.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -82,7 +83,7 @@
                   <Image url="@../Fxml/grocery-store.png" />
                </image>
             </ImageView>
-            <TableView layoutX="92.0" layoutY="148.0" prefHeight="535.0" prefWidth="923.0">
+            <TableView fx:id="tablaProductos" layoutX="92.0" layoutY="148.0" prefHeight="535.0" prefWidth="923.0">
               <columns>
                 <TableColumn prefWidth="134.0" text="producto" />
                 <TableColumn prefWidth="131.0" text="categoria" />
@@ -93,6 +94,16 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
+            <Text fx:id="cerrarSesion" accessibleRole="BUTTON" fill="WHITE" layoutX="1299.0" layoutY="744.0" onMouseClicked="#irAPedidos" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="CERRAR SESIÓN">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Label fx:id="puntoslbl" layoutX="437.0" layoutY="41.0" text="Tus puntos:" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima" size="29.0" />
+               </font>
+            </Label>
       </children>
     </AnchorPane>
   </children>

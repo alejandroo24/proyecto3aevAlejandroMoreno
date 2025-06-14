@@ -3,8 +3,6 @@ package FxmlController;
 import DAO.ClienteDAO;
 import DAO.ProductoDAO;
 import DataBase.ConnectionBD;
-import controller.ClienteController;
-import controller.PremiosController;
 import controller.UsuarioActivoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

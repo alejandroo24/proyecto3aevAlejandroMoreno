@@ -1,16 +1,16 @@
 package FxmlController;
 
+import DAO.ClienteDAO;
+import DAO.TrabajadorDAO;
+import DataBase.ConnectionBD;
 import controller.UsuarioActivoController;
-import controller.UsuariosController;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import model.Usuario;
-import utils.Utilidades;
+import model.Cliente;
+import model.Trabajador;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class InicioSesionController {
@@ -27,55 +27,22 @@ public class InicioSesionController {
     @FXML
     private javafx.scene.shape.Rectangle btnRegistrar;
 
-    @FXML
-    private javafx.scene.shape.Rectangle btnInvitado;
-
-
-    UsuariosController usuariosController = UsuariosController.getInstancia();
+    ClienteDAO clienteDAO = new ClienteDAO(ConnectionBD.getConnection());
+    TrabajadorDAO trabajadorDAO = new TrabajadorDAO(ConnectionBD.getConnection());
     UsuarioActivoController usuarioActivoController = UsuarioActivoController.getInstancia();
+
 
     @FXML
     private void iniciarSesion (javafx.scene.input.MouseEvent event) throws IOException {
 
-            String usuario = txtUsuario.getText();
+            String nickname = txtUsuario.getText();
             String contraseña = txtContraseña.getText();
 
-             if(usuariosController.getListaUsuarios().isEmpty()) {
-                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                 alerta.setTitle("Error inicio de sesión");
-                 alerta.setHeaderText("Usuario no registrado");
-                 alerta.setContentText("Registra un usuario para poder acceder al sistema");
-                 alerta.showAndWait();
-                 return;
+            btnIniciarSesion.setOnMouseClicked(mouseEvent -> compruebaUsuario(nickname));
 
-        }
 
-        for (Usuario u : usuariosController.getListaUsuarios()) {
-            if (!u.getUsuario().equals(usuario) || !u.getContraseña().equals(contraseña)) {
-                Alert alerta2 = new Alert(Alert.AlertType.ERROR);
-                alerta2.setTitle("Error inicio de sesión");
-                alerta2.setHeaderText("Usuario no registrado");
-                alerta2.setContentText("Registra un usuario para poder acceder al sistema");
-                alerta2.showAndWait();
-            }
-        }
 
-        boolean encontrado = false;
-        for (Usuario u : usuariosController.getListaUsuarios()) {
-            if (u.getUsuario().equals(usuario) && u.getContraseña().equals(contraseña)) {
-                usuarioActivoController.setUsuarioActivo(u);
-                cambiarEscena(event, "/Fxml/Inicio.fxml");
-                encontrado = true;
-                break;
-            }
-        }
-        if (!encontrado) {
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error inicio de sesión");
-            alerta.setHeaderText("Usuario o contraseña incorrectos");
-            alerta.setContentText("Por favor, verifica tus credenciales.");
-            alerta.showAndWait();
-        }
+
     }
     private void cambiarEscena(javafx.scene.input.MouseEvent event, String rutaFXML) {
         try {
@@ -98,10 +65,50 @@ public class InicioSesionController {
         cambiarEscena(event, "/Fxml/Registro.fxml");
     }
 
-    @FXML
-    private void invitado (javafx.scene.input.MouseEvent event) throws IOException {
-        usuarioActivoController.usarInvitado();
-        cambiarEscena(event, "/Fxml/Inicio.fxml");
+
+    private void compruebaUsuario(String usuario) {
+        if (clienteDAO.existeCliente(usuario) & !trabajadorDAO.existeTrabajador(usuario)) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error inicio de sesión");
+            alerta.setHeaderText("Usuario no registrado");
+            alerta.setContentText("Registra un usuario para poder acceder al sistema");
+            alerta.showAndWait();
+
+        }else {
+            String nickname = txtUsuario.getText();
+            String contraseña = txtContraseña.getText();
+            inicioCorrecto(nickname, contraseña);
+
+        }
     }
 
+    private boolean inicioCorrecto(String nickname, String contraseña) {
+        compruebaUsuario(nickname);
+        boolean encontrado = false;
+        for (Cliente cliente : clienteDAO.obtenerTodos()) {
+            if (cliente.getNickname().equals(nickname) && cliente.getContraseña().equals(contraseña)) {
+                usuarioActivoController.setUsuarioActivo(cliente);
+                cambiarEscena(null, "/Fxml/Inicio.fxml");
+                encontrado = true;
+                return encontrado;
+            }
+        }
+        for (Trabajador trabajador : trabajadorDAO.obtenerTodos()) {
+            if (trabajador.getNickname().equals(nickname) && trabajador.getContraseña().equals(contraseña)) {
+                usuarioActivoController.setUsuarioActivo(trabajador);
+                cambiarEscena(null, "/Fxml/InicioTrabajador.fxml");
+                encontrado = true;
+                return encontrado;
+            }
+        }
+
+        if (!encontrado) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error inicio de sesión");
+            alerta.setHeaderText("Usuario o contraseña incorrectos");
+            alerta.setContentText("Por favor, verifica tus credenciales e intenta nuevamente.");
+            alerta.showAndWait();
+        }
+        return false;
+    }
 }

@@ -46,7 +46,7 @@
       <Pane prefHeight="490.0" prefWidth="1632.0" styleClass="gradient-mesh" stylesheets="@style.css">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000002b" height="270.0" layoutX="-3.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1643.0" />
-            <Text fill="WHITE" layoutX="507.0" layoutY="56.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a Forever Damned" textAlignment="CENTER" wrappingWidth="596.0">
+            <Text fill="WHITE" layoutX="507.0" layoutY="70.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a Forever Damned" textAlignment="CENTER" wrappingWidth="596.0">
                <font>
                   <Font size="45.0" />
                </font>
@@ -66,38 +66,27 @@
                         <Font size="44.0" />
                      </font>
                   </Text>
-                  <Rectangle fx:id="btnRegistrarse" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="686.0" layoutY="441.0" onMouseClicked="#registrarUsuario" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="261.0" />
-                  <Text fill="WHITE" layoutX="743.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrarse" textAlignment="CENTER">
+                  <Rectangle fx:id="btnRegistrarse" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#1d1f2430" height="45.0" layoutX="686.0" layoutY="441.0" onMouseClicked="#registrarUsuario" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="261.0" />
+                  <Text fill="WHITE" layoutX="743.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrarse" textAlignment="CENTER">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" layoutX="43.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="volver al inicio de sesión">
+                  <Text fill="WHITE" layoutX="509.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="volver al inicio de sesión">
                      <font>
                         <Font size="36.0" />
                      </font>
                   </Text>
-                  <Rectangle fx:id="btnAtras" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="456.0" layoutY="545.0" onMouseClicked="#atras" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="235.0" />
-                  <Text fill="WHITE" layoutX="495.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" text="atrás" textAlignment="CENTER" wrappingWidth="158.800048828125">
+                  <Rectangle fx:id="btnAtras" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#1d1f2430" height="45.0" layoutX="922.0" layoutY="555.0" onMouseClicked="#atras" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="235.0" />
+                  <Text fill="WHITE" layoutX="961.0" layoutY="587.0" strokeType="OUTSIDE" strokeWidth="0.0" text="atrás" textAlignment="CENTER" wrappingWidth="158.800048828125">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" layoutX="1165.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acceder como invitado" wrappingWidth="384.7359619140625">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Text>
-                  <Rectangle fx:id="btnInvitado" accessibleRole="BUTTON" arcHeight="70.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="901.0" layoutY="549.0" onMouseClicked="#invitado" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="235.0" />
                   <TextField fx:id="txtNombre" accessibleRole="TEXT_FIELD" layoutX="373.0" layoutY="184.0" prefHeight="51.0" prefWidth="394.0" promptText="nombre" style="-fx-background-radius: 8px; -fx-color: black;" stylesheets="@style.css">
                      <font>
                         <Font size="24.0" />
                      </font></TextField>
-                  <Text fill="WHITE" layoutX="959.0" layoutY="582.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invitado" textAlignment="CENTER" wrappingWidth="126.58007812499993">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Text>
                   <TextField fx:id="txtCorreo" accessibleRole="TEXT_FIELD" layoutX="866.0" layoutY="183.0" prefHeight="51.0" prefWidth="394.0" promptText="correo electrónico" style="-fx-background-radius: 8px;">
                      <font>
                         <Font size="24.0" />

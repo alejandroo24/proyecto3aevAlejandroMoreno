@@ -2,20 +2,20 @@
 package FxmlController;
 
 import DAO.ClienteDAO;
+import DAO.TrabajadorDAO;
 import DataBase.ConnectionBD;
-import controller.ClienteController;
-import controller.TrabajadorController;
+
 import controller.UsuarioActivoController;
-import controller.UsuariosController;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import model.Cliente;
 import model.Trabajador;
-import model.Usuario;
+import utils.Utilidades;
 
 import java.io.IOException;
 
@@ -30,11 +30,10 @@ public class RegistroController {
     @FXML private CheckBox chboxTrabajador;
 
 
-    UsuariosController usuariosController = UsuariosController.getInstancia();
-    ClienteController clienteController = ClienteController.getInstancia();
-    TrabajadorController trabajadorController = TrabajadorController.getInstancia();
+
     UsuarioActivoController usuarioActivoController= UsuarioActivoController.getInstancia();
-    UsuarioDAO usuarioDAO = new UsuarioDAO(ConnectionBD.getConnection());
+    ClienteDAO clienteDAO = new ClienteDAO(ConnectionBD.getConnection());
+    TrabajadorDAO trabajadorDAO = new TrabajadorDAO(ConnectionBD.getConnection());
 
 
     @FXML
@@ -46,68 +45,92 @@ public class RegistroController {
         String correo = txtCorreo.getText();
         boolean esTrabajador = chboxTrabajador.isSelected();
 
-        boolean encontrado = false;
-        for (Usuario u : usuariosController.getListaUsuarios()) {
-            if (u.getUsuario().equals(usuario) && u.getContraseña().equals(contraseña)) {
+
+
+        btnRegistrarse.setOnMouseClicked(MouseEvent -> {
+            try {
+                registraUsuario(nombre, usuario, contraseña, correo, esTrabajador, event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+    }
+
+
+    private boolean camposValidos() {
+        String nombre = txtNombre.getText();
+        String usuario = txtUsuario.getText();
+        String contraseña = txtContraseña.getText();
+        String correo = txtCorreo.getText();
+
+        if (nombre.isEmpty() || usuario.isEmpty() || contraseña.isEmpty() || correo.isEmpty()) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error al registrar");
+            alerta.setHeaderText("Campos incompletos");
+            alerta.setContentText("Por favor, completa todos los campos.");
+            alerta.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean usuarioRegistrado(String nickname, String contraseña) {
+        for (Cliente cliente : clienteDAO.obtenerTodos()) {
+            if (cliente.getNickname().equals(nickname) && cliente.getContraseña().equals(contraseña)) {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error al registrar");
-                alerta.setHeaderText("Usuario ya existe");
+                alerta.setTitle("Error al iniciar sesión");
+                alerta.setHeaderText("Usuario ya registrado");
                 alerta.setContentText("Este usuario ya está registrado. Inicia sesión o elige otro nombre de usuario.");
-                alerta.showAndWait();
-                encontrado = true; // <-- Añade esto
-                break;
+                return true;
             }
         }
-        if (!encontrado) {
-            Usuario nuevoUsuario = new Usuario(nombre, contraseña, correo, usuario,esTrabajador);
-            if (usuarioDAO.existeCorreo(correo)) {
+        for (Trabajador trabajador : trabajadorDAO.obtenerTodos()) {
+            if (trabajador.getNickname().equals(nickname) && trabajador.getContraseña().equals(contraseña)) {
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Error al registrar");
-                alerta.setHeaderText("Correo ya existe");
-                alerta.setContentText("Este correo ya está registrado. Inicia sesión o elige otro correo.");
-                alerta.showAndWait();
-            } else {
-                usuarioDAO.insertar(nuevoUsuario);
-                if (!nuevoUsuario.isTrabajador()) {
-                    Cliente cliente = new Cliente(nuevoUsuario);
-                    ClienteDAO clienteDAO = new ClienteDAO(ConnectionBD.getConnection());
-                    clienteDAO.insertar(cliente);
-                }else{
-                    Trabajador trabajador = new Trabajador(nuevoUsuario);
-
-                }
-
-                usuariosController.addUsuario(nuevoUsuario);
-            usuarioActivoController.setUsuarioActivo(nuevoUsuario);
-
+                alerta.setTitle("Error al iniciar sesión");
+                alerta.setHeaderText("Usuario ya registrado");
+                alerta.setContentText("Este usuario ya está registrado. Inicia sesión o elige otro nombre de usuario.");
+                return true;
             }
-            if (esTrabajador) {
-                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                alerta.setTitle("Registro exitoso");
-                alerta.setHeaderText("Bienvenido trabajador");
-                alerta.setContentText("Has sido registrado como trabajador.");
-                alerta.showAndWait();
-                cambiarEscena(event, "/Fxml/Inicio.fxml");
-            } else {
-                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-                alerta.setTitle("Registro exitoso");
-                alerta.setHeaderText("Bienvenido cliente");
-                alerta.setContentText("Has sido registrado como cliente.");
-                alerta.showAndWait();
-                cambiarEscena(event, "/Fxml/Inicio.fxml");
-            }
+        }
+
+        return false;
+    }
+
+    private boolean verificaCorreo(String correo) {
+
+        if (Utilidades.validarEmail(correo)){
+            return true;
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error al registrar");
+            alerta.setHeaderText("Correo inválido");
+            alerta.setContentText("Por favor, introduce un correo electrónico válido.");
+            alerta.showAndWait();
+            return false;
         }
     }
 
-    @FXML
-    private void atras(javafx.scene.input.MouseEvent event) throws IOException {
-        cambiarEscena(event, "/Fxml/Login.fxml");
-    }
-
-    @FXML
-    private void invitado(javafx.scene.input.MouseEvent event) throws IOException {
-        usuarioActivoController.usarInvitado();
-        cambiarEscena(event, "/Fxml/Inicio.fxml");
+    private boolean registraUsuario(String nombre, String usuario, String contraseña, String correo, boolean esTrabajador, javafx.scene.input.MouseEvent event) throws IOException {
+        if (camposValidos() && !usuarioRegistrado(usuario, contraseña) && verificaCorreo(correo)) {
+        if (esTrabajador) {
+                Trabajador trabajador = new Trabajador(nombre, contraseña, correo, usuario);
+                trabajadorDAO.insertar(trabajador);
+                usuarioActivoController.setUsuarioActivo(trabajador);
+                cambiarEscena(event, "/Fxml/InicioTrabajador.fxml");
+            } else {
+                Cliente cliente = new Cliente(nombre, contraseña, correo, usuario);
+                clienteDAO.insertar(cliente);
+                usuarioActivoController.setUsuarioActivo(cliente);
+                cambiarEscena(event, "/Fxml/Inicio.fxml");
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void cambiarEscena(javafx.scene.input.MouseEvent event, String rutaFXML) {
@@ -125,4 +148,11 @@ public class RegistroController {
             alerta.showAndWait();
         }
     }
+
+    @FXML
+    private void atras(javafx.scene.input.MouseEvent event) throws IOException {
+        cambiarEscena(event, "/Fxml/Login.fxml");
+    }
+
+
 }

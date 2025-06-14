@@ -21,7 +21,7 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
         try (var stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, objeto.getId());
             stmt.setString(2, objeto.getNombre());
-            stmt.setString(3, objeto.getUsuario());
+            stmt.setString(3, objeto.getNickname());
             stmt.setString(4, objeto.getContraseña());
             stmt.setString(5, objeto.getCorreo());
             stmt.setDouble(6, objeto.getSalario());
@@ -36,7 +36,7 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
     String sql = "UPDATE trabajadores SET nombre = ?, usuario = ?, contraseña = ?, correo = ?, salario = ? WHERE id = ?";
         try (var stmt = con.prepareStatement(sql)) {
             stmt.setString(1, objeto.getNombre());
-            stmt.setString(2, objeto.getUsuario());
+            stmt.setString(2, objeto.getNickname());
             stmt.setString(3, objeto.getContraseña());
             stmt.setString(4, objeto.getCorreo());
             stmt.setDouble(5, objeto.getSalario());
@@ -67,7 +67,7 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
                 Trabajador trabajador = new Trabajador();
                 trabajador.setId(rs.getInt("id"));
                 trabajador.setNombre(rs.getString("nombre"));
-                trabajador.setUsuario(rs.getString("usuario"));
+                trabajador.setNickname(rs.getString("usuario"));
                 trabajador.setContraseña(rs.getString("contraseña"));
                 trabajador.setCorreo(rs.getString("correo"));
                 trabajador.setSalario(rs.getFloat("salario"));
@@ -89,7 +89,7 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
                 Trabajador trabajador = new Trabajador();
                 trabajador.setId(rs.getInt("id"));
                 trabajador.setNombre(rs.getString("nombre"));
-                trabajador.setUsuario(rs.getString("usuario"));
+                trabajador.setNickname(rs.getString("usuario"));
                 trabajador.setContraseña(rs.getString("contraseña"));
                 trabajador.setCorreo(rs.getString("correo"));
                 trabajador.setSalario(rs.getFloat("salario"));
@@ -99,5 +99,19 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
             e.printStackTrace();
         }
     return trabajadores;
+    }
+
+    public boolean existeTrabajador(String usuario) {
+        String sql = "SELECT COUNT(*) FROM trabajadores WHERE usuario = ?";
+        try (var stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, usuario);
+            var rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

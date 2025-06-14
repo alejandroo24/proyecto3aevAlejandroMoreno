@@ -23,7 +23,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, cliente.getId());
             stmt.setString(2, cliente.getNombre());
-            stmt.setString(3, cliente.getUsuario());
+            stmt.setString(3, cliente.getNickname());
             stmt.setString(4, cliente.getContraseña());
             stmt.setString(5, cliente.getCorreo());
             stmt.setInt(6, cliente.getPuntos());
@@ -38,7 +38,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
     String sql = "UPDATE clientes SET nombre = ?, usuario = ?, contraseña = ?, correo = ?, puntos = ? WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNombre());
-            stmt.setString(2, cliente.getUsuario());
+            stmt.setString(2, cliente.getNickname());
             stmt.setString(3, cliente.getContraseña());
             stmt.setString(4, cliente.getCorreo());
             stmt.setInt(5, cliente.getPuntos());
@@ -70,7 +70,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
                 Cliente cliente = new Cliente();
                 cliente.setId(rs.getInt("id"));
                 cliente.setNombre(rs.getString("nombre"));
-                cliente.setUsuario(rs.getString("usuario"));
+                cliente.setNickname(rs.getString("usuario"));
                 cliente.setContraseña(rs.getString("contraseña"));
                 cliente.setCorreo(rs.getString("correo"));
                 cliente.setPuntos(rs.getInt("puntos"));
@@ -92,7 +92,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
                 Cliente cliente = new Cliente();
                 cliente.setId(rs.getInt("id"));
                 cliente.setNombre(rs.getString("nombre"));
-                cliente.setUsuario(rs.getString("usuario"));
+                cliente.setNickname(rs.getString("usuario"));
                 cliente.setContraseña(rs.getString("contraseña"));
                 cliente.setCorreo(rs.getString("correo"));
                 cliente.setPuntos(rs.getInt("puntos"));
@@ -102,5 +102,19 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
             e.printStackTrace();
         }
          return  clientes;
+    }
+
+    public boolean existeCliente(String usuario) {
+        String sql = "SELECT COUNT(*) FROM clientes WHERE usuario = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, usuario);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
