@@ -19,7 +19,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public void insertar(Cliente cliente) {
-        String sql = "INSERT INTO clientes (id, nombre, usuario, contraseña, correo, puntos) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cliente (id, nombre, nickname, contraseña, correo, puntos) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, cliente.getId());
             stmt.setString(2, cliente.getNombre());
@@ -35,7 +35,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public void actualizar(Cliente cliente) {
-    String sql = "UPDATE clientes SET nombre = ?, usuario = ?, contraseña = ?, correo = ?, puntos = ? WHERE id = ?";
+    String sql = "UPDATE cliente SET nombre = ?, nickname = ?, contraseña = ?, correo = ?, puntos = ? WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNombre());
             stmt.setString(2, cliente.getNickname());
@@ -51,7 +51,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public void eliminar(Cliente cliente) {
-    String sql = "DELETE FROM clientes WHERE id = ?";
+    String sql = "DELETE FROM cliente WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, cliente.getId());
             stmt.executeUpdate();
@@ -62,7 +62,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public Cliente obtenerPorId(int id) {
-        String sql = "SELECT * FROM clientes WHERE id = ?";
+        String sql = "SELECT * FROM cliente WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -70,7 +70,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
                 Cliente cliente = new Cliente();
                 cliente.setId(rs.getInt("id"));
                 cliente.setNombre(rs.getString("nombre"));
-                cliente.setNickname(rs.getString("usuario"));
+                cliente.setNickname(rs.getString("nickname"));
                 cliente.setContraseña(rs.getString("contraseña"));
                 cliente.setCorreo(rs.getString("correo"));
                 cliente.setPuntos(rs.getInt("puntos"));
@@ -84,7 +84,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public List<Cliente> obtenerTodos() {
-        String sql = "SELECT * FROM clientes";
+        String sql = "SELECT * FROM cliente";
         List<Cliente> clientes = new ArrayList<>();
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
@@ -92,7 +92,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
                 Cliente cliente = new Cliente();
                 cliente.setId(rs.getInt("id"));
                 cliente.setNombre(rs.getString("nombre"));
-                cliente.setNickname(rs.getString("usuario"));
+                cliente.setNickname(rs.getString("nickname"));
                 cliente.setContraseña(rs.getString("contraseña"));
                 cliente.setCorreo(rs.getString("correo"));
                 cliente.setPuntos(rs.getInt("puntos"));
@@ -105,7 +105,7 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
     }
 
     public boolean existeCliente(String usuario) {
-        String sql = "SELECT COUNT(*) FROM clientes WHERE usuario = ?";
+        String sql = "SELECT COUNT(*) FROM cliente WHERE nickname = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, usuario);
             ResultSet rs = stmt.executeQuery();

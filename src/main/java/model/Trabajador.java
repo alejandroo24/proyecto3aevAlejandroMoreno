@@ -1,16 +1,11 @@
 package model;
 
-import controller.AlmacenController;
-import controller.DescuentoController;
-import controller.PedidoController;
-import controller.ProductoController;
-import exceptions.TipoUsuarioException;
-
 import java.util.Objects;
 
 public class Trabajador extends Usuario {
 
     private float salario;
+    private Almacen almacen;
 
     public Trabajador(){
 
@@ -20,7 +15,7 @@ public class Trabajador extends Usuario {
         super(usuario.getNombre(), usuario.getContraseña(), usuario.getCorreo(), usuario.getNickname());
         this.salario = 0;
     }
-    public Trabajador(String nombre, String contraseña, String correo, String usuario) throws TipoUsuarioException {
+    public Trabajador(String nombre, String contraseña, String correo, String usuario)  {
         super(nombre, contraseña, correo, usuario);
         this.salario = 0;
     }
@@ -31,6 +26,13 @@ public class Trabajador extends Usuario {
 
     public void setSalario(float salario) {
         this.salario = salario;
+    }
+
+    public Almacen getAlmacen() {
+        return almacen;
+    }
+    public void setAlmacen(Almacen almacen) {
+        this.almacen = almacen;
     }
 
     @Override

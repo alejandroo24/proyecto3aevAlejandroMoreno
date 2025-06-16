@@ -2,14 +2,16 @@ package DAO;
 
 import interfaces.InterfazDAO;
 import model.Almacen;
+import model.Trabajador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class AlmacenDAO implements InterfazDAO<Almacen> {
@@ -26,7 +28,7 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, almacen.getId());
             stmt.setString(2, almacen.getNombre());
-            stmt.setString(3, almacen.getDireccion());
+            stmt.setString(3, almacen.getLocalizacion());
             stmt.setString(4, almacen.getTelefono());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -39,7 +41,7 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
     String sql = "UPDATE almacen SET nombre = ?, direccion = ?, telefono = ? WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, almacen.getNombre());
-            stmt.setString(2, almacen.getDireccion());
+            stmt.setString(2, almacen.getLocalizacion());
             stmt.setString(3, almacen.getTelefono());
             stmt.setInt(4, almacen.getId());
             stmt.executeUpdate();
@@ -69,7 +71,7 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
                 Almacen almacen = new Almacen();
                 almacen.setId(rs.getInt("id"));
                 almacen.setNombre(rs.getString("nombre"));
-                almacen.setDireccion(rs.getString("direccion"));
+                almacen.setLocalizacion(rs.getString("direccion"));
                 almacen.setTelefono(rs.getString("telefono"));
                 return almacen;
             }
@@ -89,7 +91,7 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
                 Almacen almacen = new Almacen();
                 almacen.setId(rs.getInt("id"));
                 almacen.setNombre(rs.getString("nombre"));
-                almacen.setDireccion(rs.getString("direccion"));
+                almacen.setLocalizacion(rs.getString("direccion"));
                 almacen.setTelefono(rs.getString("telefono"));
                 almacenes.add(almacen);
             }
@@ -97,5 +99,32 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
             e.printStackTrace();
         }
         return almacenes;
+    }
+
+    /**
+     * Obtiene el almacén con menos trabajadores asignados.
+     * @return Almacén con menos trabajadores, o null si no hay almacenes.
+     */
+    public Almacen obtenerAlmacenPorTrabajadores(){
+        HashMap<Almacen,Integer> almacenContador = new HashMap<>();
+        for (Almacen almacen : obtenerTodos()) {
+            almacenContador.put(almacen, 0);
+        }
+        for (Trabajador trabajador : new TrabajadorDAO(con).obtenerTodos()) {
+            for (Almacen almacen : almacenContador.keySet()) {
+                if (trabajador.getAlmacen() != null && trabajador.getAlmacen().getId() == almacen.getId()) {
+                    almacenContador.put(almacen, almacenContador.get(almacen) + 1);
+                }
+            }
+        }
+        Almacen almacenConMenosTrabajadores = null;
+        if (!almacenContador.isEmpty()){
+            for (Map.Entry<Almacen, Integer> entry : almacenContador.entrySet()) {
+                if (almacenConMenosTrabajadores == null || entry.getValue() < almacenContador.get(almacenConMenosTrabajadores)) {
+                    almacenConMenosTrabajadores = entry.getKey();
+                }
+            }
+        }
+        return almacenConMenosTrabajadores;
     }
 }

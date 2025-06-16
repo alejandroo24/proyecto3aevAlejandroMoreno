@@ -32,8 +32,9 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -46,21 +47,6 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="559.0" prefWidth="1922.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
       <children>
-            <Rectangle fx:id="productosbtn" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="603.0" layoutX="1161.0" layoutY="153.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="343.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
-            <Rectangle fx:id="pedidosbtn" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="603.0" layoutX="782.0" layoutY="154.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="343.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
-            <Rectangle fx:id="descuentosbtn" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="603.0" layoutX="402.0" layoutY="150.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="343.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
             <Rectangle fx:id="premiosInicioButton" arcHeight="5.0" arcWidth="5.0" fill="#00000025" height="120.0" layoutX="-0.8" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="1621.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="301.0" />
             <Label fx:id="bienvenidaLabel" layoutX="17.0" layoutY="33.0" text="Bienvenido," textFill="WHITE">
                <font>
@@ -72,49 +58,63 @@
                   <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
                </image>
             </ImageView>
-            <Rectangle fx:id="almacenesbtn" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#00000027" height="603.0" layoutX="22.0" layoutY="146.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" width="343.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Rectangle>
-            <Text fill="WHITE" layoutX="1205.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pedidos pendientes:">
+            <Text fill="WHITE" layoutX="885.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pedidos pendientes:">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Text>
-            <Text fx:id="saldoInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="62.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="ALMACENES" wrappingWidth="261.64599609375">
-               <font>
-                  <Font size="42.0" />
-               </font></Text>
-            <Text accessibleRole="BUTTON" fill="WHITE" layoutX="436.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="DESCUENTOS">
-               <font>
-                  <Font size="42.0" />
-               </font>
-            </Text>
-            <Text fx:id="pedidosInicioButton" accessibleRole="BUTTON" fill="WHITE" layoutX="866.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PEDIDOS">
-               <font>
-                  <Font size="42.0" />
-               </font></Text>
-            <Text fx:id="pedidosInicioButton1" accessibleRole="BUTTON" fill="WHITE" layoutX="1209.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="PRODUCTOS">
-               <font>
-                  <Font size="42.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" layoutX="611.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comisión pedidos:">
+            <Text fill="WHITE" layoutX="381.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comisión pedidos:">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
             </Text>
-            <Label fx:id="salariolbl" layoutX="840.0" layoutY="49.0" text="label salario" textFill="WHITE">
+            <Label fx:id="salariolbl" layoutX="610.0" layoutY="49.0" text="label salario" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="pedidospendienteslbl" layoutX="1461.0" layoutY="42.0" text="0" textFill="WHITE">
+            <Label fx:id="pedidospendienteslbl" layoutX="1141.0" layoutY="42.0" text="0" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="28.0" />
                </font>
             </Label>
+            <Text fx:id="pedidosInicioButton11" accessibleRole="BUTTON" fill="WHITE" layoutX="1315.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="CERRAR SESIÓN">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <TableView layoutX="66.0" layoutY="197.0" prefHeight="578.0" prefWidth="508.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="id pedido" />
+                  <TableColumn prefWidth="75.0" text="fecha pedido" />
+                <TableColumn prefWidth="75.0" text="estado " />
+                  <TableColumn prefWidth="75.0" text="precio total" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Text fx:id="pedidosInicioButton111" accessibleRole="BUTTON" fill="WHITE" layoutX="215.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="TABLA PEDIDOS">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Text>
+            <Text fx:id="pedidosInicioButton1111" accessibleRole="BUTTON" fill="WHITE" layoutX="970.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="TABLA PRODUCTOS">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Text>
+            <TableView layoutX="849.0" layoutY="197.0" prefHeight="578.0" prefWidth="508.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="producto" />
+                  <TableColumn prefWidth="75.0" text="categoria" />
+                  <TableColumn prefWidth="75.0" text="precio" />
+                  <TableColumn prefWidth="75.0" text="stock " />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
       </children>
     </AnchorPane>
   </children>

@@ -120,4 +120,30 @@ public class PedidoDAO implements InterfazDAO<Pedido> {
         }
         return pedidos;
     }
+
+    public List<Pedido> obtenerPedidosPorCliente(Cliente cliente) {
+        String sql = "SELECT * FROM pedido WHERE id_cliente = ?";
+        List<Pedido> pedidos = new ArrayList<>();
+        try (var stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, cliente.getId());
+            var rs = stmt.executeQuery();
+            while (rs.next()) {
+                int pedidoId = rs.getInt("id");
+                LocalDate fecha = rs.getDate("fecha").toLocalDate();
+                float precioTotal = rs.getFloat("Precio_total");
+                EstadoPedido estado = EstadoPedido.valueOf(rs.getString("estado"));
+                Pedido pedido = new Pedido();
+                pedido.setId(pedidoId);
+                pedido.setFechaCreacion(fecha);
+                pedido.setPrecioTotal(precioTotal);
+                pedido.setEstadoPedido(estado);
+                pedido.setCliente(cliente);
+
+                pedidos.add(pedido);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pedidos;
+    }
 }

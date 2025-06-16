@@ -19,6 +19,10 @@ import javafx.stage.Stage;
 import model.*;
 import utils.Utilidades;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class InicioController {
 
     UsuarioActivoController usuarioActivoController = UsuarioActivoController.getInstancia();
@@ -32,18 +36,31 @@ public class InicioController {
     @FXML
     private Label puntoslbl;
     @FXML
+    private Label contadorCarro;
+    @FXML
     private Text pedidosbtn;
     @FXML
     private ImageView carrobtn;
     @FXML
     private Rectangle añadirProducto;
     @FXML
-    private TableView <Producto> tablaProductos;
+    private TableView<Producto> tablaProductos;
+    @FXML
+    private Text cerrarSesionBtn;
+
+
+
+    private List<DetallesPedido> carro = new ArrayList<>();
 
     @FXML
     private void inicio() {
-    mostrarDatosCliente();
-    tablaProductos.setItems((ObservableList)(productosDAO.obtenerTodos()));
+        mostrarDatosCliente();
+        tablaProductos.setItems((ObservableList) (productosDAO.obtenerTodos()));
+        tablaProductos.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        añadirProducto.setOnMouseClicked(mouseEvent -> añadeProducto());
+        pedidosbtn.setOnMouseClicked(event -> irAPedidos(event));
+        carrobtn.setOnMouseClicked(event -> irACarro(event));
+        cerrarSesionBtn.setOnMouseClicked(event -> cerrarSesion(event));
 
     }
 
@@ -54,12 +71,37 @@ public class InicioController {
         }
     }
 
-    // Método para añadir un producto al carrito HAY QUE TERMINARLO
-    private void añadirProducto(MouseEvent event) {
-        añadirProducto.setOnMouseClicked(mouseEvent -> {;
-            Producto productoSeleccionado = tablaProductos.getSelectionModel().getSelectedItem();
 
-        });
+    public void añadeProducto() {
+        Producto productoSeleccionado = tablaProductos.getSelectionModel().getSelectedItem();
+        if (productoSeleccionado != null && productoSeleccionado.getStock() > 0) {
+
+            DetallesPedido detallePedido = new DetallesPedido();
+            detallePedido.setProducto(productoSeleccionado);
+            carro.add(detallePedido);
+            contadorCarro.setText(String.valueOf(carro.size()));
+            productosDAO.bajarStockProducto(productoSeleccionado);
+
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Producto añadido");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Has añadido " + productoSeleccionado.getDescripcion() + " al carrito.");
+            alerta.showAndWait();
+            // Actualizar el stock del producto
+
+        } else if (productoSeleccionado.getStock() == 0) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Producto no disponible");
+            alerta.setHeaderText(null);
+            alerta.setContentText("El producto seleccionado no está disponible en stock.");
+            alerta.showAndWait();
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Selección de producto");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Por favor, selecciona un producto de la lista.");
+            alerta.showAndWait();
+        }
     }
 
     @FXML
@@ -79,6 +121,8 @@ public class InicioController {
             alerta.setContentText("Verifica que el archivo FXML exista y esté configurado correctamente.");
             alerta.showAndWait();
         }
+
+
     }
 
     @FXML
@@ -91,5 +135,11 @@ public class InicioController {
     private void irACarro(MouseEvent event) {
         // Lógica para ir a la pantalla de saldo
         cambiarEscena(event, "/Fxml/carroMenu.fxml");
+    }
+
+    private void cerrarSesion(MouseEvent event) {
+        usuarioActivoController.setUsuarioActivo(null);
+        carro.clear();
+        cambiarEscena(event, "/Fxml/InicioSesion.fxml");
     }
 }
