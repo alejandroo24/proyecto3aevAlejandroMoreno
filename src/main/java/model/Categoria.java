@@ -4,6 +4,6 @@ package model;
 
 
 public enum Categoria {
-    CAMISETA,SUDADERA,GORRA,CALZADO;
+    CAMISETA,SUDADERA,PANTALON,GORRA;
 
 }
