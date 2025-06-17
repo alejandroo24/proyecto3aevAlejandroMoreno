@@ -13,7 +13,7 @@ import model.Trabajador;
 
 import java.io.IOException;
 
-public class InicioSesionController {
+public class inicioSesionController {
 
     @FXML
     private TextField txtUsuario;

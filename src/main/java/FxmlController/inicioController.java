@@ -19,13 +19,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
-import utils.Utilidades;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InicioController {
+public class inicioController {
 
     UsuarioActivoController usuarioActivoController = UsuarioActivoController.getInstancia();
     ClienteDAO clienteDAO = new ClienteDAO(ConnectionBD.getConnection());

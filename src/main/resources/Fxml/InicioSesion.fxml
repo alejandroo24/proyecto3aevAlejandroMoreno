@@ -32,15 +32,12 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="867.0" prefWidth="1632.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlController.InicioSesionController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="867.0" prefWidth="1632.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlController.inicioSesionController">
    <children>
       <Pane prefHeight="985.0" prefWidth="1920.0" style="-fx-background-color: d7e3fc;">
          <children>
@@ -72,33 +69,22 @@
                         <Font size="30.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" layoutX="22.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No tienes una cuenta? ">
+                  <Text fill="WHITE" layoutX="482.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿No tienes una cuenta? ">
                      <font>
                         <Font size="36.0" />
                      </font>
                   </Text>
-                  <Rectangle fx:id="btnRegistrarse" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="412.0" layoutY="450.0" onMouseClicked="#registrar" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="235.0" />
-                  <Text fill="WHITE" layoutX="446.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrarse" textAlignment="CENTER" wrappingWidth="158.800048828125">
+                  <Rectangle fx:id="btnRegistrarse" accessibleRole="BUTTON" arcHeight="20.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="872.0" layoutY="450.0" onMouseClicked="#registrar" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="235.0" />
+                  <Text fill="WHITE" layoutX="906.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registrarse" textAlignment="CENTER" wrappingWidth="158.800048828125">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" layoutX="1145.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acceder como invitado" wrappingWidth="384.7359619140625">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Text>
-                  <Rectangle fx:id="btnInvitado" accessibleRole="BUTTON" arcHeight="70.0" arcWidth="20.0" fill="#1d1f2430" height="45.0" layoutX="881.0" layoutY="454.0" onMouseClicked="#invitado" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="235.0" />
                   <TextField fx:id="txtUsuario" accessibleRole="TEXT_FIELD" layoutX="571.0" layoutY="137.0" prefHeight="51.0" prefWidth="394.0" promptText="usuario" style="-fx-background-radius: 8px;">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </TextField>
-                  <Text fill="WHITE" layoutX="937.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invitado" textAlignment="CENTER" wrappingWidth="126.58007812499993">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Text>
                </children>
             </Pane>
          </children>

@@ -11,7 +11,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import model.Cliente;
 import model.Trabajador;
@@ -19,7 +18,7 @@ import utils.Utilidades;
 
 import java.io.IOException;
 
-public class RegistroController {
+public class registroController {
     @FXML private TextField txtNombre;
     @FXML private TextField txtUsuario;
     @FXML private PasswordField txtContraseña;
@@ -151,7 +150,7 @@ public class RegistroController {
 
     @FXML
     private void atras(javafx.scene.input.MouseEvent event) throws IOException {
-        cambiarEscena(event, "/Fxml/Login.fxml");
+        cambiarEscena(event, "/Fxml/inicioSesion.fxml");
     }
 
 
