@@ -19,14 +19,13 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public void insertar(Cliente cliente) {
-        String sql = "INSERT INTO cliente (id, nombre, nickname, contraseña, correo, puntos) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cliente (nombre, nickname, contraseña, correo, puntos) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, cliente.getId());
-            stmt.setString(2, cliente.getNombre());
-            stmt.setString(3, cliente.getNickname());
-            stmt.setString(4, cliente.getContraseña());
-            stmt.setString(5, cliente.getCorreo());
-            stmt.setInt(6, cliente.getPuntos());
+            stmt.setString(1, cliente.getNombre());
+            stmt.setString(2, cliente.getNickname());
+            stmt.setString(3, cliente.getContraseña());
+            stmt.setString(4, cliente.getCorreo());
+            stmt.setInt(5, cliente.getPuntos());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,13 +103,13 @@ public class ClienteDAO implements InterfazDAO<Cliente> {
          return  clientes;
     }
 
-    public boolean existeCliente(String usuario) {
-        String sql = "SELECT COUNT(*) FROM cliente WHERE nickname = ?";
+    public boolean existeCliente(String nickname) {
+        String sql = "SELECT * FROM cliente WHERE nickname = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setString(1, usuario);
+            stmt.setString(1, nickname);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0;
+                return true; // El cliente existe
             }
         } catch (SQLException e) {
             e.printStackTrace();

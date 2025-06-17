@@ -4,6 +4,8 @@ import DAO.AlmacenDAO;
 import DAO.PedidoDAO;
 import DAO.ProductoDAO;
 import controller.UsuarioActivoController;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +13,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
+
+import java.time.LocalDate;
 
 public class inicioTrabajador {
 
@@ -29,7 +35,27 @@ public class inicioTrabajador {
     @FXML
     private TableView<Pedido> tablaPedidos;
     @FXML
+    private TableColumn<Pedido, Integer> idColumna;
+    @FXML
+    private TableColumn<Pedido, LocalDate> fechaColumna;
+    @FXML
+    private TableColumn<Pedido, EstadoPedido> estadoColumna;
+    @FXML
+    private TableColumn<Pedido, Float> precioColumna;
+
+    @FXML
     private TableView<Producto> tablaAlmacen;
+    @FXML
+    private TableColumn<Producto, String> productoColumna;
+    @FXML
+    private TableColumn<Producto, Categoria> categoriaColumna;
+    @FXML
+    private TableColumn<Producto, Integer> stockColumna;
+    @FXML
+    private TableColumn<Producto, Float> precioPrColumna;
+
+
+
 
     @FXML
     private Rectangle confirmarPedidoBtn;
@@ -59,9 +85,9 @@ public class inicioTrabajador {
     @FXML
     private MenuItem sudadera;
     @FXML
-    private MenuItem gorra;
+    private MenuItem pantalon;
     @FXML
-    private MenuItem calzado;
+    private MenuItem gorra;
 
 
 
@@ -70,40 +96,74 @@ public class inicioTrabajador {
     PedidoDAO pedidoDAO = new PedidoDAO(DataBase.ConnectionBD.getConnection());
     AlmacenDAO almacenDAO = new AlmacenDAO(DataBase.ConnectionBD.getConnection());
     ProductoDAO productoDAO = new ProductoDAO(DataBase.ConnectionBD.getConnection());
+    ObservableList pedidosPendientes = FXCollections.observableArrayList(pedidoDAO.obtenerPedidosPorEstado(EstadoPedido.PENDIENTE));
+
 
     @FXML
     private void initialize() {
+        if (trabajadorActivo.getAlmacen() == null) {
+            Almacen almacen = almacenDAO.obtenerAlmacenPorTrabajadores();
+            trabajadorActivo.setAlmacen(almacen);
+        }
+        ObservableList productosAlmacen = FXCollections.observableArrayList(productoDAO.obtenerProductosAlmacen(trabajadorActivo.getAlmacen()));
+
         mostrarDatosTrabajador();
-        mostrarPedidos();
-        mostrarAlmacen();
+        mostrarTablaPedidos();
+        mostrarTablaAlmacen(productosAlmacen);
+
+        camiseta.setOnAction(e -> categoriaMenu.setText("Camiseta"));
+        sudadera.setOnAction(e -> categoriaMenu.setText("Sudadera"));
+        pantalon.setOnAction(e -> categoriaMenu.setText("Pantalón"));
+        gorra.setOnAction(e -> categoriaMenu.setText("Gorra"));
 
         confirmarPedidoBtn.setOnMouseClicked(mouseEvent -> confirmarPedido());
         cancelarPedidoBtn.setOnMouseClicked(mouseEvent -> cancelarPedido());
         añadirProductoBtn.setOnMouseClicked(mouseEvent -> añadirProducto());
-        actualizarProductoBtn.setOnMouseClicked(mouseEvent -> actualizarProducto());
-        eliminarProductoBtn.setOnMouseClicked(mouseEvent -> eliminarProducto());
+        actualizarProductoBtn.setOnMouseClicked(mouseEvent -> actualizarProducto(productosAlmacen));
+        eliminarProductoBtn.setOnMouseClicked(mouseEvent -> eliminarProducto(productosAlmacen));
         cerrarSesionBtn.setOnMouseClicked(event -> cerrarSesion(event));
+    }
+
+    private void mostrarTablaPedidos() {
+        idColumna.setCellValueFactory(new PropertyValueFactory<>("id"));
+        fechaColumna.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+        estadoColumna.setCellValueFactory(new PropertyValueFactory<>("estadoPedido"));
+        precioColumna.setCellValueFactory((cellData ->
+                new ReadOnlyObjectWrapper<>(cellData.getValue().getPrecioTotal())
+        ));
+        tablaPedidos.setItems(pedidosPendientes);
+        tablaPedidos.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
+    private void mostrarTablaAlmacen(ObservableList productosAlmacen) {
+        productoColumna.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        categoriaColumna.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        stockColumna.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        precioPrColumna.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        tablaAlmacen.setItems(productosAlmacen);
+        tablaAlmacen.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     private void mostrarDatosTrabajador() {
         bienvenidaLabel.setText("Bienvenido, " + trabajadorActivo.getNombre());
-        salarioLabel.setText("Salario: " + trabajadorActivo.getSalario() + " €");
-        almacenLabel.setText("Almacén: " + trabajadorActivo.getAlmacen().getNombre());
+        salarioLabel.setText("" + trabajadorActivo.getSalario() + " €");
+        almacenLabel.setText( ""+ trabajadorActivo.getAlmacen().getNombre());
     }
 
-    private void mostrarPedidos() {
-       tablaPedidos.setItems((ObservableList<Pedido>) pedidoDAO.obtenerPedidosPorEstado(EstadoPedido.PENDIENTE));
-    }
-
-    private void mostrarAlmacen() {
-        tablaAlmacen.setItems((ObservableList<Producto>) productoDAO.obtenerProductosAlmacen(trabajadorActivo.getAlmacen()));
-    }
 
     private boolean confirmarPedido() {
         Pedido pedidoSeleccionado = tablaPedidos.getSelectionModel().getSelectedItem();
         if (pedidoSeleccionado != null && pedidoSeleccionado.getEstadoPedido() == EstadoPedido.PENDIENTE) {
             pedidoDAO.confirmarPedido(pedidoSeleccionado);
-            mostrarPedidos();
+            pedidosPendientes.setAll(pedidoDAO.obtenerPedidosPorEstado(EstadoPedido.PENDIENTE));
+            mostrarTablaPedidos();
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Pedido Confirmado");
+            alerta.setHeaderText(null);
+            alerta.setContentText("El pedido ha sido confirmado exitosamente.");
+            alerta.showAndWait();
+            trabajadorActivo.setSalario(trabajadorActivo.getSalario() + 20);
+            mostrarDatosTrabajador();
             return true;
         }
         return false;
@@ -113,7 +173,8 @@ public class inicioTrabajador {
         Pedido pedidoSeleccionado = tablaPedidos.getSelectionModel().getSelectedItem();
         if (pedidoSeleccionado != null && pedidoSeleccionado.getEstadoPedido() == EstadoPedido.PENDIENTE) {
             pedidoDAO.cancelarPedido(pedidoSeleccionado);
-            mostrarPedidos();
+            pedidosPendientes.setAll(pedidoDAO.obtenerPedidosPorEstado(EstadoPedido.PENDIENTE));
+            mostrarTablaPedidos();
             return true;
         }
         return false;
@@ -129,7 +190,7 @@ public class inicioTrabajador {
         }
     }
 
-    private boolean actualizarProducto(){
+    private boolean actualizarProducto(ObservableList productosAlmacen) {
         Producto productoSeleccionado = tablaAlmacen.getSelectionModel().getSelectedItem();
         if (productoSeleccionado != null) {
             Producto productoActualizado = datosActualizados();
@@ -138,18 +199,20 @@ public class inicioTrabajador {
             } else {
                 productoActualizado.setId(productoSeleccionado.getId());
                 productoDAO.actualizar(productoActualizado);
-                mostrarAlmacen();
+                productosAlmacen.setAll(productoDAO.obtenerProductosAlmacen(trabajadorActivo.getAlmacen()));
+                mostrarTablaAlmacen(productosAlmacen);
                 return true;
             }
         }
         return false;
     }
 
-    private boolean eliminarProducto(){
+    private boolean eliminarProducto(ObservableList productosAlmacen) {
         Producto productoSeleccionado = tablaAlmacen.getSelectionModel().getSelectedItem();
         if (productoSeleccionado != null) {
             productoDAO.eliminar(productoSeleccionado);
-            mostrarAlmacen();
+            productosAlmacen.setAll(productoDAO.obtenerProductosAlmacen(trabajadorActivo.getAlmacen()));
+            mostrarTablaAlmacen(productosAlmacen);
             return true;
         } else {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -167,11 +230,11 @@ public class inicioTrabajador {
         cambiarEscena(event, "/Fxml/InicioSesion.fxml");
     }
 
+    @FXML
     private void cambiarEscena(MouseEvent event, String rutaFXML) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(rutaFXML));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
             stage.setScene(new Scene(root, 1280, 720));
             stage.setMaximized(true);
             stage.show();
@@ -202,14 +265,32 @@ public class inicioTrabajador {
         producto.setPrecio(Float.parseFloat(precioField.getText()));
         producto.setAlmacen(trabajadorActivo.getAlmacen());
 
-        if (categoriaMenu.getText().equals("Camiseta")) {
-            producto.setCategoria(Categoria.CAMISETA);
-        } else if (categoriaMenu.getText().equals("Sudadera")) {
-            producto.setCategoria(Categoria.SUDADERA);
-        } else if (categoriaMenu.getText().equals("Gorra")) {
-            producto.setCategoria(Categoria.GORRA);
-        } else if (categoriaMenu.getText().equals("Calzado")) {
-            producto.setCategoria(Categoria.CALZADO);
+        // Asignar la categoría según el texto seleccionado en el MenuButton
+        switch (categoriaMenu.getText()) {
+            case "Camiseta":
+                producto.setCategoria(Categoria.CAMISETA);
+                break;
+            case "Sudadera":
+                producto.setCategoria(Categoria.SUDADERA);
+                break;
+            case "Gorra":
+                producto.setCategoria(Categoria.GORRA);
+                break;
+            case "Pantalón":
+                producto.setCategoria(Categoria.PANTALON);
+                break;
+            default:
+                producto.setCategoria(null);
+        }
+
+        // Validar que la categoría no sea null
+        if (producto.getCategoria() == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Categoría no seleccionada");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Por favor, selecciona una categoría válida.");
+            alerta.showAndWait();
+            return null;
         }
 
         return producto;
@@ -236,19 +317,32 @@ public class inicioTrabajador {
             producto.setPrecio(productoSeleccionado.getPrecio());
         }
         else {
-            producto.setPrecio(Float.parseFloat(precioField.getText()));
+            String precioTexto = precioField.getText().replace(",", ".");
+            producto.setPrecio(Float.parseFloat(precioTexto));
         }
 
-        if (categoriaMenu.getText().isEmpty()) {
+        String categoriaTexto = categoriaMenu.getText();
+        if (categoriaTexto.isEmpty()) {
             producto.setCategoria(productoSeleccionado.getCategoria());
-        } else if (categoriaMenu.getText().equals("Camiseta")) {
+        } else if (categoriaTexto.equals("Camiseta")) {
             producto.setCategoria(Categoria.CAMISETA);
-        } else if (categoriaMenu.getText().equals("Sudadera")) {
+        } else if (categoriaTexto.equals("Sudadera")) {
             producto.setCategoria(Categoria.SUDADERA);
-        } else if (categoriaMenu.getText().equals("Gorra")) {
+        } else if (categoriaTexto.equals("Gorra")) {
             producto.setCategoria(Categoria.GORRA);
-        } else if (categoriaMenu.getText().equals("Calzado")) {
-            producto.setCategoria(Categoria.CALZADO);
+        } else if (categoriaTexto.equals("Pantalón") || categoriaTexto.equals("Pantalon")) {
+            producto.setCategoria(Categoria.PANTALON);
+        } else {
+            producto.setCategoria(null);
+        }
+
+        if (producto.getCategoria() == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Categoría no seleccionada");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Por favor, selecciona una categoría válida.");
+            alerta.showAndWait();
+            return null;
         }
 
         producto.setAlmacen(trabajadorActivo.getAlmacen());

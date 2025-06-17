@@ -33,12 +33,19 @@ public class inicioSesionController {
 
 
     @FXML
-    private void iniciarSesion (javafx.scene.input.MouseEvent event) throws IOException {
+    private void iniciarSesion (javafx.scene.input.MouseEvent event)  {
 
             String nickname = txtUsuario.getText();
             String contraseña = txtContraseña.getText();
+                btnIniciarSesion.setOnMouseClicked(mouseEvent -> {
+                    try {
+                        compruebaUsuario(nickname,event);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
 
-            btnIniciarSesion.setOnMouseClicked(mouseEvent -> compruebaUsuario(nickname));
+
 
 
 
@@ -66,8 +73,8 @@ public class inicioSesionController {
     }
 
 
-    private void compruebaUsuario(String usuario) {
-        if (clienteDAO.existeCliente(usuario) & !trabajadorDAO.existeTrabajador(usuario)) {
+    private void compruebaUsuario(String nickname,javafx.scene.input.MouseEvent event) throws IOException {
+        if (!clienteDAO.existeCliente(nickname) && !trabajadorDAO.existeTrabajador(nickname)) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error inicio de sesión");
             alerta.setHeaderText("Usuario no registrado");
@@ -75,20 +82,18 @@ public class inicioSesionController {
             alerta.showAndWait();
 
         }else {
-            String nickname = txtUsuario.getText();
+            String nicknameusuario = txtUsuario.getText();
             String contraseña = txtContraseña.getText();
-            inicioCorrecto(nickname, contraseña);
-
+                inicioCorrecto(nicknameusuario, contraseña, event);
         }
     }
 
-    private boolean inicioCorrecto(String nickname, String contraseña) {
-        compruebaUsuario(nickname);
+    private boolean inicioCorrecto(String nickname, String contraseña, javafx.scene.input.MouseEvent event) {
         boolean encontrado = false;
         for (Cliente cliente : clienteDAO.obtenerTodos()) {
             if (cliente.getNickname().equals(nickname) && cliente.getContraseña().equals(contraseña)) {
                 usuarioActivoController.setUsuarioActivo(cliente);
-                cambiarEscena(null, "/Fxml/Inicio.fxml");
+                cambiarEscena(event, "/Fxml/Inicio.fxml");
                 encontrado = true;
                 return encontrado;
             }
@@ -96,7 +101,7 @@ public class inicioSesionController {
         for (Trabajador trabajador : trabajadorDAO.obtenerTodos()) {
             if (trabajador.getNickname().equals(nickname) && trabajador.getContraseña().equals(contraseña)) {
                 usuarioActivoController.setUsuarioActivo(trabajador);
-                cambiarEscena(null, "/Fxml/InicioTrabajador.fxml");
+                cambiarEscena(event, "/Fxml/InicioTrabajador.fxml");
                 encontrado = true;
                 return encontrado;
             }

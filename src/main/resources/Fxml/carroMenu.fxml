@@ -32,14 +32,20 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlController.carroController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlController.carroController">
   <children>
     <AnchorPane id="boxBlurSaldo" maxHeight="-1.0" maxWidth="-1.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
       <children>
@@ -49,22 +55,17 @@
                   <Font name="Ebrima" size="25.0" />
                </font>
             </Label>
-            <ImageView fx:id="carro" accessibleRole="BUTTON" fitHeight="20.0" fitWidth="20.0" layoutX="656.0" layoutY="6.0">
-               <image>
-                  <Image url="grocery-store.png" />
-               </image>
-            </ImageView>
-            <Rectangle fx:id="realizarPedidoBtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#5bd124b2" height="61.0" layoutX="1090.0" layoutY="454.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
+            <Rectangle fx:id="realizarPedidoBtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#5bd124b2" height="61.0" layoutX="1060.0" layoutY="454.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="1124.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="realizar pedido">
+            <Text fill="WHITE" layoutX="1105.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="realizar pedido">
                <font>
-                  <Font size="35.0" />
+                  <Font size="30.0" />
                </font>
             </Text>
-            <Text fx:id="iniciobtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1369.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="INICIO">
+            <Text fx:id="inicioBtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1369.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="INICIO">
                <font>
                   <Font size="40.0" />
                </font>
@@ -74,74 +75,67 @@
                   <Font name="System Bold" size="46.0" />
                </font>
             </Text>
-            <ImageView fitHeight="41.0" fitWidth="40.0" layoutX="1376.0" layoutY="464.0">
+            <ImageView fitHeight="41.0" fitWidth="40.0" layoutX="1336.0" layoutY="464.0">
                <image>
-                  <Image url="@parcel.png" />
+                  <Image url="@/Fxml/parcel.png" />
                </image>
             </ImageView>
-            <TableView fx:id="detallePedidoTable" layoutX="60.0" layoutY="145.0" prefHeight="602.0" prefWidth="935.0">
+            <TableView fx:id="tablaCarro" layoutX="60.0" layoutY="145.0" prefHeight="602.0" prefWidth="935.0">
               <columns>
-                <TableColumn editable="false" prefWidth="75.0" text="producto" />
-                <TableColumn editable="false" prefWidth="75.0" text="categoria" />
-                  <TableColumn prefWidth="75.0" text="cantidad" />
-                  <TableColumn editable="false" prefWidth="75.0" text="precio unitario" />
-                  <TableColumn editable="false" prefWidth="75.0" text="precio total" />
+                <TableColumn fx:id="nombreProductoColumna" editable="false" prefWidth="75.0" text="producto" />
+                  <TableColumn fx:id="cantidadColumna" prefWidth="75.0" text="cantidad" />
+                  <TableColumn fx:id="precioTotalColumna" editable="false" prefWidth="75.0" text="precio total" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Label fx:id="precioPedidoLbl" layoutX="1378.0" layoutY="181.0" text="0,00€" textFill="WHITE">
+            <Label fx:id="totalLabel" layoutX="1118.0" layoutY="181.0" text="0,00€" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="33.0" />
                </font>
             </Label>
-            <Text fill="WHITE" layoutX="1081.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="precio total del pedido:">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Text>
-            <Rectangle fx:id="vaciarCarroBtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#cf2925b2" height="61.0" layoutX="1090.0" layoutY="665.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
+            <Rectangle fx:id="vaciarCarroBtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#cf2925b2" height="61.0" layoutX="1060.0" layoutY="665.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <Text fill="WHITE" layoutX="1161.0" layoutY="706.0" strokeType="OUTSIDE" strokeWidth="0.0" text="vaciar carro">
+            <Text fill="WHITE" layoutX="1139.0" layoutY="706.0" strokeType="OUTSIDE" strokeWidth="0.0" text="vaciar carro">
                <font>
                   <Font size="35.0" />
                </font>
             </Text>
-            <Rectangle fx:id="eliminarProductoBtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#deb523e0" height="61.0" layoutX="1091.0" layoutY="561.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
+            <Rectangle fx:id="eliminarProductoBtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#deb523e0" height="61.0" layoutX="1061.0" layoutY="561.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Rectangle>
-            <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="1373.0" layoutY="676.0" rotate="45.0">
+            <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="1343.0" layoutY="676.0" rotate="45.0">
                <image>
-                  <Image url="@plus.png" />
+                  <Image url="@/Fxml/plus.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="1147.0" layoutY="602.0" strokeType="OUTSIDE" strokeWidth="0.0" text="eliminar producto">
+            <Text fill="WHITE" layoutX="1117.0" layoutY="602.0" strokeType="OUTSIDE" strokeWidth="0.0" text="eliminar producto">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="1081.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="puntos acumulados:">
+            <Text fill="WHITE" layoutX="1081.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0">
                <font>
                   <Font size="28.0" />
                </font>
             </Text>
-            <Label fx:id="puntosAcumuladosLbl" layoutX="1378.0" layoutY="240.0" text="0" textFill="WHITE">
+            <Label fx:id="puntosAcumuladosLabel" layoutX="1118.0" layoutY="240.0" text="0" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="33.0" />
                </font>
             </Label>
-            <CheckBox fx:id="descuentoCheckbox" layoutX="1149.0" layoutY="366.0" mnemonicParsing="false" text="aplicar descuento" textFill="WHITE">
+            <CheckBox fx:id="descuentoCheckBox" layoutX="1129.0" layoutY="366.0" mnemonicParsing="false" text="aplicar descuento" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </CheckBox>
-            <Text fill="WHITE" layoutX="1061.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="descuento de 10 euros por cada 100 puntos*">
+            <Text fill="WHITE" layoutX="1041.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="descuento de 10 euros por cada 100 puntos*">
                <font>
                   <Font size="21.0" />
                </font>

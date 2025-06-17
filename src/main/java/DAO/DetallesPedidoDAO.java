@@ -6,6 +6,9 @@ import model.Pedido;
 import model.Producto;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +121,7 @@ public class DetallesPedidoDAO implements InterfazDAO<DetallesPedido> {
                 detallePedido.setPedido(pedidoDAO.obtenerPorId(rs.getInt("pedido_id")));
                 int productoId = rs.getInt("producto_id");
                 detallePedido.setCantidad(rs.getInt("cantidad"));
-                detallePedido.setPrecio(rs.getFloat("precio_unitario"));
+                detallePedido.setPrecio(rs.getFloat("precio"));
                 ProductoDAO productosDAO = new ProductoDAO(con);
                 Producto producto = productosDAO.obtenerPorId(productoId);
                 detallePedido.setProducto(producto);
@@ -139,6 +142,21 @@ public class DetallesPedidoDAO implements InterfazDAO<DetallesPedido> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public float obtenerTotalPorPedido(Pedido pedido) {
+        float total = 0f;
+        String sql = "SELECT SUM(precio * cantidad) FROM detallePedido WHERE pedido_id = ?";
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, pedido.getId());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                total = rs.getFloat(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total;
     }
 }
 

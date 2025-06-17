@@ -2,6 +2,7 @@ package model;
 
 import utils.Utilidades;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,6 +64,9 @@ public class Pedido {
     }
 
     public List<DetallesPedido> getDetallesPedido() {
+        if (detallesPedido == null) {
+        detallesPedido = new ArrayList<>();
+        }
         return detallesPedido;
     }
 
@@ -79,7 +83,14 @@ public class Pedido {
     }
 
     public float getPrecioTotal() {
-        return precioTotal;
+            float total = 0f;
+            if (detallesPedido != null) {
+                for (DetallesPedido detalle : detallesPedido) {
+                    total += detalle.getPrecio() * detalle.getCantidad();
+                }
+            }
+            return total;
+
     }
 
     public void setPrecioTotal(float precioTotal) {

@@ -85,25 +85,20 @@
             </ImageView>
             <TableView fx:id="tablaProductos" layoutX="92.0" layoutY="148.0" prefHeight="535.0" prefWidth="923.0">
               <columns>
-                <TableColumn prefWidth="134.0" text="producto" />
-                <TableColumn prefWidth="131.0" text="categoria" />
-                  <TableColumn editable="false" prefWidth="118.0" sortable="false" text="Precio" />
-                  <TableColumn editable="false" prefWidth="89.0" sortable="false" text="Stock " />
+                <TableColumn prefWidth="134.0" text="producto" fx:id="descripcionColumna"/>
+                <TableColumn prefWidth="131.0" text="categoria" fx:id="categoriaColumna"/>
+                  <TableColumn editable="false" prefWidth="118.0" sortable="false" text="Precio" fx:id="precioColumna" />
+                  <TableColumn editable="false" prefWidth="89.0" sortable="false" text="Stock" fx:id="stockColumna"/>
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Text fx:id="cerrarSesion" accessibleRole="BUTTON" fill="WHITE" layoutX="1299.0" layoutY="744.0" onMouseClicked="#irAPedidos" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="CERRAR SESIÓN">
+            <Text fx:id="cerrarSesionBtn" accessibleRole="BUTTON" fill="WHITE" layoutX="1299.0" layoutY="744.0" onMouseClicked="#irAPedidos" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="CERRAR SESIÓN">
                <font>
                   <Font size="25.0" />
                </font>
             </Text>
-            <Label fx:id="puntoslbl" layoutX="437.0" layoutY="41.0" text="Tus puntos:" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima" size="29.0" />
-               </font>
-            </Label>
       </children>
     </AnchorPane>
   </children>

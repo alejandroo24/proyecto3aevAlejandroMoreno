@@ -2,24 +2,23 @@ package FxmlController;
 
 import DAO.DetallesPedidoDAO;
 import DAO.PedidoDAO;
+import DAO.ProductoDAO;
 import controller.UsuarioActivoController;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.Cliente;
-import model.DetallesPedido;
-import model.EstadoPedido;
-import model.Pedido;
+import model.*;
 
 import java.util.List;
 
@@ -34,6 +33,12 @@ public class carroController {
     @FXML
     private TableView<DetallesPedido> tablaCarro;
     @FXML
+    private TableColumn<DetallesPedido, Integer> nombreProductoColumna;
+    @FXML
+    private TableColumn<DetallesPedido, Integer> cantidadColumna;
+    @FXML
+    private TableColumn<DetallesPedido, Float> precioTotalColumna;
+    @FXML
     private CheckBox descuentoCheckBox;
     @FXML
     private Rectangle realizarPedidoBtn;
@@ -42,32 +47,42 @@ public class carroController {
     @FXML
     private Rectangle vaciarCarroBtn;
 
+    @FXML
+    private Text inicioBtn;
+
 
 
 
     UsuarioActivoController usuarioActivoController = UsuarioActivoController.getInstancia();;
     PedidoDAO pedidoDAO = new PedidoDAO(DataBase.ConnectionBD.getConnection());
+    ProductoDAO productoDAO = new ProductoDAO(DataBase.ConnectionBD.getConnection());
     DetallesPedidoDAO detallesPedidoDAO = new DetallesPedidoDAO(DataBase.ConnectionBD.getConnection());
 
     Cliente clienteActivo = (Cliente) usuarioActivoController.getUsuarioActivo();
-    Pedido pedidoPorRealizar = pedidoDAO.obtenerPedidoPorRealizar(clienteActivo);
+    Pedido pedidoPorRealizar = pedidoDAO.obtenerUltimoPedidoPorCliente(clienteActivo.getId());
+
+
+    ObservableList listaDetalles = FXCollections.observableArrayList(detallesPedidoDAO.obtenerPorPedido(pedidoPorRealizar));
+    ObservableList<Producto> listaProductos = FXCollections.observableArrayList(pedidoDAO.obtenerProductosPorPedido(pedidoPorRealizar));
 
     @FXML
     private void initialize() {
+        pedidoPorRealizar.setDetallesPedido(detallesPedidoDAO.obtenerPorPedido(pedidoPorRealizar));
         mostrarDatosCliente();
         mostrarDatosCarro();
-        tablaCarro.setItems((ObservableList<DetallesPedido>) pedidoPorRealizar.getDetallesPedido());
-        realizarPedidoBtn.setOnMouseClicked(mouseEvent -> realizarPedido());
+
+        realizarPedidoBtn.setOnMouseClicked(mouseEvent -> realizarPedido(pedidoPorRealizar));
         eliminarProductoBtn.setOnMouseClicked(mouseEvent -> eliminarProducto());
         vaciarCarroBtn.setOnMouseClicked(mouseEvent -> vaciarCarro());
         descuentoCheckBox.setOnAction(event -> aplicarDescuento());
+        inicioBtn.setOnMouseClicked(event -> irAInicio(event));
     }
 
 
     @FXML
     private void mostrarDatosCliente() {
         bienvenidaLabel.setText("Bienvenido, " + clienteActivo.getNombre());
-        puntosAcumuladosLabel.setText("Puntos acumulados: " + clienteActivo.getPuntos());
+        puntosAcumuladosLabel.setText(clienteActivo.getPuntos() + " puntos acumulados");
 
     }
 
@@ -75,12 +90,22 @@ public class carroController {
 
     @FXML
     private void mostrarDatosCarro() {
+         nombreProductoColumna.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
+            cantidadColumna.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+            precioTotalColumna.setCellValueFactory(cellData -> {;
+                DetallesPedido detalle = cellData.getValue();
+                float total = detalle.getCantidad() * detalle.getPrecio();
+                return new ReadOnlyObjectWrapper<>(detalle.getCantidad() * detalle.getPrecio());
+            });
+            tablaCarro.setItems(listaDetalles);
+            totalLabel.setText("Total: " + detallesPedidoDAO.obtenerTotalPorPedido(pedidoPorRealizar) + " €");
 
-        totalLabel.setText("Total: " + pedidoPorRealizar.getPrecioTotal() + " €");
     }
 
+
+
     @FXML
-    private boolean realizarPedido() {
+    private boolean realizarPedido(Pedido pedido) {
         if (pedidoPorRealizar.getDetallesPedido().isEmpty()) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Carro vacío");
@@ -89,13 +114,16 @@ public class carroController {
             alerta.showAndWait();
             return false;
         }else {
-
+            pedidoPorRealizar.setDetallesPedido(detallesPedidoDAO.obtenerPorPedido(pedidoPorRealizar));
             pedidoPorRealizar.setEstadoPedido(EstadoPedido.PENDIENTE);
+            pedidoPorRealizar.setCliente(clienteActivo);
+            pedidoPorRealizar.setPrecioTotal(detallesPedidoDAO.obtenerTotalPorPedido(pedidoPorRealizar));
             pedidoDAO.actualizar(pedidoPorRealizar);
         }
 
         clienteActivo.setPuntos(clienteActivo.getPuntos() + (int) pedidoPorRealizar.getPrecioTotal() / 2);
         mostrarDatosCliente();
+        mostrarDatosCarro();
         vaciarCarro();
         return true;
     }
@@ -141,7 +169,10 @@ public class carroController {
             pedidoPorRealizar.getDetallesPedido().clear();
             detallesPedidoDAO.eliminarPorPedido(pedidoPorRealizar);
             pedidoDAO.actualizar(pedidoPorRealizar);
+            listaProductos.setAll(productoDAO.obtenerTodos());
+            tablaCarro.setItems(listaDetalles);
             mostrarDatosCarro();
+
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
             alerta.setTitle("Carro vaciado");
             alerta.setHeaderText(null);
@@ -151,10 +182,16 @@ public class carroController {
         }
     }
 
+    private void irAInicio(MouseEvent event) {
+        cambiarEscena(event, "/Fxml/inicio.fxml");
+    }
+
     private void aplicarDescuento() {
-        if (descuentoCheckBox.isSelected()) {
-            float descuento = pedidoPorRealizar.getPrecioTotal() * 0.1f; // 10% de descuento
-            float nuevoTotal = pedidoPorRealizar.getPrecioTotal() - descuento;
+        if (descuentoCheckBox.isSelected() && pedidoPorRealizar.getPrecioTotal() > 0 && clienteActivo.getPuntos() >= 100) {
+            int bloques = clienteActivo.getPuntos() / 100;
+            float descuentoTotal = 1.0f - (0.1f * bloques);
+            if (descuentoTotal < 0) descuentoTotal = 0; // No permitir descuento mayor al 100%
+            float nuevoTotal = pedidoPorRealizar.getPrecioTotal() * descuentoTotal;
             pedidoPorRealizar.setPrecioTotal(nuevoTotal);
             totalLabel.setText("Total con descuento: " + nuevoTotal + " €");
         } else {
@@ -167,7 +204,6 @@ public class carroController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(rutaFXML));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
             stage.setScene(new Scene(root, 1280, 720));
             stage.setMaximized(true);
             stage.show();

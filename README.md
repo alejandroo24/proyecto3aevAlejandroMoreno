@@ -5,7 +5,7 @@ id INT AUTO_INCREMENT PRIMARY KEY,
 nombre VARCHAR(50) NOT NULL,
 nickname VARCHAR(50) NOT NULL,
 contraseña VARCHAR(50) NOT NULL,
-correo VARCHAR(50) NOT NULL
+correo VARCHAR(50) NOT NULL,
 puntos INT
 );
 
@@ -13,9 +13,26 @@ CREATE TABLE pedido (
 id INT AUTO_INCREMENT PRIMARY KEY,
 fecha DATE,
 PrecioTotal DECIMAL(10,2),
-estado ENUM (`POR_REALIZAR`,`PENDIENTE`,`ENVIADO`,`CANCELADO`) NOT NULL
+estado ENUM('POR_REALIZAR','PENDIENTE','ENVIADO','CANCELADO') NOT NULL,
 id_cliente INT,
 FOREIGN KEY (id_cliente) REFERENCES Cliente(id)
+);
+
+CREATE TABLE almacen (
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(50) NOT NULL,
+direccion VARCHAR(100),
+telefono VARCHAR(15)
+);
+
+CREATE TABLE Producto (
+id INT AUTO_INCREMENT PRIMARY KEY,
+descripcion VARCHAR(100) NOT NULL,
+stock INT NOT NULL ,
+precio DECIMAL(10,2) NOT NULL,
+categoria ENUM('CAMISETA','SUDADERA','PANTALON','GORRA') NOT NULL,
+almacen_id INT NOT NULL,
+FOREIGN KEY (almacen_id) REFERENCES Almacen(id)
 );
 
 CREATE TABLE detallePedido (
@@ -27,22 +44,6 @@ PRIMARY KEY (pedido_id,producto_id),
 FOREIGN KEY (pedido_id) REFERENCES Pedido(id),
 FOREIGN KEY (producto_id) REFERENCES Producto(id)
 );
-CREATE TABLE almacen (
-id INT AUTO_INCREMENT PRIMARY KEY,
-nombre VARCHAR(50) NOT NULL,
-direccion VARCHAR(100),
-telefono VARCHAR(15)
-);
-
-CREATE TABLE Producto (
-id INT AUTO_INCREMENT PRIMARY KEY,
-descripcion VARCHAR(100),
-stock INT,
-precio DECIMAL(10,2),
-categoria ENUM (`CAMISETA`,`SUDADERA,`PANTALON`,`GORRA`) NOT NULL,
-almacen_id INT,
-FOREIGN KEY (almacen_id) REFERENCES Almacen(id)
-);
 
 CREATE TABLE trabajador (
 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -50,6 +51,6 @@ nombre VARCHAR(50) NOT NULL,
 nickname VARCHAR(50) NOT NULL,
 contraseña VARCHAR(50) NOT NULL,
 correo VARCHAR(50) NOT NULL,
-salario DECIMAL(10,2) NOT NULL DEFAULT 0
-id_almacen INT,
+salario DECIMAL(10,2) NOT NULL DEFAULT 0,
+id_almacen INT
 );

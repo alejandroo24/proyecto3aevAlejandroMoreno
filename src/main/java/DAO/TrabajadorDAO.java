@@ -68,7 +68,7 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
                 Trabajador trabajador = new Trabajador();
                 trabajador.setId(rs.getInt("id"));
                 trabajador.setNombre(rs.getString("nombre"));
-                trabajador.setNickname(rs.getString("usuario"));
+                trabajador.setNickname(rs.getString("nickname"));
                 trabajador.setContraseña(rs.getString("contraseña"));
                 trabajador.setCorreo(rs.getString("correo"));
                 trabajador.setSalario(rs.getFloat("salario"));
@@ -90,7 +90,7 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
                 Trabajador trabajador = new Trabajador();
                 trabajador.setId(rs.getInt("id"));
                 trabajador.setNombre(rs.getString("nombre"));
-                trabajador.setNickname(rs.getString("usuario"));
+                trabajador.setNickname(rs.getString("nickname"));
                 trabajador.setContraseña(rs.getString("contraseña"));
                 trabajador.setCorreo(rs.getString("correo"));
                 trabajador.setSalario(rs.getFloat("salario"));
@@ -103,7 +103,7 @@ public class TrabajadorDAO implements InterfazDAO<Trabajador> {
     }
 
     public boolean existeTrabajador(String usuario) {
-        String sql = "SELECT COUNT(*) FROM trabajadores WHERE usuario = ?";
+        String sql = "SELECT COUNT(*) FROM trabajador WHERE nickname = ?";
         try (var stmt = con.prepareStatement(sql)) {
             stmt.setString(1, usuario);
             var rs = stmt.executeQuery();

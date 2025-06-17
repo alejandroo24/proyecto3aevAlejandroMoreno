@@ -34,7 +34,7 @@ public class ProductoDAO implements InterfazDAO<Producto> {
 
     @Override
     public void actualizar(Producto producto) {
-        String sql = "UPDATE producto SET descripcion = ?, stock = ?, precio = ?, categoria = ?, almacen_id WHERE id = ?";
+        String sql = "UPDATE producto SET descripcion = ?, stock = ?, precio = ?, categoria = ?, almacen_id = ? WHERE id = ?";
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setString(1, producto.getDescripcion());
             stmt.setInt(2, producto.getStock());
@@ -108,7 +108,7 @@ public class ProductoDAO implements InterfazDAO<Producto> {
     }
 
     public void bajarStockProducto(Producto producto) {
-        String sql = "UPDATE producto SET stock = ? ? WHERE id = ?";
+        String sql = "UPDATE producto SET stock = ?  WHERE id = ?";
         int cantidad = producto.getStock() - 1;
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, cantidad);

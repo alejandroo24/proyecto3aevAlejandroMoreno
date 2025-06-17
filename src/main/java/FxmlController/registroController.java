@@ -124,6 +124,10 @@ public class registroController {
                 Cliente cliente = new Cliente(nombre, contraseña, correo, usuario);
                 clienteDAO.insertar(cliente);
                 usuarioActivoController.setUsuarioActivo(cliente);
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Registro exitoso");
+            alerta.setHeaderText("Usuario registrado correctamente");
+            alerta.setContentText("Ahora puedes iniciar sesión con tu nuevo usuario.");
                 cambiarEscena(event, "/Fxml/Inicio.fxml");
             }
             return true;

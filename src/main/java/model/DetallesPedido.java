@@ -64,6 +64,11 @@ public class DetallesPedido {
         this.precio = precio;
     }
 
+    // model/DetallesPedido.java
+    public String getNombreProducto() {
+        return producto != null ? producto.getDescripcion() : "";
+    }
+
     public int getDescuento() {
         return descuento;
     }
