@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Cliente;
 import model.DetallesPedido;
+import model.EstadoPedido;
 import model.Pedido;
 
 public class pedidoClienteController {
@@ -64,7 +65,7 @@ public class pedidoClienteController {
     private boolean cancelarPedido () {
         boolean cancelado = false;
         Pedido pedidoSeleccionado = tablaPedido.getSelectionModel().getSelectedItem();
-        if (pedidoSeleccionado != null) {
+        if (pedidoSeleccionado != null && pedidoSeleccionado.getEstadoPedido() == EstadoPedido.PENDIENTE) {
             pedidoDAO.eliminar(pedidoSeleccionado);
             detallesPedidoDAO.eliminarPorPedido(pedidoSeleccionado);
             mostrarPedidos();
@@ -79,7 +80,7 @@ public class pedidoClienteController {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Selección de Pedido");
             alerta.setHeaderText(null);
-            alerta.setContentText("Por favor, selecciona un pedido para cancelar.");
+            alerta.setContentText("Por favor, selecciona un pedido para cancelar. Asegúrate de que el estado del pedido sea PENDIENTE.");
             alerta.showAndWait();
             cancelado = false;
         }
@@ -89,7 +90,7 @@ public class pedidoClienteController {
     private boolean eliminarProducto() {
         boolean eliminado = false;
         DetallesPedido detalleSeleccionado = detallePedidoTable.getSelectionModel().getSelectedItem();
-        if (detalleSeleccionado != null) {
+        if (detalleSeleccionado != null && detalleSeleccionado.getPedido().getEstadoPedido() == EstadoPedido.PENDIENTE) {
             detallesPedidoDAO.eliminar(detalleSeleccionado);
             Pedido pedido = tablaPedido.getSelectionModel().getSelectedItem();
             if (!pedido.getDetallesPedido().isEmpty()) {
@@ -103,7 +104,7 @@ public class pedidoClienteController {
                 Alert alerta = new Alert (Alert.AlertType.INFORMATION);
                 alerta.setTitle("Pedido Cancelado");
                 alerta.setHeaderText(null);
-                alerta.setContentText("El pedido ha sido cancelado porque no contiene productos.");
+                alerta.setContentText("El pedido ha sido cancelado porque no contiene productos. ");
                 cancelarPedido();
                 eliminado = true;
             }
@@ -111,7 +112,7 @@ public class pedidoClienteController {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Selección de Producto");
             alerta.setHeaderText(null);
-            alerta.setContentText("Por favor, selecciona un producto para eliminar.");
+            alerta.setContentText("Por favor, selecciona un producto para eliminar. Asegúrate de que el estado del pedido sea PENDIENTE.");
             alerta.showAndWait();
             eliminado = false;
         }

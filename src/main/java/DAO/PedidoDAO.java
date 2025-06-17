@@ -146,4 +146,81 @@ public class PedidoDAO implements InterfazDAO<Pedido> {
         }
         return pedidos;
     }
+    public Pedido obtenerPedidoPorRealizar(Cliente cliente) {
+        String sql = "SELECT * FROM pedido WHERE id_cliente = ? AND estado = 'POR_REALIZAR' LIMIT 1";
+        try (var stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, cliente.getId());
+            var rs = stmt.executeQuery();
+            if (rs.next()) {
+                int pedidoId = rs.getInt("id");
+                LocalDate fecha = rs.getDate("fecha").toLocalDate();
+                float precioTotal = rs.getFloat("Precio_total");
+                EstadoPedido estado = EstadoPedido.valueOf(rs.getString("estado"));
+                Pedido pedido = new Pedido();
+                pedido.setId(pedidoId);
+                pedido.setFechaCreacion(fecha);
+                pedido.setPrecioTotal(precioTotal);
+                pedido.setEstadoPedido(estado);
+                pedido.setCliente(cliente);
+                return pedido;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Pedido> obtenerPedidosPorEstado(EstadoPedido estado) {
+        String sql = "SELECT * FROM pedido WHERE estado = ?";
+        List<Pedido> pedidos = new ArrayList<>();
+        try (var stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, estado.toString());
+            var rs = stmt.executeQuery();
+            while (rs.next()) {
+                int pedidoId = rs.getInt("id");
+                LocalDate fecha = rs.getDate("fecha").toLocalDate();
+                float precioTotal = rs.getFloat("Precio_total");
+                int clienteId = rs.getInt("id_cliente");
+
+                ClienteDAO clienteDAO = new ClienteDAO(con);
+                Cliente cliente = clienteDAO.obtenerPorId(clienteId);
+
+                Pedido pedido = new Pedido();
+                pedido.setId(pedidoId);
+                pedido.setFechaCreacion(fecha);
+                pedido.setPrecioTotal(precioTotal);
+                pedido.setEstadoPedido(estado);
+                pedido.setCliente(cliente);
+
+                pedidos.add(pedido);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pedidos;
+    }
+
+    public void confirmarPedido(Pedido pedido){
+        String sql = "UPDATE pedido SET estado = ? WHERE id = ?";
+        try (var stmt = con.prepareStatement(sql)){
+            stmt.setString(1, EstadoPedido.ENVIADO.toString());
+            stmt.setInt(2, pedido.getId());
+            stmt.executeUpdate();
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cancelarPedido(Pedido pedido){
+        String sql = "UPDATE pedido SET estado = ? WHERE id = ?";
+        try (var stmt = con.prepareStatement(sql)){
+            stmt.setString(1, EstadoPedido.CANCELADO.toString());
+            stmt.setInt(2, pedido.getId());
+            stmt.executeUpdate();
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

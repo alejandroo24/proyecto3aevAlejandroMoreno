@@ -22,13 +22,13 @@ public class DetallesPedido {
     public DetallesPedido(Pedido pedido, Producto producto) {
         this.pedido = pedido;
         this.producto = producto;
-        this.precio = producto.getPrecio();
+        this.precio = producto.getPrecio() * cantidad;
         this.cantidad = 1;
     }
 
     public DetallesPedido(Pedido pedido,Producto producto, int cantidad) {
         this.producto = producto;
-        this.precio = producto.getPrecio();
+        this.precio = producto.getPrecio() * cantidad;
         this.cantidad = cantidad;
     }
 

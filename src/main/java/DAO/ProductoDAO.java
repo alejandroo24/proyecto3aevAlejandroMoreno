@@ -118,4 +118,26 @@ public class ProductoDAO implements InterfazDAO<Producto> {
             e.printStackTrace();
         }
     }
+
+    public List<Producto> obtenerProductosAlmacen (Almacen almacen){
+        String sql = "SELECT * FROM producto WHERE almacen_id = ?";
+        List<Producto> productos = new ArrayList<>();
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, almacen.getId());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Producto producto = new Producto();
+                producto.setId(rs.getInt("id"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setPrecio(rs.getFloat("precio"));
+                producto.setCategoria(Categoria.valueOf(rs.getString("categoria")));
+                producto.setAlmacen(almacen);
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productos;
+    }
 }

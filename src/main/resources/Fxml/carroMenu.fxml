@@ -32,20 +32,14 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane id="boxBlurSaldo" maxHeight="-1.0" maxWidth="-1.0" styleClass="gradient-mesh" stylesheets="@style.css" VBox.vgrow="ALWAYS">
       <children>
@@ -60,7 +54,7 @@
                   <Image url="@../../Downloads/iconmonstr-shopping-cart-3-240%20(1).png" />
                </image>
             </ImageView>
-            <Rectangle fx:id="realizarpedidobtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#5bd124b2" height="61.0" layoutX="1090.0" layoutY="454.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
+            <Rectangle fx:id="realizarPedidoBtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#5bd124b2" height="61.0" layoutX="1090.0" layoutY="454.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -85,7 +79,7 @@
                   <Image url="@parcel.png" />
                </image>
             </ImageView>
-            <TableView layoutX="60.0" layoutY="145.0" prefHeight="602.0" prefWidth="935.0">
+            <TableView fx:id="detallePedidoTable" layoutX="60.0" layoutY="145.0" prefHeight="602.0" prefWidth="935.0">
               <columns>
                 <TableColumn editable="false" prefWidth="75.0" text="producto" />
                 <TableColumn editable="false" prefWidth="75.0" text="categoria" />
@@ -97,7 +91,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Label fx:id="bienvenidaLabel1" layoutX="1378.0" layoutY="181.0" text="0,00€" textFill="WHITE">
+            <Label fx:id="precioPedidoLbl" layoutX="1378.0" layoutY="181.0" text="0,00€" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="33.0" />
                </font>
@@ -107,7 +101,7 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <Rectangle fx:id="realizarpedidobtn1" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#cf2925b2" height="61.0" layoutX="1090.0" layoutY="665.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
+            <Rectangle fx:id="vaciarCarroBtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#cf2925b2" height="61.0" layoutX="1090.0" layoutY="665.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -117,7 +111,7 @@
                   <Font size="35.0" />
                </font>
             </Text>
-            <Rectangle fx:id="realizarpedidobtn11" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#deb523e0" height="61.0" layoutX="1091.0" layoutY="561.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
+            <Rectangle fx:id="eliminarProductoBtn" accessibleRole="BUTTON" arcHeight="60.0" arcWidth="60.0" fill="#deb523e0" height="61.0" layoutX="1091.0" layoutY="561.0" stroke="#fafafa" strokeType="INSIDE" strokeWidth="0.0" styleClass="glass-pane" width="345.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -137,12 +131,12 @@
                   <Font size="28.0" />
                </font>
             </Text>
-            <Label fx:id="bienvenidaLabel11" layoutX="1378.0" layoutY="240.0" text="0" textFill="WHITE">
+            <Label fx:id="puntosAcumuladosLbl" layoutX="1378.0" layoutY="240.0" text="0" textFill="WHITE">
                <font>
                   <Font name="Ebrima" size="33.0" />
                </font>
             </Label>
-            <CheckBox layoutX="1149.0" layoutY="366.0" mnemonicParsing="false" text="aplicar descuento" textFill="WHITE">
+            <CheckBox fx:id="descuentoCheckbox" layoutX="1149.0" layoutY="366.0" mnemonicParsing="false" text="aplicar descuento" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>

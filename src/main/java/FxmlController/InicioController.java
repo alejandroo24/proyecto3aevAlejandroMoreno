@@ -1,6 +1,8 @@
 package FxmlController;
 
 import DAO.ClienteDAO;
+import DAO.DetallesPedidoDAO;
+import DAO.PedidoDAO;
 import DAO.ProductoDAO;
 import controller.UsuarioActivoController;
 import javafx.collections.ObservableList;
@@ -49,6 +51,8 @@ public class InicioController {
     private Text cerrarSesionBtn;
 
 
+    PedidoDAO pedidoDAO = new PedidoDAO(ConnectionBD.getConnection());
+    DetallesPedidoDAO detallesPedidoDAO = new DetallesPedidoDAO(ConnectionBD.getConnection());
 
     private List<DetallesPedido> carro = new ArrayList<>();
 
@@ -127,13 +131,21 @@ public class InicioController {
 
     @FXML
     private void irAPedidos(MouseEvent event) {
-        // Lógica para ir a la pantalla de saldo
+
         cambiarEscena(event, "/Fxml/PedidosMenu.fxml");
     }
 
     @FXML
     private void irACarro(MouseEvent event) {
-        // Lógica para ir a la pantalla de saldo
+        Pedido pedido = new Pedido(cliente, carro);
+        pedido.setFechaCreacion(LocalDate.now());
+        pedido.setEstadoPedido(EstadoPedido.POR_REALIZAR);
+        pedidoDAO.insertar(pedido);
+        for (DetallesPedido detalle : carro) {
+            detalle.setPedido(pedido);
+            detallesPedidoDAO.insertar(detalle);
+        }
+        carro.clear();
         cambiarEscena(event, "/Fxml/carroMenu.fxml");
     }
 
@@ -141,5 +153,13 @@ public class InicioController {
         usuarioActivoController.setUsuarioActivo(null);
         carro.clear();
         cambiarEscena(event, "/Fxml/InicioSesion.fxml");
+    }
+
+    public List<DetallesPedido> getCarro() {
+        return carro;
+    }
+
+    public void setCarro(List<DetallesPedido> carro) {
+        this.carro = carro;
     }
 }

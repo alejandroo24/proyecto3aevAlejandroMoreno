@@ -2,6 +2,7 @@ package DAO;
 
 import interfaces.InterfazDAO;
 import model.Almacen;
+import model.Producto;
 import model.Trabajador;
 
 import java.sql.Connection;
@@ -127,4 +128,5 @@ public class AlmacenDAO implements InterfazDAO<Almacen> {
         }
         return almacenConMenosTrabajadores;
     }
+
 }
